@@ -2,9 +2,10 @@
   "name": "tracking_app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/robertschneiderman/tracking_app/issues"
   },
-  "homepage": "https://github.com/robertschneiderman/tracking_app#readme"
+  "homepage": "https://github.com/robertschneiderman/tracking_app#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.7",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0"
+  }
 }
