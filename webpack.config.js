@@ -3,6 +3,9 @@ var path = require("path");
 module.exports = {
   context: __dirname,
   entry: "./frontend/entry.js",
+  devServer: {
+      historyApiFallback: true
+  },  
   output: {
     path: path.join(__dirname),
     filename: "./bundle.js"

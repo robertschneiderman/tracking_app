@@ -60,6 +60,10 @@
 	
 	var _reactRouter = __webpack_require__(202);
 	
+	var _reduxThunk = __webpack_require__(433);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
 	var _app = __webpack_require__(255);
 	
 	var _app2 = _interopRequireDefault(_app);
@@ -74,14 +78,14 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: createStoreWithMiddleware(_reducers2.default) },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
-	    { history: _reactRouter.hashHistory },
+	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _app2.default },
@@ -28154,6 +28158,8 @@
 	    value: function handleFormSubmit(_ref) {
 	      var email = _ref.email,
 	          password = _ref.password;
+	
+	      console.log(email, password);
 	    }
 	  }, {
 	    key: 'render',
@@ -37467,6 +37473,34 @@
 	});
 	
 	exports.default = rootReducer;
+
+/***/ },
+/* 433 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+	
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+	
+	exports['default'] = thunk;
 
 /***/ }
 /******/ ]);

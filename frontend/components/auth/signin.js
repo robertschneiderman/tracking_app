@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
+import * as actions from '../../actions/index';
+import { connect } from 'react-redux';
 
 class Signin extends Component {
 
   handleFormSubmit({ email, password }) {
+    console.log("this.props:", this.props);
+    console.log(email, password);
 
+    this.props.signinUser({ email, password});
   }
 
   render() {
@@ -13,11 +18,11 @@ class Signin extends Component {
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <fieldset className="form-group">
           <label>Email:</label>
-          <input {...email} className="form-control" />
+          <Field name="email" component="input" className="form-control" />
         </fieldset>
         <fieldset className="form-group">
           <label>Password:</label>
-          <input {...password} className="form-control" />
+          <Field name="password" component="input" className="form-control" />
         </fieldset>  
         <button className="btn btn-primary" action="submit">Sign in</button>    
       </form>
@@ -25,7 +30,16 @@ class Signin extends Component {
   }
 }
 
-export default reduxForm({
+console.log("actions:", actions);
+
+function mapStateToProps(state) {
+  return { errorMessage: 'hey' };
+}
+
+let signInForm = reduxForm({
   form: 'signin',
   fields: ['email', 'password']
-})(Signin)
+}, null, actions)(Signin);
+
+export default signInForm = connect(mapStateToProps, actions)(signInForm);
+
