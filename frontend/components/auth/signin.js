@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class Signin extends Component {
 
   handleFormSubmit({ email, password }) {
+    debugger;    
     console.log("this.props:", this.props);
     console.log(email, password);
 
@@ -23,6 +24,7 @@ class Signin extends Component {
   }
 
   render() {
+    console.log("this.props:", this.props);
     const { handleSubmit, fields: { email, password }} = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
@@ -41,8 +43,6 @@ class Signin extends Component {
   }
 }
 
-console.log("actions:", actions);
-
 function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 let signInForm = reduxForm({
   form: 'signin',
   fields: ['email', 'password']
-}, null, actions)(Signin);
+})(Signin);
 
 export default signInForm = connect(mapStateToProps, actions)(signInForm);
 
