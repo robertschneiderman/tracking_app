@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 class Signup extends Component {
 
   handleFormSubmit({ email, password }) {
-    console.log("this.props:", this.props);
-    console.log(email, password);
-
     this.props.signupUser({ email, password});
   }
 
@@ -31,15 +28,24 @@ class Signup extends Component {
           <label>Email:</label>
           <Field name="email" component="input" className="form-control" />
         </fieldset>
+
+        <fieldset className="form-group">
+          <label>Name:</label>
+          <Field name="name" component="input" className="form-control" />
+        </fieldset>
+
         <fieldset className="form-group">
           <label>Password:</label>
-          <Field name="password" type="password" component="input" className="form-control" />
+          <Field name="password-confirm" type="password" component="input" className="form-control" />
         </fieldset>
+
         <fieldset className="form-group">
           <label>Confirm Password:</label>
           <Field name="password-confirm" type="password" component="input" className="form-control" />
-        </fieldset>        
+        </fieldset>
+
         {this.renderAlert()}
+
         <button className="btn btn-primary" action="submit">Sign up</button>    
       </form>
     );
