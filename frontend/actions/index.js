@@ -15,7 +15,6 @@ export function signinUser({ email, password }) {
     console.log("IN yyyy");
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
-        // Update state to indicate user is authenticated
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
         browserHistory.push('/feature');
@@ -29,7 +28,6 @@ export function signinUser({ email, password }) {
 export function signupUser({ email, password }) {
   debugger;
   return function(dispatch) {
-    console.log("IN coole");
     axios.post(`${ROOT_URL}/signup`, { email, password})
       .then(response => {
         dispatch({ type: AUTH_USER });
