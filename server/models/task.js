@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = Schema({
-  name: { type: String, unique: true },
+  name: { type: String },
   description: String,
-  goals: [{ type: Schema.Types.ObjectId, ref: 'Goal'}]
+  user: { type: Number, ref: 'User' }  
 });
 
 const taskModel = mongoose.model('task', taskSchema);

@@ -13,6 +13,7 @@ import Signout from './components/auth/signout';
 import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
 import Dashboard from './components/dashboard/index';
+import Dashboard from './components/new_task/index';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="signout" component={Signout} />
         <Route path="signup" component={Signup} />
         <Route path="dashboard" component={RequireAuth(Dashboard)} />
+        <Route path="new-task" component={RequireAuth(NewTask)} />
       </Route>
     </Router>
   </Provider>

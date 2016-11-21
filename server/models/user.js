@@ -31,6 +31,23 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
   })
 };
 
+userSchema.statics.findByToken = function (token) {
+  var User = this;
+  var decoded;
+
+  try {
+    decoded = jwt.verify(token, 'abc123');
+  } catch (e) {
+    return Promise.reject();
+  }
+
+  return User.findOne({
+    _id: decoded_.id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  })
+}
+
 const modelClass = mongoose.model('user', userSchema);
 
 module.exports = modelClass;
