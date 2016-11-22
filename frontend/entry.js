@@ -13,11 +13,12 @@ import Signout from './components/auth/signout';
 import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
 import Dashboard from './components/dashboard/index';
-import Dashboard from './components/new_task/index';
+import NewTask from './components/new_task/index';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
+import TaskMiddleware from './middleware/task_middleware'
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, TaskMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const token = localStorage.getItem('token');

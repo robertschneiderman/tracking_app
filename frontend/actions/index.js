@@ -11,7 +11,6 @@ const ROOT_URL = 'http://localhost:3090';
 export function signinUser({ email, password }) {
   return function(dispatch) {
 
-    console.log("IN yyyy");
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });

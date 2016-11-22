@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jwt-simple');
 const Schema = mongoose.Schema;
 bcrypt = require('bcrypt-nodejs');
 
@@ -35,17 +36,21 @@ userSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
 
+  decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');
+
+  console.log("INSIDE FIND BY TOKEN");
+
+  console.log("decoded:", decoded);
+
   try {
-    decoded = jwt.verify(token, 'abc123');
+    decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');
   } catch (e) {
     return Promise.reject();
   }
 
   return User.findOne({
-    _id: decoded_.id,
-    'tokens.token': token,
-    'tokens.access': 'auth'
-  })
+    _id: decoded.sub,
+  });
 }
 
 const modelClass = mongoose.model('user', userSchema);

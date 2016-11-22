@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const taskSchema = Schema({
   name: { type: String },
   description: String,
-  user: { type: Number, ref: 'User' }  
+  user: { type: Schema.Types.ObjectId, ref: 'User' }  
 });
 
 const taskModel = mongoose.model('task', taskSchema);
