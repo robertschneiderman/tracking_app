@@ -23,7 +23,7 @@ const localLogin = new LocalStrategy({ usernameField: 'email' }, function(email,
 
 
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+  jwtFromRequest: ExtractJwt.fromHeader('x-auth'),
   secretOrKey: config.secret
 };
 

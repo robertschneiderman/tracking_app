@@ -2,9 +2,7 @@ const Task = require('../models/task');
 const User = require('../models/user');
 
 exports.newTask = function(req, res, next) {
-  // var token = req.header('x-auth');
-  var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1ODMzNGQwMmE0YWFhOWU1YTdkMThjZjciLCJpYXQiOjE0Nzk4NDMzOTIxNjF9.2R9Qhd91GPNG9E_3Uwm1DO3M8YDK72LRQSdsxtcKVpk';
-
+  var token = req.header('x-auth');
   User.findByToken(token).then((user) => {
 
     if (!user) {
@@ -14,10 +12,6 @@ exports.newTask = function(req, res, next) {
     let name = req.body.name;
     let description = req.body.description;
 
-    console.log("name:", name);
-    console.log("description:", description);
-    console.log("user:", user);
-
     const task = new Task({
       name,
       description,
@@ -26,6 +20,12 @@ exports.newTask = function(req, res, next) {
 
     task.save(function(err) {
       if (err) { return next(err); }
+
+      user.tasks.push(task._id);
+
+      user.save(function (err) {
+        if (err) return handleError(err);
+      });
 
       res.json({ task });
     });
