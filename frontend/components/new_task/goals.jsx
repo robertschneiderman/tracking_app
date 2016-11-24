@@ -5,15 +5,37 @@ class Goals extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      active: 'time',
+      time: {
+        daily: 0,
+        weekly: 0,
+        monthly: 0
+      },
+      frequency: {
+        daily: 0,
+        weekly: 0,
+        monthly: 0
+      }
+    }
   }
 
   render() {
     return(
-      <ul className="goals">
-        <li className="goals"></li>
-        <li className="goals"></li>
-        <li className="goals"></li>
-      </ul>
+      <form className="goals">
+        <fieldset className="goals">
+          <label>Daily: </label>
+          <input type="number"/>
+        </fieldset>
+        <fieldset className="goals">
+          <label>Weekly: </label>
+          <input type="number"/>  
+        </fieldset>
+        <fieldset className="goals">
+          <label>Monthly: </label>
+          <input type="number"/>  
+        </fieldset>
+      </form>
     )
   }
 }
