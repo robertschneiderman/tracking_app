@@ -17,6 +17,7 @@ const userSchema = new Schema({
         daily: Number,
         weekly: Number,
         monthly: Number,
+        count: { type: Number, default: 0 },      
         streak: { type: Number, default: 0 }        
       }
     }
