@@ -16,7 +16,7 @@ class Task extends React.Component {
   render() {
     return(
       <div className="task">
-        <label htmlFor="">{}</label>
+        <label htmlFor="">{this.props.name}</label>
         <button className="" onClick={this.incrementGoal}></button>
       </div>
     )

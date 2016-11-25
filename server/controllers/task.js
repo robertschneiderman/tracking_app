@@ -17,8 +17,6 @@ exports.newTask = function(req, res, next) {
 
     user.tasks.push(task);
 
-    console.log("user:", user);
-
     user.save(function(err) {
       if (err) { return next(err); }
       res.json({ task });

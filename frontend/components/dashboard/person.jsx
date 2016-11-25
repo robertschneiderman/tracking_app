@@ -16,8 +16,12 @@ class Person extends React.Component {
 
   renderTasks() {
     return this.props.tasks.map(task => {
-      return <Task name={task.name} />
-    })
+      return <Task
+              name={task.name}
+              key={task.id}
+              value={task}
+              increment={this.props.increment} />
+    });
   }
 
   render() {
