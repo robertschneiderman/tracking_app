@@ -51,7 +51,6 @@ class GoalOptions extends React.Component {
   handleGoalChange(evt) {
     console.log("evt:", evt);
     if (evt.target.getAttribute('data-enabled') === 'enabled') {
-      debugger;
       let daily, weekly, monthly;
       if (evt.target.name === 'daily') {
         daily = ++this.state[this.state.goalType].daily;
@@ -79,7 +78,6 @@ class GoalOptions extends React.Component {
   renderGoals() {
     let values = this.state[this.state.goalType];
     values = (values) ? values : this.state.time;
-    debugger;
     if (this.state.goalInterval === 'daily') {
       return (
         <div>
@@ -112,13 +110,13 @@ class GoalOptions extends React.Component {
       obj['weekly'] = this.state[this.state.goalType].weekly;
     }
     obj['monthly'] = this.state[this.state.goalType].monthly;
+    obj.type = this.state.goalType;
+    obj.interval = this.state.goalInterval;
 
     let taskInfo = {
       name: this.state.name,
       description: this.state.description,
-      goals: obj,
-      goalType: this.state.goalType,
-      goalInterval: this.state.goalInterval,      
+      goals: obj      
     };
     this.props.createTask(taskInfo);
   }

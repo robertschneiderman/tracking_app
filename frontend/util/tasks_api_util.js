@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const ROOT_URL = 'http://localhost:3090';
 
-export const createTask = ({name, description }) => {
+export const createTask = (task) => {
   axios.post(
     `${ROOT_URL}/tasks`,
-    { name, description },
+    task,
     { 
       headers: {
         'Content-Type': 'application/json',

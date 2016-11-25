@@ -1,0 +1,25 @@
+user: {
+  email,
+  name,
+  tasks: [
+    {
+      name,
+      description,
+      goals: {
+        name
+        type
+        interval
+        streak
+        daily
+        weekly
+        monthly
+      }
+    }
+  ],
+  goalStubs: {
+    meditation: [{
+      day,
+      time
+    }]
+  }
+}

@@ -14,6 +14,8 @@ exports.newTask = function(req, res, next) {
     let description = req.body.description;
     let goals = req.body.goals;
 
+    console.log("goals:", goals);
+
     const task = new Task({
       name,
       description,
