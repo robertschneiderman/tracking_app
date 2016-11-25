@@ -6,12 +6,10 @@ const taskMiddleware = store => next => action => {
 
   let dispatch = store.dispatch;
 
-  const createSuccess = taskInfo => {
-    console.log("Success!");
-    console.log("taskInfo:", taskInfo);
-    dispatch(ACTIONS.receiveTask(photos));
-    // debugger;
-  };    
+  const getSuccess = res => {
+    let tasks = res.data
+    dispatch(ACTIONS.receiveTasks(tasks));
+  };     
 
   switch (action.type) {
 
@@ -20,7 +18,7 @@ const taskMiddleware = store => next => action => {
       return next(action);      
       break;
     case "GET_TASKS":
-      API.getTasks(createSuccess);
+      API.getTasks(getSuccess);
       return next(action);      
       break;      
     default:

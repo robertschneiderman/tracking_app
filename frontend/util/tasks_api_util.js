@@ -11,10 +11,9 @@ export const createTask = (task) => {
   });
 };
 
-export const getTasks = () => {
+export const getTasks = (success) => {
   axios.get(`${ROOT_URL}/tasks`)
-  .then(data => {
-  })
+  .then(success)
   .catch(function (error) {
     console.log(error);
   });

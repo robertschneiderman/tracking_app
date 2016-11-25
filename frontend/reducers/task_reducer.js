@@ -1,16 +1,15 @@
 import merge from 'lodash/merge';
 import {router, hashHistory} from 'react-router';
 
-const taskReducer = (state = {}, action) => {
+const taskReducer = (state = {tasks: []}, action) => {
 
   switch (action.type) {
 
-    case "RECEIVE_TASK":
-      return merge({}, state, NEWSTATE);
-
+    case "RECEIVE_TASKS":
+      // debugger;
+      return merge({}, state, {tasks: action.payload});
     default:
       return state;
-
   }
 };
 
