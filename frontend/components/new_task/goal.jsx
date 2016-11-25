@@ -5,7 +5,7 @@ const goal = props => {
   return (
     <div className="goal-wrapper">
       <label className="goal-label">{props.name}</label>
-      <input type="number" value={props.value} />
+      <input onChange={props.onChange} data-enabled={props.enabled} type="number" name={props.name.toLowerCase()} value={props.value} />
     </div>
   )
 };

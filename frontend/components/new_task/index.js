@@ -13,7 +13,6 @@ class NewTask extends React.Component {
   render() {
     return(
       <div className="new-task">
-        <TaskDetails />
         <GoalArea />
       </div>
     )
