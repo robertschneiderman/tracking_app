@@ -7,14 +7,14 @@ const taskMiddleware = store => next => action => {
   let dispatch = store.dispatch;
 
   const getSuccess = res => {
-    let tasks = res.data
+    let tasks = res.data;
     dispatch(ACTIONS.receiveTasks(tasks));
   };     
 
   switch (action.type) {
 
     case "CREATE_TASK":
-      API.createTask(action.payload, createSuccess);
+      API.createTask(action.payload, getSuccess);
       return next(action);      
       break;
     case "GET_TASKS":

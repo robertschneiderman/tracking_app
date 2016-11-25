@@ -16,7 +16,7 @@ class Person extends React.Component {
 
   renderTasks() {
     return this.props.tasks.map(task => {
-      return <Task name={task.name} increment={} />
+      return <Task name={task.name} />
     })
   }
 
