@@ -16,4 +16,5 @@ module.exports = function(app) {
   app.post('/signin', requireSignIn, Authentication.signin);
   app.post('/signup', Authentication.signup);
   app.post('/tasks', requireAuth, Task.newTask);
+  app.get('/tasks', Task.getTasks);
 };

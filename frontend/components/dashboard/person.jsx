@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/dashboard/'
+import * as actions from '../../actions/dashboard/index';
 // import Container from './/_container';
 
 class Person extends React.Component {

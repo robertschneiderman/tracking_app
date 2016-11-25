@@ -5,39 +5,36 @@ const User = require('../models/user');
 exports.newTask = function(req, res, next) {
   var token = req.header('x-auth');
   User.findByToken(token).then((user) => {
-
     if (!user) {
       return Promise.reject();
     }
 
-    let name = req.body.name;
-    let description = req.body.description;
-    let goals = req.body.goals;
+    const task = {
+      name: req.body.name,
+      description: req.body.description,
+      goals: req.body.goals
+    };
 
-    console.log("goals:", goals);
+    user.tasks.push(task);
 
-    const task = new Task({
-      name,
-      description,
-      goals
-    });
+    console.log("user:", user);
 
-    task.save(function(err) {
+    user.save(function(err) {
       if (err) { return next(err); }
-
-      user.tasks.push(task._id);
-
-      user.save(function (err) {
-        if (err) return handleError(err);
-      });
-
       res.json({ task });
     });
 
+  }).catch((e) => {
+    res.status(401).send();
+  });
+};
+
+exports.getTasks = function(req, res, next) {
+  var token = req.header('x-auth');
+  User.findByToken(token).then((user) => {
+    res.json(user.tasks);
 
   }).catch((e) => {
     res.status(401).send();
-  });  
-
-
+  });
 };

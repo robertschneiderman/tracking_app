@@ -7,8 +7,22 @@ const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   name: String,
   password: String,
-  tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
+  tasks: [
+    {
+      name: String,
+      description: String,
+      goals: {
+        type: { type: String },
+        interval: String,
+        daily: Number,
+        weekly: Number,
+        monthly: Number,
+        streak: { type: Number, default: 0 }        
+      }
+    }
+  ]
 });
+  // tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 
 userSchema.pre('save', function(next) {
   const user = this;
@@ -37,10 +51,6 @@ userSchema.statics.findByToken = function (token) {
   var decoded;
 
   decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');
-
-  console.log("INSIDE FIND BY TOKEN");
-
-  console.log("decoded:", decoded);
 
   try {
     decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');

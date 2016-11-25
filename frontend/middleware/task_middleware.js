@@ -16,10 +16,13 @@ const taskMiddleware = store => next => action => {
   switch (action.type) {
 
     case "CREATE_TASK":
-    console.log("action.payload:", action.payload);
       API.createTask(action.payload, createSuccess);
       return next(action);      
-      break; 
+      break;
+    case "GET_TASKS":
+      API.getTasks(createSuccess);
+      return next(action);      
+      break;      
     default:
       return next(action);
       break;      
