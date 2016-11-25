@@ -116,7 +116,9 @@ class GoalOptions extends React.Component {
     let taskInfo = {
       name: this.state.name,
       description: this.state.description,
-      [this.state.goalType]: obj
+      goals: obj,
+      goalType: this.state.goalType,
+      goalInterval: this.state.goalInterval,      
     };
     this.props.createTask(taskInfo);
   }

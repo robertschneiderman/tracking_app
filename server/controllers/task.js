@@ -1,4 +1,5 @@
 const Task = require('../models/task');
+const Goal = require('../models/task');
 const User = require('../models/user');
 
 exports.newTask = function(req, res, next) {
@@ -11,11 +12,12 @@ exports.newTask = function(req, res, next) {
 
     let name = req.body.name;
     let description = req.body.description;
+    let goals = req.body.goals;
 
     const task = new Task({
       name,
       description,
-      user: user._id
+      goals
     });
 
     task.save(function(err) {
