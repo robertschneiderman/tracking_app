@@ -9,8 +9,8 @@ class Task extends React.Component {
     this.incrementGoal = this.incrementGoal.bind(this);
   }
 
-  incrementGoal() {
-    this.props.incrementGoal(this.props.id, this.props.count + 1);
+  incrementGoal(num) {
+    this.props.incrementGoal(this.props.id, this.props.count + num);
   }
 
   convertTime(minutes) {
@@ -71,13 +71,13 @@ class Task extends React.Component {
     return(
       <li className="task">
         <label className="task-label" htmlFor="">{this.props.name}</label>
-        <button className="task-btn" onClick={this.incrementGoal}>
+        <button className="task-btn" onClick={this.incrementGoal.bind(this, 1)}>
           {this.renderTicker()}
         </button>
         <span className="count">{this.renderCount()}</span>
-        <div className="incrementBtns">
-          <button className="decrementBtn">-</button>
-          <button className="incrementBtn">+</button>
+        <div className="incrementBtns ibm">
+          <button className="decrementBtn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
+          <button className="incrementBtn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
         </div>
       </li>
     )

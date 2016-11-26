@@ -10,6 +10,7 @@
   border-bottom: 1px solid #aaa;
   height: 1rem;
   width: 4rem;
+  margin-right: 0.6rem;
 }
 
 .task-btn > .hollow {
@@ -18,6 +19,18 @@
 
 .task-btn > .solid {
   color: #444;
+}
+
+.count {
+  margin-right: 0.6rem;
+}
+
+.increment-btns {
+
+}
+
+.increment-btn {
+
 }
 
 /*.task*/

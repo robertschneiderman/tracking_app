@@ -20,3 +20,8 @@
 .none {
   display: none !important;
 }
+
+.ibm {
+  display: inline-block;
+  vertical-align: middle;
+}
