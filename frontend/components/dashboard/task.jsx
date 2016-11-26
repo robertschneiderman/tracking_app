@@ -36,25 +36,30 @@ class Task extends React.Component {
     return romanized;    
   }
 
-  renderTicker() {
+  timeTicker() {
+    let className = (this.props.count === 0) ? 'hollow' : 'solid';
 
+    return <span className={className}>{this.convertTime(this.props.goal)}</span>
+  }
+
+  frequencyTicker() {
+    let result, num, className;
+
+    if (this.props.count === 0) {
+      num = this.props.goal;
+      className = 'hollow';
+    } else {
+      num = this.props.count;
+      className = 'solid';
+    }
+    return <span className={className}>{this.convertFrequency(num)}</span>;
+  }
+
+  renderTicker() {
     let result = '';
     let count = this.props.count, type = this.props.type, goal = this.props.goal;
 
-    if (this.props.count === 0) {
-      if (this.props.type === 'time') {
-        result = <span className="hollow">{this.convertTime(goal)}</span>
-      } else {
-        result = <span className="hollow">{this.convertFrequency(goal)}</span>     
-      }
-    } else {
-      if (count === goal) {
-        result = <span>CHECK!</span>
-      } else {
-        result = <span>{this.convertFrequency(count)}</span>
-      }
-    }
-    return result;
+    return (this.props.type === 'time') ? this.timeTicker() : this.frequencyTicker();
   }
 
   renderCount() {
@@ -70,6 +75,10 @@ class Task extends React.Component {
           {this.renderTicker()}
         </button>
         <span className="count">{this.renderCount()}</span>
+        <div className="incrementBtns">
+          <button className="decrementBtn">-</button>
+          <button className="incrementBtn">+</button>
+        </div>
       </li>
     )
   }
