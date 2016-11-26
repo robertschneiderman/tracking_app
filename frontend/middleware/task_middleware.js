@@ -22,7 +22,7 @@ const taskMiddleware = store => next => action => {
       API.createTask(action.payload, getSuccess);
       return next(action);      
       break;
-    case "GET_TASKS":
+    case "REQUEST_TASKS":
       API.getTasks(getSuccess);
       return next(action);      
       break;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/dashboard/index';
+import * as actions from '../../actions/task/index';
 import Task from './task';
 // import Container from './/_container';
 
@@ -11,12 +11,11 @@ class Person extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getTasks();
+    this.props.requestTasks();
   }
 
   renderTasks() {
     return this.props.tasks.map(task => {
-      console.log("task:", task);
       return <Task
               key={task._id}
               id={task._id}
@@ -44,7 +43,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTasks: () => dispatch(actions.getTasks()),
+  requestTasks: () => dispatch(actions.requestTasks()),
   incrementGoal: (taskId, count) => dispatch(actions.incrementGoal(taskId, count))
 });
 
