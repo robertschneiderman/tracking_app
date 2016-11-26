@@ -36,3 +36,7 @@ exports.getTasks = function(req, res, next) {
     res.status(401).send();
   });
 };
+
+exports.updateTask = function(req, res, next) {
+  
+};

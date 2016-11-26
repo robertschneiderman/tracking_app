@@ -1,0 +1,23 @@
+.tasks {
+  padding: 0;
+}
+
+.task {margin-bottom: .5rem;}
+
+.task-label {margin-right: 1rem;}
+
+.task-btn {
+  border-bottom: 1px solid #aaa;
+  height: 1rem;
+  width: 4rem;
+}
+
+.task-btn > .hollow {
+  color: #999;
+}
+
+.task-btn > .solid {
+  color: #444;
+}
+
+/*.task*/

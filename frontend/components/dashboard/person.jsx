@@ -16,19 +16,24 @@ class Person extends React.Component {
 
   renderTasks() {
     return this.props.tasks.map(task => {
+      console.log("task:", task);
       return <Task
+              key={task._id}
+              id={task._id}
               name={task.name}
-              key={task.id}
-              value={task}
-              increment={this.props.increment} />
+              count={task.goals.count}
+              goal={task.goals.daily}
+              type={task.goals.type}
+              interval={task.goals.interval}
+              incrementGoal={this.props.incrementGoal} />
     });
   }
 
   render() {
     return(
       <div className="person">
-        <h2>Rob</h2>
-        <p>{this.renderTasks()}</p>
+        <h2 className="person-title">Rob</h2>
+        <ul className="tasks">{this.renderTasks()}</ul>
       </div>
     )
   }
@@ -40,7 +45,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getTasks: () => dispatch(actions.getTasks()),
-  increment: () => dispatch(action.increment(task))
+  incrementGoal: (taskId, count) => dispatch(actions.incrementGoal(taskId, count))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Person);

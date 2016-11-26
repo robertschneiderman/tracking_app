@@ -1,3 +1,7 @@
 @import url('normalize.css');
 @import url('defaults.css');
 @import url('helpers.css');
+
+@import url('dashboard.css');
+@import url('task.css');
+@import url('navbar.css');

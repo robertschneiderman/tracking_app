@@ -69,3 +69,7 @@ button:hover, input[type="submit"]:hover, .btn-share:hover {
   filter: brightness(85%);  
   -webkit-filter: brightness(85%);  
 }
+
+ul {
+  list-style: none;
+}

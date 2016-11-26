@@ -1,5 +1,6 @@
 const Authentication = require('./controllers/authentication');
 const Task = require('./controllers/task');
+const Goal = require('./controllers/goal');
 const passportService = require('./services/passport');
 const passport = require('passport');
 
@@ -17,4 +18,5 @@ module.exports = function(app) {
   app.post('/signup', Authentication.signup);
   app.post('/tasks', requireAuth, Task.newTask);
   app.get('/tasks', Task.getTasks);
+  app.patch('/goals/:id', Goal.update);
 };

@@ -1,0 +1,10 @@
+.dashboard {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 3rem;
+  width: 90%;
+}
+
+.person {width: 47%;}
+
+.person-title {margin-bottom: 1rem;}
