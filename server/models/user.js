@@ -21,7 +21,8 @@ const userSchema = new Schema({
         streak: { type: Number, default: 0 }        
       }
     }
-  ]
+  ],
+  buddy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
 });
   // tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 
