@@ -61,7 +61,7 @@ class Task extends React.Component {
   }
 
   renderCount() {
-    let goal = (this.props.type === 'time') ? '1' : goal;
+    let goal = (this.props.type === 'time') ? '1' : this.props.goal;
     return `${this.props.count} / ${goal}`;
   }
 

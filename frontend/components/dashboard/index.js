@@ -15,11 +15,27 @@ class Dashboard extends React.Component {
     this.props.requestTasks();
   }
 
+  renderPersons() {
+    if (!this.props.buddy) {
+      return (
+        <div className="persons">       
+          <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
+        </div>
+      )
+    } else {
+      return (
+        <div className="persons">        
+          <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
+          <Person user={this.props.buddy} tasks={this.props.buddyTasks} incrementGoal={this.props.incrementGoal} />
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div className="dashboard">
-        <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
-        <Person user={this.props.buddy} tasks={this.props.buddyTasks} incrementGoal={this.props.incrementGoal} />
+        {this.renderPersons()}
       </div> 
     )
   }

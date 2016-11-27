@@ -6,6 +6,13 @@ const taskMiddleware = store => next => action => {
 
   let dispatch = store.dispatch;
 
+
+  const createSuccess = res => {
+    let tasks = res.data;
+    dispatch(ACTIONS.receiveTasks(tasks));
+    browserHistory.push('/dashboard');
+  };
+
   const getSuccess = res => {
     let tasks = res.data;
     dispatch(ACTIONS.receiveTasks(tasks));
@@ -20,7 +27,7 @@ const taskMiddleware = store => next => action => {
   switch (action.type) {
 
     case "CREATE_TASK":
-      API.createTask(action.payload, getSuccess);
+      API.createTask(action.payload, createSuccess);
       return next(action);      
       break;
     case "REQUEST_TASKS":
