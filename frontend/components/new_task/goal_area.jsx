@@ -30,12 +30,6 @@ class GoalOptions extends React.Component {
     this.createTask = this.createTask.bind(this);
   }
 
-  submitForm(e) {
-    e.preventDefault();
-    console.log("this.state:", this.state);
-    this.props.createTask(this.state);
-  }
-
   updateValue(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
@@ -50,18 +44,20 @@ class GoalOptions extends React.Component {
 
   handleGoalChange(evt) {
     console.log("evt:", evt);
+    let name = evt.target.getAttribute('data-name');
+    let increment = parseInt(evt.target.getAttribute('data-increment'));
     if (evt.target.getAttribute('data-enabled') === 'enabled') {
       let daily, weekly, monthly;
-      if (evt.target.name === 'daily') {
-        daily = ++this.state[this.state.goalType].daily;
+      if (name === 'daily') {
+        daily = this.state[this.state.goalType].daily + increment;
         weekly = Math.floor(daily * 7 * .8);
         monthly = Math.floor(weekly * 4.42);
-      } else if (evt.target.name === 'weekly') {
-        weekly = ++this.state[this.state.goalType].weekly;
+      } else if (name === 'weekly') {
+        weekly = this.state[this.state.goalType].weekly + increment;
         monthly = Math.floor(weekly * 4.42);
         daily = Math.floor(this.state[this.state.goalType].weekly * 1.25 / 7);           
       } else {
-        monthly = ++this.state[this.state.goalType].monthly;
+        monthly = this.state[this.state.goalType].monthly + increment;
         weekly = Math.floor(monthly * .226);
         daily = Math.floor(weekly * 7 * .8);
       }
@@ -75,32 +71,6 @@ class GoalOptions extends React.Component {
     }
   }
 
-  renderGoals() {
-    let values = this.state[this.state.goalType];
-    values = (values) ? values : this.state.time;
-    if (this.state.goalInterval === 'daily') {
-      return (
-        <div>
-        <Goal onChange={this.handleGoalChange} name="Daily" enabled={'enabled'} type={this.state.goalType} value={values.daily} />
-        <Goal onChange={this.handleGoalChange} name="Weekly" enabled={'disabled'} type={this.state.goalType} value={values.weekly} />
-        <Goal onChange={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
-        </div>
-      )
-    } else if (this.state.goalInterval === 'weekly') {
-      return (
-        <div>
-        <Goal onChange={this.handleGoalChange} name="Weekly" enabled={'enabled'} type={this.state.goalType} value={values.weekly} />
-        <Goal onChange={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
-        </div>
-      )
-    } else {
-      return (
-        <div>      
-        <Goal onChange={this.handleGoalChange} name="Monthly" enabled={'enabled'} type={this.state.goalType} value={values.monthly} />
-        </div>
-      )
-    }
-  }
 
   createTask() {
     let obj;
@@ -119,43 +89,71 @@ class GoalOptions extends React.Component {
       goals: obj      
     };
     this.props.createTask(taskInfo);
+  }  
+
+  renderGoals() {
+    let values = this.state[this.state.goalType];
+    values = (values) ? values : this.state.time;
+    if (this.state.goalInterval === 'daily') {
+      return (
+        <div>
+        <Goal changeGoal={this.handleGoalChange} name="Daily" enabled={'enabled'} type={this.state.goalType} value={values.daily} />
+        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={'disabled'} type={this.state.goalType} value={values.weekly} />
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
+        </div>
+      )
+    } else if (this.state.goalInterval === 'weekly') {
+      return (
+        <div>
+        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={'enabled'} type={this.state.goalType} value={values.weekly} />
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
+        </div>
+      )
+    } else {
+      return (
+        <div>      
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'enabled'} type={this.state.goalType} value={values.monthly} />
+        </div>
+      )
+    }
   }
 
   render() {
     let goalsStyle = (this.state.goalType && this.state.goalInterval) ? {'display': 'block'} : {'display': 'none'};
     return(
       <div>
-        <div className="task-details">
-          <h2>Task</h2>
-          <form onSubmit={this.submitForm.bind(this)} className="">
+        <div className="task-area">
+          <h2 className="title">Task</h2>
+          <div className="task-form">
             <input
               value={this.state.name}
               onChange={this.updateValue.bind(this)}
               name="name"
-              className="input"
+              className="input task-input"
               type="text"
               placeholder="Name" />
-            <input
+            <textarea
               value={this.state.description}
               onChange={this.updateValue.bind(this)}
               name="description"
-              className="input"
+              className="text-area task-input"
               type="text"
               placeholder="Description" />
-            <input type="submit"/>
-          </form>
+          </div>
         </div>
         
         <div className="goal-area">
+          <h2 className="title">Goal</h2>
           <div className="goal-options">
-            <h2>Goal</h2>
-            <div className="goal-type">
+            <div className="goal-option-group">
+              <h3 className="subtitle">Type</h3>
               <GoalOption name="Time" type="goal-type" onChange={this.handleOptionChange} />
               <GoalOption name="Frequency" type="goal-type" onChange={this.handleOptionChange} />
               <GoalOption name="Truthy" type="goal-type" onChange={this.handleOptionChange} />
             </div>
           
-            <div className="goal-interval">
+            <div className="goal-option-group">
+              <h3 className="subtitle">Interval</h3>
               <GoalOption name="Daily" type="goal-interval" onChange={this.handleOptionChange} />
               <GoalOption name="Weekly" type="goal-interval" onChange={this.handleOptionChange} />
               <GoalOption name="Monthly" type="goal-interval" onChange={this.handleOptionChange} />

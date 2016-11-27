@@ -1,0 +1,15 @@
+.form {
+
+}
+
+.input {
+}
+
+.text-area {height: 7rem;}
+
+.input, .text-area {
+  border: 1px solid #ddd;
+  padding: 0.6rem;
+  outline: 0;
+  width: 18rem;
+}

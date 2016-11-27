@@ -3,7 +3,7 @@ import React from 'react';
 
 const GoalOption = props => (
   <div className="goal-option">
-    <label htmlFor="">{props.name}</label>
+    <label className="goal-option-label" htmlFor="">{props.name}</label>
     <input
       onChange={props.onChange}
       className="ibm" 

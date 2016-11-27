@@ -1,0 +1,44 @@
+.new-task {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  padding: 4rem 0;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.task-area {margin-bottom: 3rem;}
+.task-form {
+
+}
+
+.task-input {display: block;margin-bottom: 1rem;}
+
+.goal-area {
+
+}
+
+.goal-options {margin-bottom: 3rem;}
+
+.goal-option-group {display: inline-block;margin-right: 3rem;}
+
+.goal-option {display: inline-block;margin-right: 1rem;}
+
+.goal-option-label {margin-right: 1rem;}
+
+.goal-option input {
+  
+}
+
+.goal-wrapper {margin-bottom: 1.4rem;}
+
+.goal-label {margin-right: 1rem;}
+
+.goal-input {
+
+}
+
+.goal-input-btn {
+
+}
