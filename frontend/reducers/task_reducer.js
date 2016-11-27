@@ -9,7 +9,6 @@ const taskReducer = (state = {currentUser: [], buddy: []}, action) => {
       return merge({}, state, {currentUser: action.payload.user, buddy: action.payload.buddy});
     case "RECEIVE_TASK":
       let modifiedTaskIndex;
-      debugger;
       for (var i = 0; i < state.currentUser.length; i++) {
         let task = state.currentUser[i];
         if (task._id === action.payload.task._id) modifiedTaskIndex = i;

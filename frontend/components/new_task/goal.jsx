@@ -2,6 +2,7 @@ import React from 'react';
 
 const goal = props => {
   // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
+  let style = (props.enabled) ? { 'display': 'inline-block'} : { 'display': 'none'}
   return (
     <div className="goal-wrapper">
       <label className="goal-label ibm">{props.name}</label>
@@ -11,7 +12,7 @@ const goal = props => {
         data-name={props.name.toLowerCase()}
         value={props.value}
         className="goal-input input ibm" />
-      <div className="goal-input-btns ibm">
+      <div className="goal-input-btns ibm" style={style}>
         <button
           onClick={props.changeGoal}
           data-enabled={props.enabled}

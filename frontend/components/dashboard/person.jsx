@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/task/index';
 import Task from './task';
+import _ from 'lodash';
 // import Container from './/_container';
 
 class Person extends React.Component {
@@ -14,14 +15,40 @@ class Person extends React.Component {
     // this.props.requestTasks();
   }
 
-  renderTasks() {
-    return this.props.tasks.map(task => {
+  sortTasks() {
+    let sortedTasks = {};
+    this.props.tasks.forEach(task => {
+      let key = task.goals.interval;
+      if (sortedTasks[key]) {
+        sortedTasks[key].push(task);
+      } else {
+        sortedTasks[key] = [task];
+      }
+    });
+    return sortedTasks;
+  }
+
+  renderTaskGroup() {
+    let taskGroups = [];
+    let sortedTasks = this.sortTasks();
+    for (let key in sortedTasks) {
+      let tasksByInterval = sortedTasks[key];
+      taskGroups.push(<div className="task-type">
+        <h3 className="tasks-subtitle subtitle">{_.startCase(_.toLower(key))}</h3>
+        <ul className="tasks">{this.renderTasks(tasksByInterval)}</ul>
+      </div>);
+    }
+    return taskGroups;
+  }
+
+  renderTasks(tasksByInterval) {
+    return tasksByInterval.map(task => {
       return <Task
               key={task._id}
               id={task._id}
               name={task.name}
               count={task.goals.count}
-              goal={task.goals.daily}
+              goal={task.goals[task.goals.interval]}
               type={task.goals.type}
               interval={task.goals.interval}
               incrementGoal={this.props.incrementGoal} />
@@ -32,7 +59,7 @@ class Person extends React.Component {
     return(
       <div className="person">
         <h2 className="person-title">{this.props.user.email}</h2>
-        <ul className="tasks">{this.renderTasks()}</ul>
+        {this.renderTaskGroup()}
       </div>
     )
   }

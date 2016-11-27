@@ -1,3 +1,13 @@
+.task-type {margin-bottom: 2rem;}
+
+.tasks-subtitle {
+  font-size: 0.7rem;
+  left: -2rem;
+  margin-bottom: .5rem !important;
+  text-transform: uppercase;
+  color: #aaa !important;
+}
+
 .tasks {
   padding: 0;
 }

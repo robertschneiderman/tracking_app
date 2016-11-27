@@ -43,37 +43,35 @@ class GoalOptions extends React.Component {
   }
 
   handleGoalChange(evt) {
-    console.log("evt:", evt);
     let name = evt.target.getAttribute('data-name');
     let increment = parseInt(evt.target.getAttribute('data-increment'));
-    if (evt.target.getAttribute('data-enabled') === 'enabled') {
-      let daily, weekly, monthly;
-      if (name === 'daily') {
-        daily = this.state[this.state.goalType].daily + increment;
-        weekly = Math.floor(daily * 7 * .8);
-        monthly = Math.floor(weekly * 4.42);
-      } else if (name === 'weekly') {
-        weekly = this.state[this.state.goalType].weekly + increment;
-        monthly = Math.floor(weekly * 4.42);
-        daily = Math.floor(this.state[this.state.goalType].weekly * 1.25 / 7);           
-      } else {
-        monthly = this.state[this.state.goalType].monthly + increment;
-        weekly = Math.floor(monthly * .226);
-        daily = Math.floor(weekly * 7 * .8);
-      }
-      this.setState({
-        [this.state.goalType]: {
-          daily,
-          weekly,
-          monthly
-        }
-      });
+    let daily, weekly, monthly;
+
+    if (name === 'daily') {
+      daily = this.state[this.state.goalType].daily + increment;
+      weekly = Math.floor(daily * 7 * .8);
+      monthly = Math.floor(weekly * 4.42);
+    } else if (name === 'weekly') {
+      weekly = this.state[this.state.goalType].weekly + increment;
+      monthly = Math.floor(weekly * 4.42);
+      daily = Math.floor(this.state[this.state.goalType].weekly * 1.25 / 7);           
+    } else {
+      monthly = this.state[this.state.goalType].monthly + increment;
+      weekly = Math.floor(monthly * .226);
+      daily = Math.floor(weekly * 7 * .8);
     }
+    this.setState({
+      [this.state.goalType]: {
+        daily,
+        weekly,
+        monthly
+      }
+    });
   }
 
 
   createTask() {
-    let obj;
+    let obj = {};
     if (this.state.goalInterval === 'daily') {
       obj = this.state[this.state.goalType];
     } else if (this.state.goalInterval === 'weekly') {
@@ -97,22 +95,22 @@ class GoalOptions extends React.Component {
     if (this.state.goalInterval === 'daily') {
       return (
         <div>
-        <Goal changeGoal={this.handleGoalChange} name="Daily" enabled={'enabled'} type={this.state.goalType} value={values.daily} />
-        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={'disabled'} type={this.state.goalType} value={values.weekly} />
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
+        <Goal changeGoal={this.handleGoalChange} name="Daily" enabled={true} type={this.state.goalType} value={values.daily} />
+        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={false} type={this.state.goalType} value={values.weekly} />
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
         </div>
       )
     } else if (this.state.goalInterval === 'weekly') {
       return (
         <div>
-        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={'enabled'} type={this.state.goalType} value={values.weekly} />
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'disabled'} type={this.state.goalType} value={values.monthly} />
+        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={true} type={this.state.goalType} value={values.weekly} />
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
         </div>
       )
     } else {
       return (
         <div>      
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={'enabled'} type={this.state.goalType} value={values.monthly} />
+        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={true} type={this.state.goalType} value={values.monthly} />
         </div>
       )
     }
