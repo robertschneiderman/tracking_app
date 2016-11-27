@@ -33,6 +33,8 @@
 
 .count {
   margin-right: 0.6rem;
+  color: #aaa;
+  font-size: .8rem;
 }
 
 .increment-btns {

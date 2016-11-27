@@ -5,10 +5,9 @@ const ROOT_URL = 'http://localhost:3090';
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const createTask = (task) => {
+export const createTask = (task, success) => {
   axios.post(`${ROOT_URL}/tasks`, task)
-  .then(data => {
-  });
+  .then(success);
 };
 
 export const getTasks = (success) => {

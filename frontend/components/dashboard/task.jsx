@@ -8,6 +8,7 @@ class Task extends React.Component {
   }
 
   incrementGoal(num) {
+    if (num === -1 && this.props.count === 0) return;
     this.props.incrementGoal(this.props.id, this.props.count + num);
   }
 
@@ -36,8 +37,9 @@ class Task extends React.Component {
 
   timeTicker() {
     let className = (this.props.count === 0) ? 'hollow' : 'solid';
+    let value = (this.props.count < 1) ? this.convertTime(this.props.goal) : '√'
 
-    return <span className={className}>{this.convertTime(this.props.goal)}</span>
+    return <span className={className}>{value}</span>
   }
 
   frequencyTicker() {
@@ -50,7 +52,9 @@ class Task extends React.Component {
       num = this.props.count;
       className = 'solid';
     }
-    return <span className={className}>{this.convertFrequency(num)}</span>;
+
+    let value = (this.props.count < this.props.goal) ? this.convertFrequency(num) : '√'    
+    return <span className={className}>{value}</span>;
   }
 
   renderTicker() {

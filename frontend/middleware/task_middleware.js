@@ -9,8 +9,8 @@ const taskMiddleware = store => next => action => {
 
   const createSuccess = res => {
     let tasks = res.data;
-    dispatch(ACTIONS.receiveTasks(tasks));
     browserHistory.push('/dashboard');
+    dispatch(ACTIONS.receiveTasks(tasks));
   };
 
   const getSuccess = res => {
