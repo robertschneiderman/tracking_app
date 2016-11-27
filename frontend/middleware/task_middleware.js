@@ -12,8 +12,9 @@ const taskMiddleware = store => next => action => {
   };
 
   const incrementSuccess = res => {
-    let tasks = res.data;
-    dispatch(ACTIONS.receiveTasks(tasks));
+    // debugger;
+    let task = res.data;
+    dispatch(ACTIONS.receiveTask(task));
   };        
 
   switch (action.type) {

@@ -73,9 +73,9 @@ class Task extends React.Component {
           {this.renderTicker()}
         </button>
         <span className="count">{this.renderCount()}</span>
-        <div className="incrementBtns ibm">
-          <button className="decrementBtn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
-          <button className="incrementBtn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
+        <div className="increment-btns ibm">
+          <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
+          <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
         </div>
       </li>
     )
