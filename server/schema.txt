@@ -9,10 +9,11 @@ user: {
         name
         type
         interval
-        streak
         daily
         weekly
         monthly
+        count
+        streak        
       }
     }
   ],

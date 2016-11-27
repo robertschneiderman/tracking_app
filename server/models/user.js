@@ -22,7 +22,7 @@ const userSchema = new Schema({
       }
     }
   ],
-  buddy: { type: Schema.Types.ObjectId, ref: 'User', default: null }
+  buddy: { type: Schema.Types.ObjectId, default: null }
 });
   // tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 

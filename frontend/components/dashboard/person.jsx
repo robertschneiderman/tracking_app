@@ -11,7 +11,7 @@ class Person extends React.Component {
   }
 
   componentWillMount() {
-    this.props.requestTasks();
+    // this.props.requestTasks();
   }
 
   renderTasks() {
@@ -38,13 +38,4 @@ class Person extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  tasks: state.tasks.tasks
-});
-
-const mapDispatchToProps = dispatch => ({
-  requestTasks: () => dispatch(actions.requestTasks()),
-  incrementGoal: (taskId, count) => dispatch(actions.incrementGoal(taskId, count))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Person);
+export default Person;

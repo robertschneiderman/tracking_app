@@ -30,13 +30,14 @@ exports.newTask = function(req, res, next) {
 exports.getTasks = function(req, res, next) {
   var token = req.header('x-auth');
   User.findByToken(token).then((user) => {
-    res.json(user.tasks);
-
+    User.findOne({_id: user.buddy}).then(buddy => {
+      res.json({user: user.tasks, buddy: buddy.tasks});
+    });
   }).catch((e) => {
     res.status(401).send();
   });
 };
 
 exports.updateTask = function(req, res, next) {
-  
+
 };
