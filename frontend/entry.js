@@ -17,17 +17,25 @@ import Dashboard from './components/dashboard/index';
 import NewTask from './components/new_task/index';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
-import TaskMiddleware from './middleware/task_middleware'
+import UserMiddleware from './middleware/user_middleware';
+import TaskMiddleware from './middleware/task_middleware';
 
 const logger = createLogger();
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger, TaskMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger, UserMiddleware, TaskMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const token = localStorage.getItem('token');
+const currentUser = localStorage.getItem('currentUser');
 
 if (token) {
   store.dispatch({ type: AUTH_USER });
+}
+
+if (currentUser) {
+  // debugger;
+  
+  store.dispatch({ type: 'REQUEST_USER', payload: "583a30218639226d6cff75ea" });
 }
 
 ReactDOM.render(

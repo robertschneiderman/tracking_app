@@ -1,5 +1,4 @@
 const Task = require('../models/task');
-const Goal = require('../models/task');
 const User = require('../models/user');
 
 exports.newTask = function(req, res, next) {

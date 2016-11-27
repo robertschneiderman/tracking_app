@@ -31,7 +31,7 @@ class Person extends React.Component {
   render() {
     return(
       <div className="person">
-        <h2 className="person-title">Rob</h2>
+        <h2 className="person-title">{this.props.user.email}</h2>
         <ul className="tasks">{this.renderTasks()}</ul>
       </div>
     )

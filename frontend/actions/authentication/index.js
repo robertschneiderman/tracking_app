@@ -10,11 +10,11 @@ const ROOT_URL = 'http://localhost:3090';
 
 export function signinUser({ email, password }) {
   return function(dispatch) {
-
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('currentUser', response.data.user);        
         browserHistory.push('/dashboard');
       })
       .catch(() => {
@@ -47,5 +47,6 @@ export function authError(error) {
 
 export function signoutUser() {
   localStorage.removeItem('token');
+  localStorage.removeItem('currentUser');
   return { type: UNAUTH_USER };
 }
