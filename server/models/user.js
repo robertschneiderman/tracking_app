@@ -11,15 +11,17 @@ const userSchema = new Schema({
     {
       name: String,
       description: String,
+      type: { type: String },
+      interval: String,
+      streak: { type: Number, default: 0 },     
       goals: {
-        type: { type: String },
-        interval: String,
-        daily: { count: Number, goal: Number },
-        weekly: { count: Number, goal: Number },
-        monthly: { count: Number, goal: Number },
-        count: { type: Number, default: 0 },      
-        streak: { type: Number, default: 0 }        
-      }
+        daily: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
+        weekly: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
+        monthly: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
+      },
+      stubs: [
+        { start: Date, end: Date }
+      ]
     }
   ],
   buddy: { type: Schema.Types.ObjectId, default: null }
