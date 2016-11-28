@@ -45,13 +45,8 @@ class Person extends React.Component {
     return tasksByInterval.map(task => {
       return <Task
               key={task._id}
-              id={task._id}
-              name={task.name}
-              description={task.description}
-              count={task.goals.count}
-              goal={task.goals[task.goals.interval]}
-              type={task.goals.type}
-              interval={task.goals.interval}
+              task={task}
+              goals={task.goals}
               incrementGoal={this.props.incrementGoal} />
     });
   }

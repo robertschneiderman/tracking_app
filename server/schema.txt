@@ -5,21 +5,17 @@ user: {
     {
       name,
       description,
+      type
+      interval
+      streak        
       goals: {
-        name
-        type
-        interval
-        daily : {count: , goal: }
-        weekly : {count: , goal: }
-        monthly : {count: , goal: }
-        streak        
+        daily : { count, goal, assessed: {last, next} }
+        weekly : { count, goal, assessed: {last, next} }
+        monthly : { count, goal, assessed: {last, next} }
       }
+      stubs: [
+        { start: end: }
+      ]
     }
   ],
-  goalStubs: {
-    meditation: [{
-      day,
-      time
-    }]
-  }
 }

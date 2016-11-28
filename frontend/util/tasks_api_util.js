@@ -18,8 +18,9 @@ export const getTasks = (success) => {
   });
 };
 
-export const incrementGoal = (taskId, count, success) => {
-  axios.patch(`${ROOT_URL}/goals/${taskId}`, {count})
+export const incrementGoal = (taskId, increment, success) => {
+  console.log("increment:", increment);
+  axios.patch(`${ROOT_URL}/goals/${taskId}`, {increment})
   .then(success)
   .catch(function (error) {
     console.log(error);

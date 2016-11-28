@@ -71,20 +71,26 @@ class GoalOptions extends React.Component {
 
 
   createTask() {
-    let obj = {};
+    let goals = {};
+    let daily = this.state[this.state.goalType].daily;
+    let weekly = this.state[this.state.goalType].weekly;
+    let monthly = this.state[this.state.goalType].monthly;
+
     if (this.state.goalInterval === 'daily') {
-      obj = this.state[this.state.goalType];
+      goals = { daily: { count: 0, goal: daily }, weekly: { count: 0, goal: weekly }, monthly: { count: 0, goal: monthly } } ;
     } else if (this.state.goalInterval === 'weekly') {
-      obj['weekly'] = this.state[this.state.goalType].weekly;
+      goals = { weekly: { count: 0, goal: weekly }, monthly: { count: 0, goal: monthly } };    
+    } else {
+      goals = { monthly: { count: 0, goal: monthly } } ;      
     }
-    obj['monthly'] = this.state[this.state.goalType].monthly;
-    obj.type = this.state.goalType;
-    obj.interval = this.state.goalInterval;
+
+    goals.type = this.state.goalType;
+    goals.interval = this.state.goalInterval;
 
     let taskInfo = {
       name: this.state.name,
       description: this.state.description,
-      goals: obj      
+      goals     
     };
     this.props.createTask(taskInfo);
   }  
