@@ -14,9 +14,9 @@ const userSchema = new Schema({
       goals: {
         type: { type: String },
         interval: String,
-        daily: Number,
-        weekly: Number,
-        monthly: Number,
+        daily: { count: Number, goal: Number },
+        weekly: { count: Number, goal: Number },
+        monthly: { count: Number, goal: Number },
         count: { type: Number, default: 0 },      
         streak: { type: Number, default: 0 }        
       }
