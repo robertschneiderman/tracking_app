@@ -9,10 +9,9 @@ user: {
         name
         type
         interval
-        daily
-        weekly
-        monthly
-        count
+        daily : {count: , goal: }
+        weekly : {count: , goal: }
+        monthly : {count: , goal: }
         streak        
       }
     }
