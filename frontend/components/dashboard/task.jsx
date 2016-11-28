@@ -81,6 +81,10 @@ class Task extends React.Component {
           <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
           <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
         </div>
+        <TaskPopup 
+          description={this.props.description}
+          count={this.props.count}
+          goals={this.props.goals} />
       </li>
     )
   }

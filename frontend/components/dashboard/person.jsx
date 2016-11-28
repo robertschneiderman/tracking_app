@@ -47,6 +47,7 @@ class Person extends React.Component {
               key={task._id}
               id={task._id}
               name={task.name}
+              description={task.description}
               count={task.goals.count}
               goal={task.goals[task.goals.interval]}
               type={task.goals.type}
