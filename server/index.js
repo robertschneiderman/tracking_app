@@ -14,6 +14,7 @@ const app = express();
 app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json({type: '*/*'}));
+// app.use(express.static('../static'));
 router(app);
 
 // Server Setup
