@@ -10,19 +10,12 @@ const path = require('path');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignIn = passport.authenticate('local', { session: false });
 
-const indexPath = path.join(__dirname, '/../static/index.html');
-
-
 module.exports = function(app) {
-
-  app.get('/', function(req, res) {
-    res.sendFile(indexPath);
-  });
 
   app.post('/signin', requireSignIn, Authentication.signin);
   app.post('/signup', Authentication.signup);
 
-  app.get('/users/:id', User.find)
+  app.get('/users/:id', User.find);
 
   app.post('/tasks', requireAuth, Task.newTask);
   app.get('/tasks', Task.getTasks);

@@ -3,15 +3,20 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 
 // const { mongoose } = require('./db/mongoose');
 const router = require('./router');
-
 const app = express();
-
 const mongoose = require('mongoose');
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, '/../static/')));
+
+const indexPath = path.join(__dirname, '/../index.html');
+
+app.get('/', function(req, res) {
+res.sendFile(indexPath);
+});
 
 
 // DB Setup
