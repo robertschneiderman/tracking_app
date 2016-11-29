@@ -4,15 +4,19 @@ const Task = require('./controllers/task');
 const Goal = require('./controllers/goal');
 const passportService = require('./services/passport');
 const passport = require('passport');
+const path = require('path');
 
 
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignIn = passport.authenticate('local', { session: false });
 
+const indexPath = path.join(__dirname, '/../index.html');
+
+
 module.exports = function(app) {
 
   app.get('/', function(req, res) {
-    res.send({hi: 'there'});
+    res.sendFile(indexPath);
   });
 
   app.post('/signin', requireSignIn, Authentication.signin);
