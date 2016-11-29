@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const Task = require('../models/task');
 
 var _ = require('lodash');
 
