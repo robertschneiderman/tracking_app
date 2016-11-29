@@ -18,7 +18,7 @@ class Person extends React.Component {
   sortTasks() {
     let sortedTasks = {};
     this.props.tasks.forEach(task => {
-      let key = task.goals.interval;
+      let key = task.interval;
       if (sortedTasks[key]) {
         sortedTasks[key].push(task);
       } else {
@@ -47,6 +47,7 @@ class Person extends React.Component {
               key={task._id}
               task={task}
               goals={task.goals}
+              count={task.goals.daily.count}
               incrementGoal={this.props.incrementGoal} />
     });
   }

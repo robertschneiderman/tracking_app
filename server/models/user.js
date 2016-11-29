@@ -15,9 +15,9 @@ const userSchema = new Schema({
       interval: String,
       streak: { type: Number, default: 0 },     
       goals: {
-        daily: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
-        weekly: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
-        monthly: { count: Number, goal: Number, assessed: {last: Date, next: Date} },
+        daily: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
+        weekly: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
+        monthly: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
       },
       stubs: [
         { start: Date, end: Date }

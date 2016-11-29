@@ -11,6 +11,8 @@ exports.newTask = function(req, res, next) {
     const task = {
       name: req.body.name,
       description: req.body.description,
+      type: req.body.type,
+      interval: req.body.interval,
       goals: req.body.goals
     };
 

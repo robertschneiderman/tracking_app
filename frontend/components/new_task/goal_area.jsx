@@ -84,13 +84,13 @@ class GoalOptions extends React.Component {
       goals = { monthly: { count: 0, goal: monthly } } ;      
     }
 
-    goals.type = this.state.goalType;
-    goals.interval = this.state.goalInterval;
-
     let taskInfo = {
       name: this.state.name,
       description: this.state.description,
-      goals     
+      type: this.state.goalType,
+      interval: this.state.goalInterval,
+      goals,
+      stubs: []
     };
     this.props.createTask(taskInfo);
   }  

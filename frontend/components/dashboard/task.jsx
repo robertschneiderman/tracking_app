@@ -8,19 +8,18 @@ class Task extends React.Component {
   }
 
   componentWillMount(nextProps) {
-    debugger;
     this.task = this.props.task;
     this.id = this.task._id;
     this.name = this.task.name;
+    this.type = this.task.type;
     this.goals = this.task.goals;
-    this.type = this.goals.type;
-    this.count = this.goals[this.goals.interval].count;
-    this.goal = this.goals[this.goals.interval].goal;
+    this.count = this.goals[this.task.interval].count;
+    this.goal = this.goals[this.task.interval].goal;
   }
 
   incrementGoal(num) {
     if (num === -1 && this.count === 0) return;
-    this.props.incrementGoal(this.id, this.count + num);
+    this.props.incrementGoal(this.id, num);
   }
 
   convertTime(minutes) {
@@ -77,7 +76,7 @@ class Task extends React.Component {
 
   renderCount() {
     let goal = (this.type === 'time') ? '1' : this.goal;
-    return `${this.count} / ${goal}`;
+    return `${this.props.count} / ${goal}`;
   }
 
   render() {
