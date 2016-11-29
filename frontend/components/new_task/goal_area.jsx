@@ -10,7 +10,6 @@ class GoalOptions extends React.Component {
     super(props);
     this.state = {
       name: '',
-      description: '',
       goalType: null,
       goalInterval: null,
       time: {
@@ -86,7 +85,6 @@ class GoalOptions extends React.Component {
 
     let taskInfo = {
       name: this.state.name,
-      description: this.state.description,
       type: this.state.goalType,
       interval: this.state.goalInterval,
       goals,
@@ -136,18 +134,7 @@ class GoalOptions extends React.Component {
               className="input task-input"
               type="text"
               placeholder="Name" />
-            <textarea
-              value={this.state.description}
-              onChange={this.updateValue.bind(this)}
-              name="description"
-              className="text-area task-input"
-              type="text"
-              placeholder="Description" />
           </div>
-        </div>
-        
-        <div className="goal-area">
-          <h2 className="title">Goal</h2>
           <div className="goal-options">
             <div className="goal-option-group">
               <h3 className="subtitle">Type</h3>
@@ -162,8 +149,11 @@ class GoalOptions extends React.Component {
               <GoalOption name="Weekly" type="goal-interval" onChange={this.handleOptionChange} />
               <GoalOption name="Monthly" type="goal-interval" onChange={this.handleOptionChange} />
             </div>        
-          </div>
+          </div>          
+        </div>
         
+        <div className="goal-area">
+          <h2 className="title">Goals</h2>        
           <div className="goals" style={goalsStyle}>
             {this.renderGoals()}
           </div>

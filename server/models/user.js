@@ -10,7 +10,6 @@ const userSchema = new Schema({
   tasks: [
     {
       name: String,
-      description: String,
       type: { type: String },
       interval: String,
       streak: { type: Number, default: 0 },     

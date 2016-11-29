@@ -14,8 +14,7 @@ class Task extends React.Component {
     this.type = this.task.type;
     this.goals = this.task.goals;
     this.count = this.goals[this.task.interval].count;
-    this.goal = this.goals[this.task.interval].goal;
-  }
+    this.goal = this.goals[this.task.interval].goal;  }
 
   incrementGoal(num) {
     if (num === -1 && this.count === 0) return;

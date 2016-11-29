@@ -7,7 +7,6 @@ const increment = (goals, incrementObj) => {
   let num = parseInt(incrementObj.increment);
   goals = goals.toObject();
   for (var key in goals) {
-    console.log("num", num);
     goals[key].count += num;
   }
   return goals;
@@ -24,15 +23,8 @@ exports.update = function(req, res, next) {
       return task._id == req.params.id;
     });
 
-    console.log("req.body:", req.body);    
-
     let newGoals = (req.body.increment) ? increment(task.goals, req.body) : req.body;
-
-    console.log("newGoals:", newGoals);    
-
     task.goals = newGoals;
-
-    console.log("task.goals", task.goals);
 
     user.save(function(err) {
       if (err) { return next(err); }
