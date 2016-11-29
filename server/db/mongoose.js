@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // DB Setup
 mongoose.Promise = global.Promise;
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
     mongoose.connect('mongodb://localhost:auth/auth');

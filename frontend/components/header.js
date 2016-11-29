@@ -25,7 +25,7 @@ class Header extends Component {
   render() {
     return (
       <nav className="navbar">
-        <Link to="/" className="navbar-logo">Redux Auth</Link>
+        <Link to="/" className="navbar-logo">Tracky :)</Link>
         <ul className="navbar-nav">
           {this.renderLinks()}
         </ul>
