@@ -11,6 +11,8 @@ const app = express();
 
 const mongoose = require('mongoose');
 
+app.use(express.static(path.join(__dirname, 'static')));
+
 
 // DB Setup
 mongoose.Promise = global.Promise;

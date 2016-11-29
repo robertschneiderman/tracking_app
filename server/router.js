@@ -10,7 +10,7 @@ const path = require('path');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireSignIn = passport.authenticate('local', { session: false });
 
-const indexPath = path.join(__dirname, '/../index.html');
+const indexPath = path.join(__dirname, '/../static/index.html');
 
 
 module.exports = function(app) {
