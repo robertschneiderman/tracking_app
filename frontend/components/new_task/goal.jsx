@@ -1,8 +1,16 @@
 import React from 'react';
 
+const convertToTime = (minutes) => {
+  let hours = Math.floor(minutes / 60);
+  let minutesRemaining = minutes - (hours * 60);
+  // minutesRemaining = 
+  return `${hours}:${minutesRemaining}`;
+};
+
 const goal = props => {
   // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
   let style = (props.enabled) ? { 'display': 'inline-block'} : { 'display': 'none'}
+  let formattedValue = (props.type === 'time') ? convertToTime(props.value) : props.value;
   return (
     <div className="goal-wrapper">
       <label className="goal-label ibm">{props.name}</label>
@@ -10,7 +18,7 @@ const goal = props => {
         onChange={props.changeGoal}
         type="text"
         data-name={props.name.toLowerCase()}
-        value={props.value}
+        value={formattedValue}
         className="goal-input input ibm" />
       <div className="goal-input-btns ibm" style={style}>
         <button

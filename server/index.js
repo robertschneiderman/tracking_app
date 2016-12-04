@@ -9,25 +9,19 @@ const router = require('./router');
 
 const app = express();
 
-const mongoose = require('mongoose');
+const mongoose = require('./db/mongoose');
+const path = require('path');
 
-
-// DB Setup
-mongoose.Promise = global.Promise;
-var env = process.env.NODE_ENV || 'development';
-
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost:auth/auth');
-} else {
-    mongoose.connect('mongodb://heroku_59ldxkrj:15snblhm54fe90hnog8k3dql77@ds113668.mlab.com:13668/heroku_59ldxkrj');
-}
 
 
 // App Setup
 app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json({type: '*/*'}));
-// app.use(express.static('../static'));
+// app.use(express.static('../'));
+
+app.use('/', express.static(path.join(__dirname, '../')));
+
 router(app);
 
 // Server Setup

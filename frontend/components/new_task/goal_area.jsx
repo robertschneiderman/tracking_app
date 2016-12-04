@@ -68,7 +68,6 @@ class GoalOptions extends React.Component {
     });
   }
 
-
   createTask() {
     let goals = {};
     let daily = this.state[this.state.goalType].daily;
