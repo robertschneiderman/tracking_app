@@ -3,14 +3,26 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 
 // const { mongoose } = require('./db/mongoose');
 const router = require('./router');
-
 const app = express();
+<<<<<<< HEAD
 
 const mongoose = require('./db/mongoose');
 const path = require('path');
+=======
+const mongoose = require('mongoose');
+>>>>>>> 9c1bb7a793edd46c2dc79cdac4c7c7de3b6c7d24
+
+app.use(express.static(path.join(__dirname, '/../static/')));
+
+const indexPath = path.join(__dirname, '/../index.html');
+
+app.get('/', function(req, res) {
+res.sendFile(indexPath);
+});
 
 
 
