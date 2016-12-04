@@ -1,6 +1,6 @@
 import * as API from '../util/tasks_api_util';
 import * as ACTIONS from '../actions/task/index';
-import {router, browserHistory} from 'react-router';
+import {router, hashHistory} from 'react-router';
 
 const taskMiddleware = store => next => action => {
 
@@ -9,7 +9,7 @@ const taskMiddleware = store => next => action => {
 
   const createSuccess = res => {
     let tasks = res.data;
-    browserHistory.push('/dashboard');
+    hashHistory.push('/dashboard');
     dispatch(ACTIONS.receiveTasks(tasks));
   };
 

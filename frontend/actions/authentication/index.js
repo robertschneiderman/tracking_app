@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { 
   AUTH_USER,
   UNAUTH_USER,
@@ -14,8 +14,8 @@ export function signinUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('currentUser', response.data.user);        
-        browserHistory.push('/dashboard');
+        localStorage.setItem('currentUser', response.data.user);
+        hashHistory.push('dashboard');
       })
       .catch(() => {
         dispatch(authError("Bad Login Info"));
@@ -29,7 +29,7 @@ export function signupUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/dashboard');
+        hashHistory.push('dashboard');
       })
       .catch(() => {
         dispatch(authError("Bad Signup Info"));

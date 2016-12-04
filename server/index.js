@@ -11,12 +11,12 @@ const app = express();
 const mongoose = require('./db/mongoose');
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, '/../static/')));
+app.use(express.static(path.join(__dirname, '../')));
 
 const indexPath = path.join(__dirname, '/../index.html');
 
 app.get('/', function(req, res) {
-res.sendFile(indexPath);
+    res.sendFile(indexPath);
 });
 
 

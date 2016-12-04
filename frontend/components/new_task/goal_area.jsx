@@ -24,7 +24,8 @@ class GoalOptions extends React.Component {
       }     
     };
     this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.handleGoalChange = this.handleGoalChange.bind(this);
+    this.incrementGoal = this.incrementGoal.bind(this);
+    this.changeGoal = this.changeGoal.bind(this);
     this.renderGoals = this.renderGoals.bind(this);
     this.createTask = this.createTask.bind(this);
   }
@@ -41,21 +42,18 @@ class GoalOptions extends React.Component {
     this.setState({[property]: value });
   }
 
-  handleGoalChange(evt) {
-    let name = evt.target.getAttribute('data-name');
-    let increment = parseInt(evt.target.getAttribute('data-increment'));
+  syncIntervals(intervalChanged, value) {
     let daily, weekly, monthly;
-
-    if (name === 'daily') {
-      daily = this.state[this.state.goalType].daily + increment;
+    if (intervalChanged === 'daily') {
+      daily = value;
       weekly = Math.floor(daily * 7 * .8);
       monthly = Math.floor(weekly * 4.42);
-    } else if (name === 'weekly') {
-      weekly = this.state[this.state.goalType].weekly + increment;
+    } else if (intervalChanged === 'weekly') {
+      weekly = value;
       monthly = Math.floor(weekly * 4.42);
       daily = Math.floor(this.state[this.state.goalType].weekly * 1.25 / 7);           
     } else {
-      monthly = this.state[this.state.goalType].monthly + increment;
+      monthly = value;
       weekly = Math.floor(monthly * .226);
       daily = Math.floor(weekly * 7 * .8);
     }
@@ -66,6 +64,57 @@ class GoalOptions extends React.Component {
         monthly
       }
     });
+  }
+
+  incrementGoal(evt) {
+    let name = evt.target.getAttribute('data-name');
+    let increment = parseInt(evt.target.getAttribute('data-increment'));
+
+    this.syncIntervals(name, this.state[this.state.goalType][name] + increment);
+  }
+
+  changeGoal(evt) {
+    let cursorPos = evt.target.selectionStart-1;
+    let name = evt.target.getAttribute('data-name');
+    let value = evt.target.value;
+    // let prevValue = evt.target.defaultValue;
+    let addedVal = value[cursorPos+1];
+    if (value.length === 3 || !Number.isInteger(parseInt(value[cursorPos])) ) {
+      return; // break if string goes under 3 is not a number 
+    }
+    let overwrittenTime = value.slice(0, cursorPos+1) + value.slice(cursorPos+2);
+    let numericalTime = this.numericalTime(overwrittenTime);
+
+    this.syncIntervals(name, numericalTime);    
+
+    console.log(value);
+  }  
+
+  addedChar(newVal, oldVal) {
+    for (let i = 0; i < newVal.length; i++) {
+      let char = newVal[i];
+      if (!oldVal[i] || char !== oldVal[i]) return char;
+    }
+  }
+
+  overwriteTime(newVal, addedVal) {
+    for (let i = 0; i < newVal.length; i++) {
+      let char = newVal[i];
+      if (char === addedVal) {
+        return newVal.slice(0, i+1) + newVal.slice(i+2);
+      }
+    }
+  }
+
+  // 12:00
+  // '2'
+  // 12:200
+
+  numericalTime(time) {
+    let hours = parseInt(time.slice(0, 2));
+    let minutes = parseInt(time.slice(3));
+
+    return (hours * 60 + minutes);
   }
 
   createTask() {
@@ -96,25 +145,19 @@ class GoalOptions extends React.Component {
     let values = this.state[this.state.goalType];
     values = (values) ? values : this.state.time;
     if (this.state.goalInterval === 'daily') {
-      return (
-        <div>
-        <Goal changeGoal={this.handleGoalChange} name="Daily" enabled={true} type={this.state.goalType} value={values.daily} />
-        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={false} type={this.state.goalType} value={values.weekly} />
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
-        </div>
-      )
+      return [
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Daily" enabled={true} type={this.state.goalType} value={values.daily} />,
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Weekly" enabled={false} type={this.state.goalType} value={values.weekly} />,
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
+      ]
     } else if (this.state.goalInterval === 'weekly') {
-      return (
-        <div>
-        <Goal changeGoal={this.handleGoalChange} name="Weekly" enabled={true} type={this.state.goalType} value={values.weekly} />
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
-        </div>
-      )
+      return [
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Weekly" enabled={true} type={this.state.goalType} value={values.weekly} />,
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
+      ]
     } else {
       return (
-        <div>      
-        <Goal changeGoal={this.handleGoalChange} name="Monthly" enabled={true} type={this.state.goalType} value={values.monthly} />
-        </div>
+        <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={true} type={this.state.goalType} value={values.monthly} />
       )
     }
   }

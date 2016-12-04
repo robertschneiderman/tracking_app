@@ -58345,7 +58345,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-<<<<<<< HEAD:bundle.js
 	var convertToTime = function convertToTime(minutes) {
 	  var hours = Math.floor(minutes / 60);
 	  var minutesRemaining = minutes - hours * 60;
@@ -58357,11 +58356,6 @@
 	  // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
 	  var style = props.enabled ? { 'display': 'inline-block' } : { 'display': 'none' };
 	  var formattedValue = props.type === 'time' ? convertToTime(props.value) : props.value;
-=======
-	var goal = function goal(props) {
-	  // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
-	  var style = props.enabled ? { 'display': 'inline-block' } : { 'display': 'none' };
->>>>>>> 9c1bb7a793edd46c2dc79cdac4c7c7de3b6c7d24:static/bundle.js
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'goal-wrapper' },
@@ -58374,11 +58368,7 @@
 	      onChange: props.changeGoal,
 	      type: 'text',
 	      'data-name': props.name.toLowerCase(),
-<<<<<<< HEAD:bundle.js
 	      value: formattedValue,
-=======
-	      value: props.value,
->>>>>>> 9c1bb7a793edd46c2dc79cdac4c7c7de3b6c7d24:static/bundle.js
 	      className: 'goal-input input ibm' }),
 	    _react2.default.createElement(
 	      'div',

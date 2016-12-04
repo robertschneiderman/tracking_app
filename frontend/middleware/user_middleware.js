@@ -1,6 +1,6 @@
 import * as API from '../util/users_api_util';
 import * as ACTIONS from '../actions/user/index';
-import {router, browserHistory} from 'react-router';
+import {router, hashHistory} from 'react-router';
 
 const userMiddleware = store => next => action => {
 

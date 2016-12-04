@@ -28,10 +28,16 @@ exports.newTask = function(req, res, next) {
 
 exports.getTasks = function(req, res, next) {
   var token = req.header('x-auth');
+  console.log(token);
   User.findByToken(token).then((user) => {
-    User.findOne({_id: user.buddy}).then(buddy => {
-      res.json({user: user.tasks, buddy: buddy.tasks});
-    });
+    console.log(user);
+    if (user.buddy) {
+      User.findOne({_id: user.buddy}).then(buddy => {
+        res.json({user: user.tasks, buddy: buddy.tasks});
+      });
+    } else {
+      res.json({user: user.tasks});      
+    }
   }).catch((e) => {
     res.status(401).send();
   });
