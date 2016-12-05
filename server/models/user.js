@@ -14,9 +14,24 @@ const userSchema = new Schema({
       interval: String,
       streak: { type: Number, default: 0 },     
       goals: {
-        daily: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
-        weekly: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
-        monthly: { count: { type: Number, default: 0 }, goal: Number, assessed: {last: Date, next: Date} },
+        daily: { 
+          count: { type: Number, default: 0 }, 
+          goal: Number,
+          assessed: {last: {type: Date }, next: {type: Date } },
+          originalMultiplier: Number
+        },
+        weekly: { 
+          count: { type: Number, default: 0 }, 
+          goal: Number,
+          assessed: {last: {type: Date }, next: {type: Date } },
+          originalMultiplier: Number          
+        },      
+        monthly: { 
+          count: { type: Number, default: 0 }, 
+          goal: Number,
+          assessed: {last: {type: Date }, next: {type: Date } },
+          originalMultiplier: Number          
+        }              
       },
       stubs: [
         { start: Date, end: Date }
@@ -46,7 +61,7 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
     if (err) { return callback(err); }
     callback(null, true);
     // callback(null, isMatch);
-  })
+  });
 };
 
 userSchema.statics.findByToken = function (token) {
@@ -64,7 +79,7 @@ userSchema.statics.findByToken = function (token) {
   return User.findOne({
     _id: decoded.sub,
   });
-}
+};
 
 const modelClass = mongoose.model('user', userSchema);
 

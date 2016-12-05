@@ -1,4 +1,5 @@
 import React from 'react';
+import TaskPopup from './task_popup';
 
 class Task extends React.Component {
 
@@ -17,7 +18,7 @@ class Task extends React.Component {
     this.goal = this.goals[this.task.interval].goal;  }
 
   incrementGoal(num) {
-    if (num === -1 && this.count === 0) return;
+    if (num === -1 && this.props.count === 0) return;
     this.props.incrementGoal(this.id, num);
   }
 
@@ -45,30 +46,30 @@ class Task extends React.Component {
   }
 
   timeTicker() {
-    let className = (this.count === 0) ? 'hollow' : 'solid';
-    let value = (this.count < 1) ? this.convertTime(this.goal) : '√'
+    let className = (this.props.count === 0) ? 'hollow' : 'solid';
+    let value = (this.props.count < 1) ? this.convertTime(this.goal) : '√';
 
-    return <span className={className}>{value}</span>
+    return <span className={className}>{value}</span>;
   }
 
   frequencyTicker() {
     let result, num, className;
 
-    if (this.count === 0) {
+    if (this.props.count === 0) {
       num = this.goal;
       className = 'hollow';
     } else {
-      num = this.count;
+      num = this.props.count;
       className = 'solid';
     }
 
-    let value = (this.count < this.goal) ? this.convertFrequency(num) : '√'    
+    let value = (this.props.count < this.goal) ? this.convertFrequency(num) : '√';    
     return <span className={className}>{value}</span>;
   }
 
   renderTicker() {
     let result = '';
-    let count = this.count, type = this.type, goal = this.goal;
+    let count = this.props.count, type = this.type, goal = this.goal;
 
     return (this.type === 'time') ? this.timeTicker() : this.frequencyTicker();
   }
@@ -81,7 +82,7 @@ class Task extends React.Component {
   render() {
     return(
       <li className="task">
-        <label className="task-label" htmlFor="">{this.name}</label>
+        <label onMouseEnter={this.props.reveal} onMouseLeave={this.props.hide} className="task-label" htmlFor="">{this.name}</label>       
         <button className="task-btn" onClick={this.incrementGoal.bind(this, 1)}>
           {this.renderTicker()}
         </button>
@@ -91,7 +92,7 @@ class Task extends React.Component {
           <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
         </div>
       </li>
-    )
+    );
         // <TaskPopup 
         //   description={this.props.description}
         //   count={this.props.count}

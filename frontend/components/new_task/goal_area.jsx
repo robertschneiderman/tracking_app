@@ -139,7 +139,8 @@ class GoalOptions extends React.Component {
       stubs: []
     };
     this.props.createTask(taskInfo);
-  }  
+  }
+  
 
   renderGoals() {
     let values = this.state[this.state.goalType];
@@ -149,16 +150,16 @@ class GoalOptions extends React.Component {
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Daily" enabled={true} type={this.state.goalType} value={values.daily} />,
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Weekly" enabled={false} type={this.state.goalType} value={values.weekly} />,
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
-      ]
+      ];
     } else if (this.state.goalInterval === 'weekly') {
       return [
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Weekly" enabled={true} type={this.state.goalType} value={values.weekly} />,
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={false} type={this.state.goalType} value={values.monthly} />
-      ]
+      ];
     } else {
       return (
         <Goal changeGoal={this.changeGoal} incrementGoal={this.incrementGoal} name="Monthly" enabled={true} type={this.state.goalType} value={values.monthly} />
-      )
+      );
     }
   }
 

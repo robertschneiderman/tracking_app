@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/task/index';
 import Task from './task';
 import _ from 'lodash';
+import TaskPopup from './task_popup';
+import $ from 'jquery';
+
 // import Container from './/_container';
 
 class Person extends React.Component {
@@ -41,14 +44,56 @@ class Person extends React.Component {
     return taskGroups;
   }
 
+  applyMultiplier(goals) {
+    for (let key in goals) {
+        let goal = goals[key];
+        if (!goal.assessed.last) {
+        goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
+        }
+    }
+    return goals;
+  }  
+
+  // applyMultiplier(goals) {
+  //   let goalsCopy = merge({}, goals);
+  //   let noMultiplies = true;
+  //   for (let key in goalsCopy) {
+  //       let goal = goalsCopy[key];
+  //       if (!goal.assessed.last) {
+  //         noMultiplies = false;
+  //         goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
+  //       }
+  //   }
+  //   return (noMultiplies) ? false : goalsCopy;
+  // }  
+
+  revealPopup(evt) {
+    console.log($(evt.target).parent().parent().find('.task-popup').css('display', 'block'));
+  }
+
+  hidePopup(evt) {
+    console.log($(evt.target).parent().parent().find('.task-popup').css('display', 'none'));
+  }  
+
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
-      return <Task
+      return (
+        <div className="task-container">
+            <Task
+              reveal={this.revealPopup.bind(this)}
+              hide={this.hidePopup.bind(this)}
               key={task._id}
               task={task}
-              goals={task.goals}
+              goals={this.applyMultiplier(task.goals)}
               count={task.goals.daily.count}
               incrementGoal={this.props.incrementGoal} />
+            <TaskPopup 
+              ref="popup"
+              name={task.name}
+              goals={task.goals} />
+        </div>
+      );
+
     });
   }
 
@@ -58,7 +103,7 @@ class Person extends React.Component {
         <h2 className="person-title">{this.props.user.email}</h2>
         {this.renderTaskGroup()}
       </div>
-    )
+    );
   }
 }
 
