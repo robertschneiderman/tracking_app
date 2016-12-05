@@ -25,13 +25,14 @@ if (today.getMonth() === 11) {
 } else {
   nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 }
-let emailText;
+let emailText = '';
+let dailyText = '';
+let weeklyText = '';
+let monthlyText = '';
 
 today = 0;
-nextWeek = 0;
-nextMonth = 0;
 
-setInterval(function() {
+// setInterval(function() {
         // var job = new CronJob('00 * * * * 1-5', function() {
         /*
         * Runs every weekday (Monday through Friday)
@@ -39,24 +40,26 @@ setInterval(function() {
         * or Sunday.
         */
         today += 5;
-        nextWeek += 5;
-        nextMonth += 5;
+        nextWeek = today + 10;
+        nextMonth = today + 15;
+        let checkWeekly = false;
+        let checkMonthly = false;
+
+        if (today === nextWeek) checkWeekly = true;
+        if (today === nextMonth) checkMonthly = true;
 
         const assess = (task, interval) => {
-            let goals = task.goals;   
+            let goals = task.goals;
             if (goals[interval] && goals[interval].count < goals[interval].goal) {
                 task.streak = 0;
                 let next = (interval === 'daily') ? nextDay : (interval === 'weekly') ? nextWeek : nextMonth;
-                goals[interval].assessed = { last: today, next }; 
+                goals[interval].assessed = { last: today, next };
+                emailText += `You did not complete your ${interval} ${task.name} goal (${goals[interval].count} of ${goals[interval].goal})<br />`;                
             } else {
                 task.streak += 1;
+                emailText += `You completed your ${interval} ${task.name} goal (${goals[interval].count} of ${goals[interval].goal})<br />`;                
             }            
             
-            console.log("task.goals: ", task.goals);
-            for (let key in task.goals) {
-                // let assessed = task.goals[key].assessed;
-                // console.log("task.goals[key]: ", task.goals[key]);
-            }
         };
 
         User.find({}, function(err, users) {
@@ -69,46 +72,48 @@ setInterval(function() {
                     goals.weekly.assessed.next = 10;
                     goals.daily.assessed.next = 5;
 
+                    emailText += `Monthly:<br />`;            
                     if (goals.monthly && goals.monthly.assessed.next === today) {
                         assess(task, 'monthly');
+                        emailText += `<br />`;                        
                         goals.montly.count = 0;            
                         goals.weekly.count = 0;            
                     } else if (goals.weekly && goals.weekly.assessed.next === today) {
+                        emailText += `Weekly:<br />`;                        
                         assess(task, 'weekly');
+                        emailText += `<br />`;                        
                         goals.weekly.count = 0;                
                     } else {
+                        emailText += `Daily:<br />`;                      
                         assess(task, 'daily');
                     }
                     goals.daily.count = 0;
                 });
             });
+
+            var mailOptions = {
+                from: '"Tracky" <robert.a.schneiderman@gmail.com>', // sender address
+                to: 'robert.a.schneiderman@gmail.com', // list of receivers
+                subject: 'Tracky', // Subject line
+                html: `${emailText}` // html body
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+            }); 
         });
-            console.log("cron job!!!");
     //     }, function () {
     //         /* This function is executed when the job stops */
     //     },
     //     true /* Start the job right now */
     //     );
-        today += 5;
-    }, 1000);
 
 
-
-var mailOptions = {
-    from: '"Tracky 👥" <robert.a.schneiderman@gmail.com>', // sender address
-    to: 'robert.a.schneiderman@gmail.com', // list of receivers
-    subject: 'Tracky', // Subject line
-    text: emailText, // plaintext body
-    html: '<b>Hello world</b>' // html body
-};
-
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-});  
+    // }, 100000000); 
 
 
 
