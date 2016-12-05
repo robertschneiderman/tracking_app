@@ -21,14 +21,14 @@ class Dashboard extends React.Component {
         <div className="persons">       
           <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
         </div>
-      )
+      );
     } else {
       return (
         <div className="persons">        
           <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
           <Person user={this.props.buddy} tasks={this.props.buddyTasks} incrementGoal={this.props.incrementGoal} />
         </div>
-      )
+      );
     }
   }
 
@@ -37,7 +37,7 @@ class Dashboard extends React.Component {
       <div className="dashboard">
         {this.renderPersons()}
       </div> 
-    )
+    );
   }
 }
 

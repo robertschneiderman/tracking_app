@@ -23,18 +23,31 @@ class TaskPopup extends React.Component {
     return this.props.goals;
   }
 
+  formattedDate(dateString) {
+      let timestamp = Date.parse(dateString);
+      let month = new Date(timestamp).getMonth();
+      let date = new Date(timestamp).getDate();
+      return `${month+1 % 12} / ${date}`;
+  }
+
   renderGoals(goals) {
     let goalComponents = [];
     for (let key in goals) {
         let goal = goals[key];
+        let reduced = (!goal.assessed.last) ? <span className="task-popup-goal-reduced">{Math.ceil(goal.goal * goal.originalMultiplier)}</span> : <span></span>;
         goalComponents.push(
             <li className="task-popup-goal">
                 <span className="task-popup-goal-interval">{key}</span>
-                <span className="task-popup-goal-count">{goal.count}</span>
-                <span className="task-popup-goal-bracket">/</span>
-                <span className="task-popup-goal-goal">{goal.goal}</span>
-                <span className="task-popup-goal-assessed">Next Assessed: </span>
-                <span className="task-popup-goal-assessed">{goal.assessed.next}</span>
+                <span className="task-popup-goal-completion">
+                    <span className="task-popup-goal-count">{goal.count}</span>
+                    <span className="task-popup-goal-bracket">/</span>
+                    {reduced}
+                    <span className="task-popup-goal-goal">{goal.goal}</span>
+                </span>
+                <span className="task-popup-goal-assessed">
+                    <span>Next Assessed: </span>
+                    <span>{this.formattedDate(goal.assessed.next)}</span>
+                </span>
             </li>
         );
     }
@@ -44,7 +57,6 @@ class TaskPopup extends React.Component {
   render() {
     return(
       <div className="task-popup">
-        <h3 className="task-popup-name">{this.props.name}</h3>
         <ul className="task-popup-goals">
             {this.renderGoals(this.props.goals)}
         </ul>     

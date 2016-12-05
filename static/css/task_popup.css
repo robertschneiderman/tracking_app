@@ -1,3 +1,48 @@
 .task-popup {
-    /*display: none;*/
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    z-index: 9999;
+    transform: translateX(30%);
+    top: -160%;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    width: 400px;
 }
+
+.task-popup-goals {
+
+}
+
+.task-popup-goal {
+    margin-bottom: 0.4rem;
+}
+
+.task-popup-goal-interval {margin-right: 1rem;}
+
+.task-popup-goal-completion {margin-right: 3rem;}
+
+.task-popup-goal-count {
+
+}
+
+.task-popup-goal-bracket {
+
+}
+
+.task-popup-goal-goal {
+
+}
+
+.task-popup-goal-reduced {
+    position: absolute;
+    left: 3.1rem;
+    top: -.3rem;
+}
+
+.task-popup-goal-reduced + .task-popup-goal-goal {
+    text-decoration: line-through;
+    opacity: .6;
+}
+
+.task-popup-goal-assessed {font-size: .9rem;color: #777;}

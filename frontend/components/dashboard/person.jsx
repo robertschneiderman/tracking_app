@@ -44,28 +44,28 @@ class Person extends React.Component {
     return taskGroups;
   }
 
-  applyMultiplier(goals) {
-    for (let key in goals) {
-        let goal = goals[key];
-        if (!goal.assessed.last) {
-        goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
-        }
-    }
-    return goals;
-  }  
-
   // applyMultiplier(goals) {
-  //   let goalsCopy = merge({}, goals);
-  //   let noMultiplies = true;
-  //   for (let key in goalsCopy) {
-  //       let goal = goalsCopy[key];
+  //   for (let key in goals) {
+  //       let goal = goals[key];
   //       if (!goal.assessed.last) {
-  //         noMultiplies = false;
-  //         goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
+  //       goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
   //       }
   //   }
-  //   return (noMultiplies) ? false : goalsCopy;
+  //   return goals;
   // }  
+
+  applyMultiplier(goals) {
+    let goalsCopy = _.merge({}, goals);
+    let noMultiplies = true;
+    for (let key in goalsCopy) {
+        let goal = goalsCopy[key];
+        if (!goal.assessed.last) {
+          noMultiplies = false;
+          goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
+        }
+    }
+    return (noMultiplies) ? false : goalsCopy;
+  }  
 
   revealPopup(evt) {
     console.log($(evt.target).parent().parent().find('.task-popup').css('display', 'block'));
@@ -77,6 +77,7 @@ class Person extends React.Component {
 
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
+      let temp = this.applyMultiplier(task.goals);
       return (
         <div className="task-container">
             <Task
@@ -84,13 +85,14 @@ class Person extends React.Component {
               hide={this.hidePopup.bind(this)}
               key={task._id}
               task={task}
-              goals={this.applyMultiplier(task.goals)}
+              goals={temp}
               count={task.goals.daily.count}
               incrementGoal={this.props.incrementGoal} />
             <TaskPopup 
               ref="popup"
               name={task.name}
-              goals={task.goals} />
+              goals={task.goals}
+              reduced={this.applyMultiplier(task.goals)} />
         </div>
       );
 

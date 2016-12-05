@@ -7,10 +7,10 @@ tomorrow.setHours(0,0,0,0);
 let nextWeek = new Date(today.getTime() + 7 * msInDay);
 nextWeek.setHours(0,0,0,0);
 let nextMonth;
-if (today.getMonth() == 11) {
-  nextMonth = new Date(today.getFullYear() + 1, 0, 0);
+if (today.getMonth() === 11) {
+  nextMonth = new Date(today.getFullYear() + 1, 0, 1);
 } else {
-  nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 }
 
 const days = {

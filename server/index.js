@@ -6,6 +6,7 @@ const cors = require('cors');
 
 // const { mongoose } = require('./db/mongoose');
 const router = require('./router');
+const cron = require('./cron');
 const app = express();
 
 const mongoose = require('./db/mongoose');
