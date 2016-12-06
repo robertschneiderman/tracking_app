@@ -1,6 +1,6 @@
 var CronJob = require('cron').CronJob;
 var nodemailer = require('nodemailer');
-    // host: 'smtp.gmail.com',
+var CronHelpers = require('./cron_helpers');
 var smtpConfig = {
     service: 'Mailgun',    
     auth: {
@@ -13,120 +13,59 @@ var smtpConfig = {
 var transporter = nodemailer.createTransport(smtpConfig);
 const User = require('./models/user');
 
-const getNextWeek = () => {
-    let nextWeek = new Date(today.getTime() + 7 * msInDay);
-    nextWeek.setHours(0,0,0,0);
-    return nextWeek;    
-};
-
-let today = new Date();
-let msInDay = (24 * 60 * 60 * 1000);
-// let nextDay = new Date(today.getTime() + msInDay);
-// nextDay.setHours(0,0,0,0);
-let nextWeek = new Date(today.getTime() + 7 * msInDay);
-nextWeek.setHours(0,0,0,0);
-let nextMonth;
-if (today.getMonth() === 11) {
-  nextMonth = new Date(today.getFullYear() + 1, 0, 1);
-} else {
-  nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-}
-
 var job = new CronJob('30 * * * * 1-5', function() {
     let emailText = '';
-    today = new Date();
-    let nextDay = new Date(today.getTime() + 60000); 
+    let today = new Date();
     
-    const assess = (goalObj, interval) => {
-        let goal = goalObj.goal;
-        let taskName = goalObj.taskName;
-        let taskStreak = goalObj.taskStreak;
-
-        if (goal.count < goal.goal) {
-            taskStreak = 0;
-            emailText += `You did not complete your ${interval} ${taskName} goal (${goal.count} of ${goal.goal})<br/>`;                
-        } else {
-            taskStreak += 1;
-            emailText += `You completed your ${interval} ${taskName} goal (${goal.count} of ${goal.goal})<br/>`;                
-        }
-
-        setValuesAfterAssessment(goal, interval);        
-    };
-
-    const compareDates = (date1, date2) => {
-        return (date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate());
-    };
-
-    const setValuesAfterAssessment = (goal, interval) => {
-        let next = (interval === 'daily') ? nextDay : (interval === 'weekly') ? nextWeek : nextMonth;
-        goal.assessed = { last: today, next };
-        goal.count = 0;
-    };
-
-    const getGoalObjs = (tasks, interval) => {
-        return tasks.map(task => {
-            if (task.goals[interval]) return { taskName: task.name, taskStreak: task.streak, goal: task.goals[interval] };
-        });
-    };
-
     User.find({}, function(err, users) {
         users.forEach(function(user) {
 
-            if (compareDates(today, nextMonth)) {
-                let monthlyGoals = getGoalObjs(user.tasks, 'monthly');
+            if (CronHelpers.isTimeOfMonth(today)) {
+                let monthlyGoals = CronHelpers.getGoalObjs(user.tasks, 'monthly');
                 emailText += `<b>Monthly:</b><br/><br/>`;                    
                 monthlyGoals.forEach(goalObj => {
-                    assess(goalObj, 'montly');
+                    emailText += CronHelpers.assess(goalObj, 'montly');
                 });                 
-                nextMonth = new Date(today.getTime() + (60000 * 3)); 
             }
 
-            if (compareDates(today, nextWeek)) {
-                let weeklyGoals = getGoalObjs(user.tasks, 'weekly');
+            if (CronHelpers.isTimeOfWeek(today)) {
+                let weeklyGoals = CronHelpers.getGoalObjs(user.tasks, 'weekly');
                 emailText += `<b>Weekly:</b><br/><br/>`;                    
                 weeklyGoals.forEach(goalObj => {
-                    assess(goalObj, 'weekly');
+                    emailText += CronHelpers.assess(goalObj, 'weekly');
                 });
-                nextWeek = new Date(today.getTime() + (60000 * 2)); 
             }
 
-            let dailyGoals = getGoalObjs(user.tasks, 'daily');
+            let dailyGoals = CronHelpers.getGoalObjs(user.tasks, 'daily');
             emailText += `<b>Daily:</b><br/><br/>`;                    
             dailyGoals.forEach(goalObj => {
-                assess(goalObj, 'daily');
+                emailText += CronHelpers.assess(goalObj, 'daily');
             });
+
+            var mailOptions = {
+                from: '"Tracky" <robert.a.schneiderman@gmail.com>', // sender address
+                to: `${user.email}`, // list of receivers
+                subject: 'Tracky', // Subject line
+                html: `${emailText}` // html body
+            };
+
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+            }); 
+
+            user.save(function(err2) {
+                // if (err) { return next(err); }                
+            }).catch((e) => {
+                // res.status(401).send();
+            });            
         });
 
-        var mailOptions = {
-            from: '"Tracky" <robert.a.schneiderman@gmail.com>', // sender address
-            to: 'robert.a.schneiderman@gmail.com', // list of receivers
-            subject: 'Tracky', // Subject line
-            html: `${emailText}` // html body
-        };
-
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info){
-            if(error){
-                return console.log(error);
-            }
-            console.log('Message sent: ' + info.response);
-        }); 
     });
     }, function () {
         /* This function is executed when the job stops */
     },
     true /* Start the job right now */
 );
-
-
-    // }, 100000000); 
-
-
-
-// Testing 
-//     run cron job every 1 minute
-//     every 2 minutes should assess weekly
-//     every 3 minutes should assess monthly
-
-//     Today should be right now
-
