@@ -118,6 +118,7 @@ class GoalOptions extends React.Component {
   }
 
   createTask() {
+    debugger;
     let goals = {};
     let daily = this.state[this.state.goalType].daily;
     let weekly = this.state[this.state.goalType].weekly;
@@ -137,7 +138,18 @@ class GoalOptions extends React.Component {
       interval: this.state.goalInterval,
       goals,
       stubs: []
-    };
+    };    
+
+    if (this.state.goalType === 'time') { // Make Daily Goal === 1 for time goal
+      let timeDefaults = [1, 5, 22];
+      taskInfo.timeUnit = daily;
+      let i = 0;
+      for (let interval in taskInfo.goals) {
+        taskInfo.goals[interval].goal = timeDefaults[i];
+        i++; 
+      }
+    }    
+
     this.props.createTask(taskInfo);
   }
   

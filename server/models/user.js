@@ -12,22 +12,23 @@ const userSchema = new Schema({
       name: String,
       type: { type: String },
       interval: String,
-      streak: { type: Number, default: 0 },     
+      streak: { type: Number, default: 0 },
+      timeUnit: Number,   
       goals: {
         daily: { 
-          count: { type: Number, default: 0 }, 
+          count: { type: Number }, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number
         },
         weekly: { 
-          count: { type: Number, default: 0 }, 
+          count: { type: Number }, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number          
         },      
         monthly: { 
-          count: { type: Number, default: 0 }, 
+          count: { type: Number }, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number          

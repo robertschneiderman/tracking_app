@@ -69,6 +69,7 @@ exports.newTask = function(req, res, next) {
     if (!user) {
       return Promise.reject();
     }
+    
 
     fillAssessments(req.body.goals);
     calculateMultipliers(req.body.goals);

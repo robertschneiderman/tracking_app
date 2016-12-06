@@ -78,6 +78,10 @@ class Person extends React.Component {
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
       let temp = this.applyMultiplier(task.goals);
+      let intervals = ["daily", "weekly", "monthly"];
+      debugger;
+      let quickestInterval = intervals[3 - Object.keys(task.goals).length];
+
       return (
         <div className="task-container">
             <Task
@@ -86,7 +90,7 @@ class Person extends React.Component {
               key={task._id}
               task={task}
               goals={temp}
-              count={task.goals.daily.count}
+              count={task.goals[quickestInterval].count}
               incrementGoal={this.props.incrementGoal} />
             <TaskPopup 
               ref="popup"
