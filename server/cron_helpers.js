@@ -66,8 +66,17 @@ const setValuesAfterAssessment = (goal, interval) => {
     goal.count = 0;
 };
 
+const tempfunction = goals => {
+    let correctGoalsObj = {}; // temp code to deal with problem
+    for (let interval in goals) {
+        if (goals[interval].count >= 0 ) correctGoalsObj[interval] = goals[interval];
+    }  
+    return correctGoalsObj;       
+};
+
 exports.getGoalObjs = (tasks, interval) => {
     return tasks.map(task => {
-        if (task.goals[interval]) return { taskName: task.name, taskStreak: task.streak, goal: task.goals[interval] };
+        let goals = tempfunction(task.goals);
+        if (goals[interval]) return { taskName: task.name, taskStreak: task.streak, goal: goals[interval] };
     });
 };

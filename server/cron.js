@@ -13,7 +13,7 @@ var smtpConfig = {
 var transporter = nodemailer.createTransport(smtpConfig);
 const User = require('./models/user');
 
-var job = new CronJob('30 * * * * 1-5', function() {
+var job = new CronJob('15 * * * * *', function() {
     let emailText = '';
     let today = new Date();
     

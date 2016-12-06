@@ -15,26 +15,20 @@ const userSchema = new Schema({
       streak: { type: Number, default: 0 },
       timeUnit: Number,   
       goals: {
-        daily: { 
+        daily: {
           count: Number, 
           goal: Number,
-          assessed: {last: {type: Date }, next: {type: Date } },
-          originalMultiplier: Number
+          originalMultiplier: Number,
         },
-        weekly: { 
+        weekly: {
           count: Number, 
           goal: Number,
-          assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number
         },      
-        monthly: { 
+        monthly: {
           count: Number, 
           goal: Number,
-          assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number          
-        },
-        new: {
-          anything: Number
         }    
       },
       stubs: [
