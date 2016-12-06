@@ -118,17 +118,17 @@ class GoalOptions extends React.Component {
   }
 
   createTask() {
-    let goals = {};
+    let goals = [];
     let daily = this.state[this.state.goalType].daily;
     let weekly = this.state[this.state.goalType].weekly;
     let monthly = this.state[this.state.goalType].monthly;
 
     if (this.state.goalInterval === 'daily') {
-      goals = { daily: { count: 0, goal: daily }, weekly: { count: 0, goal: weekly }, monthly: { count: 0, goal: monthly } } ;
+      goals = [ { interval: 'daily', count: 0, goal: daily }, { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
     } else if (this.state.goalInterval === 'weekly') {
-      goals = { weekly: { count: 0, goal: weekly }, monthly: { count: 0, goal: monthly } };    
+      goals = [ { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
     } else {
-      goals = { monthly: { count: 0, goal: monthly } } ;      
+      goals = [ { interval: 'monthly', count: 0, goal: monthly } ] ;
     }
 
     let taskInfo = {
@@ -137,16 +137,21 @@ class GoalOptions extends React.Component {
       interval: this.state.goalInterval,
       goals,
       stubs: []
-    };    
+    };  
 
     if (this.state.goalType === 'time') { // Make Daily Goal === 1 for time goal
       let timeDefaults = [1, 5, 22];
       taskInfo.timeUnit = daily;
-      let i = 0;
-      for (let interval in taskInfo.goals) {
-        taskInfo.goals[interval].goal = timeDefaults[i];
-        i++; 
+      let j = 2;
+      for (let i = taskInfo.goals.length - 1; i < taskInfo.goals.length; i--) {
+        let goal = taskInfo.goals[i];
+        goal.goal = timeDefaults[j];
+        j--;
       }
+      // for (let interval in taskInfo.goals) {
+      //   taskInfo.goals[interval].goal = timeDefaults[i];
+      //   i++; 
+      // }
     }    
 
     this.props.createTask(taskInfo);

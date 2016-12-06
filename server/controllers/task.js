@@ -24,33 +24,28 @@ const days = {
 };
 
 const fillAssessments = goals => {
-  for (let key in goals) {
-    goals[key].assessed = {};
-    goals[key].assessed.last = null;
-    if (key === 'daily') {
-      goals[key].assessed.next = tomorrow;        
-    } else if (key === 'weekly') {
-      goals[key].assessed.next = nextWeek;        
-    } else if (key === 'monthly') {
-      goals[key].assessed.next = nextMonth;        
-    }
-  }  
+  goals.forEach(goal => {
+    goal.lastAssessed = null;
+    if (goal.interval === 'daily') goal.nextAssessed = tomorrow;
+    if (goal.interval === 'weekly') goal.nextAssessed = nextWeek;
+    if (goal.interval === 'monthly') goal.nextAssessed = nextMonth;
+  });
 };
 
 const calculateMultipliers = goals => {
-  for (let key in goals) {
+  goals.forEach(goal => {
       let dailyTimeExhaustedPecent = (today.getHours() + (today.getMinutes() / 60)) / 24;
       let dailyTimeLeftPercent = 1 - dailyTimeExhaustedPecent;
-    if (key === 'daily') {
-      goals[key].originalMultiplier = dailyTimeLeftPercent;
-    } else if (key === 'weekly') {
-      let daysLeft = days[today.getDay()];
-      goals[key].originalMultiplier = (daysLeft - 1 + dailyTimeLeftPercent) / 7;
-    } else {
-      let daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
-      goals[key].originalMultiplier = (daysInMonth - today.getDate() - dailyTimeExhaustedPecent) / daysInMonth;
-    }
-  }
+      if (goal.interval === 'daily') {
+        goal.originalMultiplier = dailyTimeLeftPercent;
+      } else if (goal.interval === 'weekly') {
+        let daysLeft = days[today.getDay()];
+        goal.originalMultiplier = (daysLeft - 1 + dailyTimeLeftPercent) / 7;
+      } else {
+        let daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+        goal.originalMultiplier = (daysInMonth - today.getDate() - dailyTimeExhaustedPecent) / daysInMonth;
+      }
+  });
 };
 
 const applyMultipliers = task => {

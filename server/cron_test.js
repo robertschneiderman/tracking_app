@@ -16,60 +16,60 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('25 * * * * *', function() {
-    let emailText = '';
-    todayInteger = new Date().getMinutes();
+// var job = new CronJob('25 * * * * *', function() {
+//     let emailText = '';
+//     todayInteger = new Date().getMinutes();
 
 
-    User.find({}, function(err, users) {
-        users.forEach(function(user) {       
+//     User.find({}, function(err, users) {
+//         users.forEach(function(user) {       
 
-            if (todayInteger % 4 === 0) {
-                let monthlyGoals = CronHelpers.getGoalObjs(user.tasks, 'monthly');
-                emailText += `<b>Monthly:</b><br/><br/>`;                    
-                monthlyGoals.forEach(goalObj => {
-                    emailText += CronHelpers.assess(goalObj, 'montly');
-                });                 
-            }
+//             if (todayInteger % 4 === 0) {
+//                 let monthlyGoals = CronHelpers.getGoalObjs(user.tasks, 'monthly');
+//                 emailText += `<b>Monthly:</b><br/><br/>`;                    
+//                 monthlyGoals.forEach(goalObj => {
+//                     emailText += CronHelpers.assess(goalObj, 'montly');
+//                 });                 
+//             }
 
-            if (todayInteger % 2 === 0) {
-                let weeklyGoals = CronHelpers.getGoalObjs(user.tasks, 'weekly');
-                emailText += `<b>Weekly:</b><br/><br/>`;                    
-                weeklyGoals.forEach(goalObj => {
-                    emailText += CronHelpers.assess(goalObj, 'weekly');
-                });
-            }
+//             if (todayInteger % 2 === 0) {
+//                 let weeklyGoals = CronHelpers.getGoalObjs(user.tasks, 'weekly');
+//                 emailText += `<b>Weekly:</b><br/><br/>`;                    
+//                 weeklyGoals.forEach(goalObj => {
+//                     emailText += CronHelpers.assess(goalObj, 'weekly');
+//                 });
+//             }
 
-            let dailyGoals = CronHelpers.getGoalObjs(user.tasks, 'daily');
-            emailText += `<b>Daily:</b><br/><br/>`;                    
-            dailyGoals.forEach(goalObj => {
-                emailText += CronHelpers.assess(goalObj, 'daily');
-            });
+//             let dailyGoals = CronHelpers.getGoalObjs(user.tasks, 'daily');
+//             emailText += `<b>Daily:</b><br/><br/>`;                    
+//             dailyGoals.forEach(goalObj => {
+//                 emailText += CronHelpers.assess(goalObj, 'daily');
+//             });
             
-            var mailOptions = {
-                from: '"Tracky" <robert.a.schneiderman@gmail.com>',
-                to: `${user.email}`,
-                subject: 'Tracky',
-                html: `${emailText}`
-            };
+//             var mailOptions = {
+//                 from: '"Tracky" <robert.a.schneiderman@gmail.com>',
+//                 to: `${user.email}`,
+//                 subject: 'Tracky',
+//                 html: `${emailText}`
+//             };
 
-            transporter.sendMail(mailOptions, function(error, info){
-                if(error){
-                    return console.log(error);
-                }
-                console.log('Message sent: ' + info.response);
-            });
+//             transporter.sendMail(mailOptions, function(error, info){
+//                 if(error){
+//                     return console.log(error);
+//                 }
+//                 console.log('Message sent: ' + info.response);
+//             });
 
-            user.save(function(err2) {
-                // if (err) { return next(err); }                
-            }).catch((e) => {
-                // res.status(401).send();
-            });        
-        });
+//             user.save(function(err2) {
+//                 // if (err) { return next(err); }                
+//             }).catch((e) => {
+//                 // res.status(401).send();
+//             });        
+//         });
 
 
         
-    });
-}, null, true, 'America/Los_Angeles');
+//     });
+// }, null, true, 'America/Los_Angeles');
 
 
