@@ -9,17 +9,12 @@ class Task extends React.Component {
   }
 
   componentWillMount(nextProps) {
-    this.task = this.props.task;
-    this.id = this.task._id;
-    this.name = this.task.name;
-    this.type = this.task.type;
-    this.goals = this.task.goals;
-    this.count = this.goals[this.task.interval].count;
-    this.goal = this.goals[this.task.interval].goal;  }
+
+  }
 
   incrementGoal(num) {
-    if (num === -1 && this.props.count === 0) return;
-    this.props.incrementGoal(this.id, num);
+    if (num === -1 && this.props.goal.count === 0) return;
+    this.props.incrementGoal(this.props.task._id, num);
   }
 
   convertTime(minutes) {
@@ -47,7 +42,7 @@ class Task extends React.Component {
 
   timeTicker() {
     let className = (this.props.count === 0) ? 'hollow' : 'solid';
-    let value = (this.props.count < 1) ? this.convertTime(this.goal) : '√';
+    let value = (this.props.goal.count < 1) ? this.convertTime(this.props.task.timeUnit) : '√';
 
     return <span className={className}>{value}</span>;
   }
@@ -56,33 +51,33 @@ class Task extends React.Component {
     let result, num, className;
 
     if (this.props.count === 0) {
-      num = this.goal;
+      num = this.props.goal.goal;
       className = 'hollow';
     } else {
       num = this.props.count;
       className = 'solid';
     }
-
-    let value = (this.props.count < this.goal) ? this.convertFrequency(num) : '√';    
+    let value = (this.props.count < this.props.goal.goal) ? this.convertFrequency(num) : '√';
+    value = (this.props.type === 'time') ? 'I' : value;  
     return <span className={className}>{value}</span>;
   }
 
   renderTicker() {
     let result = '';
-    let count = this.props.count, type = this.type, goal = this.goal;
+    let count = this.props.count, type = this.type, goal = this.props.goal;
 
-    return (this.type === 'time') ? this.timeTicker() : this.frequencyTicker();
+    return (this.props.type === 'time') ? this.timeTicker() : this.frequencyTicker();
   }
 
   renderCount() {
-    let goal = (this.type === 'time') ? '1' : this.goal;
+    let goal = (this.type === 'time') ? '1' : this.props.goal.goal;
     return `${this.props.count} / ${goal}`;
   }
 
   render() {
     return(
       <li className="task">
-        <label onMouseEnter={this.props.reveal} onMouseLeave={this.props.hide} className="task-label" htmlFor="">{this.name}</label>       
+        <label onMouseEnter={this.props.reveal} onMouseLeave={this.props.hide} className="task-label" htmlFor="">{this.props.task.name}</label>       
         <button className="task-btn" onClick={this.incrementGoal.bind(this, 1)}>
           {this.renderTicker()}
         </button>

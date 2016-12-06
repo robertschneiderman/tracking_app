@@ -78,6 +78,7 @@ exports.newTask = function(req, res, next) {
       name: req.body.name,
       type: req.body.type,
       interval: req.body.interval,
+      timeUnit: req.body.timeUnit,
       goals: req.body.goals
     };
 

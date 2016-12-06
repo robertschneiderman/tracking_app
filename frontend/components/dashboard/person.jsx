@@ -56,15 +56,13 @@ class Person extends React.Component {
 
   applyMultiplier(goals) {
     let goalsCopy = _.merge({}, goals);
-    let noMultiplies = true;
     for (let key in goalsCopy) {
         let goal = goalsCopy[key];
         if (!goal.assessed.last) {
-          noMultiplies = false;
           goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
         }
     }
-    return (noMultiplies) ? false : goalsCopy;
+    return goalsCopy;
   }  
 
   revealPopup(evt) {
@@ -77,11 +75,11 @@ class Person extends React.Component {
 
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
-      let temp = this.applyMultiplier(task.goals);
+      let goals = task.goals;
+      // let goals = this.applyMultiplier(task.goals);
+    // debugger;      
       let intervals = ["daily", "weekly", "monthly"];
-      debugger;
       let quickestInterval = intervals[3 - Object.keys(task.goals).length];
-
       return (
         <div className="task-container">
             <Task
@@ -89,8 +87,9 @@ class Person extends React.Component {
               hide={this.hidePopup.bind(this)}
               key={task._id}
               task={task}
-              goals={temp}
-              count={task.goals[quickestInterval].count}
+              type={task.type}
+              goal={goals[task.interval]}
+              count={goals[quickestInterval].count}
               incrementGoal={this.props.incrementGoal} />
             <TaskPopup 
               ref="popup"

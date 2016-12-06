@@ -18,12 +18,20 @@ exports.update = function(req, res, next) {
       return Promise.reject();
     }
 
-    let task = user.tasks.find(task => {
-      return task._id == req.params.id;
+    let task = user.tasks.find(task2 => {
+      return task2._id == req.params.id;
     });
 
+    let goals = task.goals;
+
     let newGoals = (req.body.increment) ? increment(task.goals, req.body) : req.body;
-    task.goals = newGoals;
+
+    let correctGoalsObj = {}; // temp code to deal with problem
+    for (let interval in newGoals) {
+      if (newGoals[interval].count >= 0 ) correctGoalsObj[interval] = newGoals[interval];
+    }
+
+    task.goals = correctGoalsObj;
 
     user.save(function(err) {
       if (err) { return next(err); }

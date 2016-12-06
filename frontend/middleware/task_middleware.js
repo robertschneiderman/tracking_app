@@ -43,6 +43,6 @@ const taskMiddleware = store => next => action => {
       return next(action);
       break;      
   }
-}   
+};   
 
 export default taskMiddleware;

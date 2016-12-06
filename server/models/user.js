@@ -16,23 +16,26 @@ const userSchema = new Schema({
       timeUnit: Number,   
       goals: {
         daily: { 
-          count: { type: Number }, 
+          count: Number, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number
         },
         weekly: { 
-          count: { type: Number }, 
+          count: Number, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
-          originalMultiplier: Number          
+          originalMultiplier: Number
         },      
         monthly: { 
-          count: { type: Number }, 
+          count: Number, 
           goal: Number,
           assessed: {last: {type: Date }, next: {type: Date } },
           originalMultiplier: Number          
-        }              
+        },
+        new: {
+          anything: Number
+        }    
       },
       stubs: [
         { start: Date, end: Date }
