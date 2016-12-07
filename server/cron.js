@@ -1,16 +1,7 @@
 var CronJob = require('cron').CronJob;
-var nodemailer = require('nodemailer');
 var CronHelpers = require('./cron_helpers');
-var smtpConfig = {
-    service: 'Mailgun',    
-    auth: {
-        user: 'postmaster@sandbox28e182c251764d5b96a71536174ca420.mailgun.org',
-        pass: '1bef070f9f714e347f36c45c0d5437e0',
-        apiKey: 'key-73f4d8a1f95e332bd967b059bbdd4e47',
-        domain: 'sandbox28e182c251764d5b96a71536174ca420.mailgun.org'
-    }
-};
-var transporter = nodemailer.createTransport(smtpConfig);
+var MailGun = require('./mailgun_helpers');
+
 const User = require('./models/user');
 
 var job = new CronJob('15 * * * * *', function() {
@@ -49,7 +40,7 @@ var job = new CronJob('15 * * * * *', function() {
                 html: `${emailText}` // html body
             };
 
-            transporter.sendMail(mailOptions, function(error, info){
+            MailGun.transporter.sendMail(mailOptions, function(error, info){
                 if(error){
                     return console.log(error);
                 }
