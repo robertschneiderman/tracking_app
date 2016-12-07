@@ -70055,7 +70055,7 @@
 /* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -70068,8 +70068,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
-	var ROOT_URL = 'https://trackyy.herokuapp.com/';
+	var ROOT_URL = process.env.NODE_ENV !== "production" ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
+	// const ROOT_URL = 'https://trackyy.herokuapp.com/';
 	
 	_axios2.default.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 	_axios2.default.defaults.headers.post['Content-Type'] = 'application/json';
@@ -70079,6 +70079,7 @@
 	    console.log(error);
 	  });
 	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 514 */
