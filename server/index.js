@@ -6,7 +6,7 @@ const cors = require('cors');
 
 // const { mongoose } = require('./db/mongoose');
 const router = require('./router');
-const cron = (process.env.NODE_ENV === 'development') ?  require('./cron_test') : require('./cron');
+const cron = (process.env.NODE_ENV !== 'production') ?  require('./cron_test') : require('./cron');
 const app = express();
 
 const mongoose = require('./db/mongoose');

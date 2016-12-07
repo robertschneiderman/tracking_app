@@ -129,7 +129,7 @@
 	}
 	
 	if (currentUser) {
-	  // debugger;
+	  debugger;
 	
 	  store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 	}
@@ -38510,7 +38510,6 @@
 	  var email = _ref.email,
 	      password = _ref.password;
 	
-	  debugger;
 	  return function (dispatch) {
 	    _axios2.default.post(ROOT_URL + '/signin', { email: email, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });

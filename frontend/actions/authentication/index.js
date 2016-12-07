@@ -10,7 +10,6 @@ const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:309
 // const ROOT_URL = 'https://trackyy.herokuapp.com';
 
 export function signinUser({ email, password }) {
-        debugger;  
   return function(dispatch) {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then(response => {
