@@ -6,7 +6,7 @@ import {
   AUTH_ERROR
 } from '../types';
 
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
 
 export function signinUser({ email, password }) {
   return function(dispatch) {
@@ -19,7 +19,7 @@ export function signinUser({ email, password }) {
       })
       .catch(() => {
         dispatch(authError("Bad Login Info"));
-      })
+      });
   };
 }
 
@@ -35,8 +35,8 @@ export function signupUser({ email, password }) {
         dispatch(authError("Bad Signup Info"));
       });
       // .catch(response => dispatch(authError(response.data.error)))
-  }
-};
+  };
+}
 
 export function authError(error) {
   return {
