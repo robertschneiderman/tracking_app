@@ -1,9 +1,9 @@
 const User = require('../models/user');
 
 exports.find = function(req, res, next) {
-  User.findOne({_id: req.params.id}).then(user => {
+  User.findById(req.params.id).then(user => {
     // console.log("user:", user);
-    User.findOne({_id: user.buddy}).then(buddy => {
+    User.findById(user.buddy).then(buddy => {
       // console.log("buddy:", buddy);
       res.send({
         user: {id: user._id, email: user.email},

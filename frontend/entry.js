@@ -35,7 +35,7 @@ if (token) {
 if (currentUser) {
   // debugger;
   
-  store.dispatch({ type: 'REQUEST_USER', payload: "583a30218639226d6cff75ea" });
+  store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 }
 
 ReactDOM.render(

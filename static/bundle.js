@@ -131,7 +131,7 @@
 	if (currentUser) {
 	  // debugger;
 	
-	  store.dispatch({ type: 'REQUEST_USER', payload: "583a30218639226d6cff75ea" });
+	  store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 	}
 	
 	_reactDom2.default.render(_react2.default.createElement(
@@ -38483,7 +38483,7 @@
 /* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -38503,18 +38503,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
-	var ROOT_URL = 'https://trackyy.herokuapp.com/';
+	var ROOT_URL = process.env.NODE_ENV !== "production" ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com';
+	// const ROOT_URL = 'https://trackyy.herokuapp.com';
 	
 	function signinUser(_ref) {
 	  var email = _ref.email,
 	      password = _ref.password;
 	
+	  debugger;
 	  return function (dispatch) {
 	    _axios2.default.post(ROOT_URL + '/signin', { email: email, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });
 	      localStorage.setItem('token', response.data.token);
-	      localStorage.setItem('currentUser', response.data.user);
+	      localStorage.setItem('currentUser', response.data.user.id);
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
 	      dispatch(authError("Bad Login Info"));
@@ -38550,6 +38551,7 @@
 	  localStorage.removeItem('currentUser');
 	  return { type: _types.UNAUTH_USER };
 	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 440 */
@@ -70068,8 +70070,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ROOT_URL = process.env.NODE_ENV !== "production" ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
-	// const ROOT_URL = 'https://trackyy.herokuapp.com/';
+	var ROOT_URL = process.env.NODE_ENV !== "production" ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com';
+	// const ROOT_URL = 'https://trackyy.herokuapp.com';
 	
 	_axios2.default.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 	_axios2.default.defaults.headers.post['Content-Type'] = 'application/json';
@@ -70155,7 +70157,7 @@
 /* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -70168,8 +70170,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com/';
-	var ROOT_URL = 'https://trackyy.herokuapp.com/';
+	var ROOT_URL = process.env.NODE_ENV !== "production" ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com';
 	
 	_axios2.default.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 	_axios2.default.defaults.headers.post['Content-Type'] = 'application/json';
@@ -70190,6 +70191,7 @@
 	    console.log(error);
 	  });
 	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }
 /******/ ]);

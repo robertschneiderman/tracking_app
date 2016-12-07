@@ -21,6 +21,6 @@ const userMiddleware = store => next => action => {
       return next(action);
       break;      
   }
-}   
+};   
 
 export default userMiddleware;
