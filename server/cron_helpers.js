@@ -42,10 +42,10 @@ exports.assess = (goalObj, interval) => {
 
     if (goal.count < goal.goal) {
         goal.streak = 0;
-        message = `Incomplete: ${task.name} (${goal.count} of ${goal.goal})<br/>`;                
+        message = `<span style="color: red;">Incomplete: ${task.name} (${goal.count} of ${goal.goal})</span><br/>`;                
     } else {
         goal.streak += 1;
-        message = `Complete: ${task.name} (${goal.count} of ${goal.goal}) Streak: ${goal.streak}<br/>`;                
+        message = `<span style="color: green;">Complete: ${task.name} (${goal.count} of ${goal.goal}) <b>Streak: ${goal.streak}</span><b><br/>`;                
     }
     
     setValuesAfterAssessment(goal, interval);
