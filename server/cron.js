@@ -4,7 +4,7 @@ var MailGun = require('./mailgun_helpers');
 
 const User = require('./models/user');
 
-var job = new CronJob('15 00 11 * * *', function() {
+var job = new CronJob('15 07 11 * * *', function() {
     let emailText = '';
     let today = new Date();
     
