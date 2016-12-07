@@ -5,9 +5,9 @@ var _ = require('lodash');
 const increment = (goals, incrementObj) => {
   let num = parseInt(incrementObj.increment);
   goals = goals.toObject();
-  for (var key in goals) {
-    goals[key].count += num;
-  }
+  goals.forEach(goal => {
+    goal.count += num;
+  });
   return goals;
 };
 
@@ -26,12 +26,7 @@ exports.update = function(req, res, next) {
 
     let newGoals = (req.body.increment) ? increment(task.goals, req.body) : req.body;
 
-    let correctGoalsObj = {}; // temp code to deal with problem
-    for (let interval in newGoals) {
-      if (newGoals[interval].count >= 0 ) correctGoalsObj[interval] = newGoals[interval];
-    }
-
-    task.goals = correctGoalsObj;
+    task.goals = newGoals;
 
     user.save(function(err) {
       if (err) { return next(err); }

@@ -16,7 +16,7 @@ class TaskPopup extends React.Component {
   applyMultiplier() {
     for (let key in this.props.goals) {
         let goal = this.props.goals[key];
-        if (!goal.assessed.last) {
+        if (!goal.lastAssessed) {
         goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
         }
     }
@@ -34,7 +34,7 @@ class TaskPopup extends React.Component {
     let goalComponents = [];
     for (let key in goals) {
         let goal = goals[key];
-        let reduced = (!goal.assessed.last) ? <span className="task-popup-goal-reduced">{Math.ceil(goal.goal * goal.originalMultiplier)}</span> : <span></span>;
+        let reduced = (!goal.lastAssessed) ? <span className="task-popup-goal-reduced">{Math.ceil(goal.goal * goal.originalMultiplier)}</span> : <span></span>;
         goalComponents.push(
             <li className="task-popup-goal">
                 <span className="task-popup-goal-interval">{key}</span>
@@ -46,7 +46,7 @@ class TaskPopup extends React.Component {
                 </span>
                 <span className="task-popup-goal-assessed">
                     <span>Next Assessed: </span>
-                    <span>{this.formattedDate(goal.assessed.next)}</span>
+                    <span>{this.formattedDate(goal.nextAssessed)}</span>
                 </span>
             </li>
         );

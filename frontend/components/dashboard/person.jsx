@@ -21,7 +21,7 @@ class Person extends React.Component {
   sortTasks() {
     let sortedTasks = {};
     this.props.tasks.forEach(task => {
-      let key = task.interval;
+      let key = task.shortestInterval;
       if (sortedTasks[key]) {
         sortedTasks[key].push(task);
       } else {
@@ -47,7 +47,7 @@ class Person extends React.Component {
   // applyMultiplier(goals) {
   //   for (let key in goals) {
   //       let goal = goals[key];
-  //       if (!goal.assessed.last) {
+  //       if (!goal.lastAssessed) {
   //       goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
   //       }
   //   }
@@ -58,7 +58,7 @@ class Person extends React.Component {
     let goalsCopy = _.merge({}, goals);
     for (let key in goalsCopy) {
         let goal = goalsCopy[key];
-        if (!goal.assessed.last) {
+        if (!goal.lastAssessed) {
           goal.goal = Math.ceil(goal.goal * goal.originalMultiplier);
         }
     }
@@ -88,8 +88,8 @@ class Person extends React.Component {
               key={task._id}
               task={task}
               type={task.type}
-              goal={goals[task.interval]}
-              count={goals[quickestInterval].count}
+              goal={goals[0]}
+              count={goals[0].count}
               incrementGoal={this.props.incrementGoal} />
             <TaskPopup 
               ref="popup"

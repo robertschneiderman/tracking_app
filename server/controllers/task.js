@@ -72,7 +72,7 @@ exports.newTask = function(req, res, next) {
     let task = {
       name: req.body.name,
       type: req.body.type,
-      interval: req.body.interval,
+      shortestInterval: req.body.shortestInterval,
       timeUnit: req.body.timeUnit,
       goals: req.body.goals
     };

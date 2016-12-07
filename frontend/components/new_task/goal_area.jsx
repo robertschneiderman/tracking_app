@@ -134,7 +134,7 @@ class GoalOptions extends React.Component {
     let taskInfo = {
       name: this.state.name,
       type: this.state.goalType,
-      interval: this.state.goalInterval,
+      shortestInterval: this.state.goalInterval,
       goals,
       stubs: []
     };  
