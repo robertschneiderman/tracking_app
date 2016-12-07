@@ -35,16 +35,17 @@ exports.compareDates = (date1, date2) => {
 
 exports.assess = (goalObj, interval) => {
     let goal = goalObj.goal;
-    let taskName = goalObj.taskName;
-    let taskStreak = goalObj.taskStreak;
+    let task = goalObj.task;
+    // let taskName = goalObj.taskName;
+    // let taskStreak = goalObj.taskStreak;
     let message;
 
     if (goal.count < goal.goal) {
-        taskStreak = 0;
-        message = `You did not complete your ${interval} ${taskName} goal (${goal.count} of ${goal.goal})<br/>`;                
+        goal.streak = 0;
+        message = `Incomplete: ${task.name} (${goal.count} of ${goal.goal})<br/>`;                
     } else {
-        taskStreak += 1;
-        message = `You completed your ${interval} ${taskName} goal (${goal.count} of ${goal.goal})<br/>`;                
+        goal.streak += 1;
+        message = `Complete: ${task.name} (${goal.count} of ${goal.goal}) Streak: ${goal.streak}<br/>`;                
     }
     
     setValuesAfterAssessment(goal, interval);
@@ -71,7 +72,7 @@ exports.getGoalObjs = (tasks, interval) => {
         for (let i = 0; i < task.goals.length; i++) {
             let goal = task.goals[i];
             if (goal.interval === interval) {
-                return { taskName: task.name, taskStreak: task.streak, goal: goal };
+                return { task, goal: goal };
             } else {
 
             }

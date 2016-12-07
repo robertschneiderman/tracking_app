@@ -7,7 +7,7 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('20 * * * * *', function() {
+var job = new CronJob('42 * * * * *', function() {
     let emailText = '';
     todayInteger = new Date().getMinutes();
 

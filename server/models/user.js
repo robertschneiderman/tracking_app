@@ -12,13 +12,13 @@ const userSchema = new Schema({
       name: String,
       type: { type: String },
       shortestInterval: String,
-      streak: { type: Number, default: 0 },
       timeUnit: Number,   
       goals: [
         {
           interval: String,
           count: Number, 
           goal: Number,
+          streak: { type: Number, default: 0 },
           originalMultiplier: Number,
           lastAssessed: Date,
           nextAssessed: Date       
