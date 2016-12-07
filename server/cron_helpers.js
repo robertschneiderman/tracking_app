@@ -70,7 +70,13 @@ exports.getGoalObjs = (tasks, interval) => {
     return tasks.map(task => {
         for (let i = 0; i < task.goals.length; i++) {
             let goal = task.goals[i];
-            if (goal.interval === interval) return { taskName: task.name, taskStreak: task.streak, goal: goal };
+            if (goal.interval === interval) {
+                return { taskName: task.name, taskStreak: task.streak, goal: goal };
+            } else {
+
+            }
         }
+    }).filter(task => {
+        return (task !== undefined);
     });
 };

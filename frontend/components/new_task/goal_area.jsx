@@ -143,7 +143,7 @@ class GoalOptions extends React.Component {
       let timeDefaults = [1, 5, 22];
       taskInfo.timeUnit = daily;
       let j = 2;
-      for (let i = taskInfo.goals.length - 1; i < taskInfo.goals.length; i--) {
+      for (let i = taskInfo.goals.length - 1; i >= 0; i--) {
         let goal = taskInfo.goals[i];
         goal.goal = timeDefaults[j];
         j--;
