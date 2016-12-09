@@ -7,15 +7,17 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('42 * * * * *', function() {
-    let emailText = '';
+var job = new CronJob('50 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
 
     User.find({}, function(err, users) {
         users.forEach(function(user) { 
+            let emailText = '';
+
             User.findById(user.buddy).then(buddy => {
-                [user,buddy].forEach(person => {
+                let people = (buddy) ? [user, buddy] : [user];
+                people.forEach(person => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     if (todayInteger % 4 === 0) {
                         let monthlyGoals = CronHelpers.getGoalObjs(person.tasks, 'monthly');

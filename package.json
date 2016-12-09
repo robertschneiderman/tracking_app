@@ -5,7 +5,8 @@
   "main": "./server/index.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register --require ./frontend/test/test_helper.js --recursive ./frontend/test",
+    "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js",
     "dev": "nodemon ./server/index.js"
   },
@@ -62,5 +63,12 @@
   "engines": {
     "node": "6.3.1",
     "npm": "3.10.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.1"
   }
 }

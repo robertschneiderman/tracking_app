@@ -36,7 +36,7 @@ const goal = props => {
           className="goal-input-btn bottom">@</button>
       </div>
     </div>
-  )
+  );
 };
 
 export default goal;
