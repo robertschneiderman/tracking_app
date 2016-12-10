@@ -56,17 +56,7 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _redux = __webpack_require__(179);
-	
 	var _reactRouter = __webpack_require__(202);
-	
-	var _reduxThunk = __webpack_require__(255);
-	
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-	
-	var _reduxLogger = __webpack_require__(256);
-	
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
 	var _app = __webpack_require__(262);
 	
@@ -100,43 +90,28 @@
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
-	var _reducers = __webpack_require__(483);
-	
-	var _reducers2 = _interopRequireDefault(_reducers);
-	
 	var _types = __webpack_require__(465);
 	
-	var _user_middleware = __webpack_require__(511);
+	var _store = __webpack_require__(515);
 	
-	var _user_middleware2 = _interopRequireDefault(_user_middleware);
-	
-	var _task_middleware = __webpack_require__(513);
-	
-	var _task_middleware2 = _interopRequireDefault(_task_middleware);
+	var _store2 = _interopRequireDefault(_store);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var logger = (0, _reduxLogger2.default)();
-	
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, logger, _user_middleware2.default, _task_middleware2.default)(_redux.createStore);
-	var store = createStoreWithMiddleware(_reducers2.default);
 	
 	var token = localStorage.getItem('token');
 	var currentUser = localStorage.getItem('currentUser');
 	
 	if (token) {
-	  store.dispatch({ type: _types.AUTH_USER });
+	  _store2.default.dispatch({ type: _types.AUTH_USER });
 	}
 	
 	if (currentUser) {
-	  debugger;
-	
-	  store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
+	  _store2.default.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 	}
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
-	  { store: store },
+	  { store: _store2.default },
 	  _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
@@ -38508,10 +38483,11 @@
 	
 	function signinUser(_ref) {
 	  var email = _ref.email,
+	      name = _ref.name,
 	      password = _ref.password;
 	
 	  return function (dispatch) {
-	    _axios2.default.post(ROOT_URL + '/signin', { email: email, password: password }).then(function (response) {
+	    _axios2.default.post(ROOT_URL + '/signin', { email: email, name: name, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });
 	      localStorage.setItem('token', response.data.token);
 	      localStorage.setItem('currentUser', response.data.user.id);
@@ -40074,38 +40050,38 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var validation = {};
-	validation.required = function (value) {
-	  return value ? undefined : 'Required';
-	};
-	validation.maxLength = function (max) {
-	  return function (value) {
-	    return value && value.length > max ? 'Must be ' + max + ' characters or less' : undefined;
-	  };
-	};
-	validation.minLength = function (min) {
-	  return function (value) {
-	    return value && value.length > min ? 'Must be ' + min + ' characters or less' : undefined;
-	  };
-	};
-	validation.maxLength15 = validation.maxLength(15);
-	validation.number = function (value) {
-	  return value && isNaN(Number(value)) ? 'Must be a number' : undefined;
-	};
-	validation.minValue = function (min) {
-	  return function (value) {
-	    return value && value < min ? 'Must be at least ' + min : undefined;
-	  };
-	};
-	validation.minValue18 = validation.minValue(18);
-	validation.email = function (value) {
-	  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
-	};
-	validation.tooOld = function (value) {
-	  return value && value > 65 ? 'You might be too old for this' : undefined;
-	};
-	validation.aol = function (value) {
-	  return value && /.+@aol\.com/.test(value) ? 'Really? You still use AOL for your email?' : undefined;
+	// import store from './store';
+	
+	// const validation = {};
+	// validation.required = value => value ? undefined : 'Required';
+	// validation.maxLength = max => value =>
+	//   value && value.length > max ? `Must be ${max} characters or less` : undefined;
+	// validation.minLength = min => value =>
+	//   value && value.length > min ? `Must be ${min} characters or less` : undefined;
+	// validation.email = value =>
+	//   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+	//   'Invalid email address' : undefined;
+	
+	var validate = function validate(values) {
+	  var errors = {};
+	  if (!values.email) {
+	    errors.email = 'Required';
+	  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+	    errors.email = 'Invalid email address';
+	  }
+	  if (!values.name) {
+	    errors.name = 'Required';
+	  } else if (values.name.length < 3) {
+	    errors.username = 'Must be at least 3 characters';
+	  }
+	
+	  if (!values.password) {
+	    errors.password = 'Required';
+	  } else if (values.password.length < 6) {
+	    errors.password = 'Must be at least 6 characters';
+	  }
+	
+	  return errors;
 	};
 	
 	var renderField = function renderField(_ref) {
@@ -40117,7 +40093,6 @@
 	      error = _ref$meta.error,
 	      warning = _ref$meta.warning;
 	
-	  debugger;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -40132,7 +40107,7 @@
 	      _react2.default.createElement('input', _extends({}, input, { placeholder: label, type: type })),
 	      touched && (error && _react2.default.createElement(
 	        'span',
-	        null,
+	        { className: 'form-error' },
 	        error
 	      ) || warning && _react2.default.createElement(
 	        'span',
@@ -40148,17 +40123,13 @@
 	      name = _ref2.name,
 	      password = _ref2.password;
 	
-	  actions.signupUser({ email: email, password: password });
+	  debugger;
+	  actions.signupUser({ email: email, name: name, password: password });
 	};
 	
 	var Signup = function Signup(props) {
-	  var handleSubmit = props.handleSubmit,
-	      _props$fields = props.fields,
-	      email = _props$fields.email,
-	      name = _props$fields.name,
-	      password = _props$fields.password;
+	  var handleSubmit = props.handleSubmit;
 	
-	  debugger;
 	  return _react2.default.createElement(
 	    'form',
 	    { onSubmit: handleSubmit(handleFormSubmit) },
@@ -40173,8 +40144,7 @@
 	      _react2.default.createElement(_reduxForm.Field, {
 	        name: 'email',
 	        component: renderField,
-	        className: 'form-control',
-	        validate: [validation.required, validation.email] })
+	        className: 'form-control' })
 	    ),
 	    _react2.default.createElement(
 	      'fieldset',
@@ -40187,8 +40157,7 @@
 	      _react2.default.createElement(_reduxForm.Field, {
 	        name: 'name',
 	        component: renderField,
-	        className: 'form-control',
-	        validate: [validation.required] })
+	        className: 'form-control' })
 	    ),
 	    _react2.default.createElement(
 	      'fieldset',
@@ -40202,8 +40171,7 @@
 	        name: 'password',
 	        type: 'password',
 	        component: renderField,
-	        className: 'form-control',
-	        validate: [validation.required, validation.minLength(6)] })
+	        className: 'form-control' })
 	    ),
 	    _react2.default.createElement(
 	      'button',
@@ -40213,16 +40181,14 @@
 	  );
 	};
 	
-	function mapStateToProps(state) {
-	  return { errorMessage: state.auth.error };
-	}
+	// function mapStateToProps(state) {
+	//   return { errorMessage: state.auth.error };
+	// }
 	
-	var signUpForm = (0, _reduxForm.reduxForm)({
+	exports.default = (0, _reduxForm.reduxForm)({
 	  form: 'signup',
-	  fields: ['email', 'name', 'password']
+	  validate: validate
 	})(Signup);
-	
-	exports.default = signUpForm = (0, _reactRedux.connect)(mapStateToProps, actions)(signUpForm);
 
 /***/ },
 /* 467 */
@@ -70125,6 +70091,46 @@
 	  });
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(179);
+	
+	var _reduxThunk = __webpack_require__(255);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	var _reduxLogger = __webpack_require__(256);
+	
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+	
+	var _reducers = __webpack_require__(483);
+	
+	var _reducers2 = _interopRequireDefault(_reducers);
+	
+	var _user_middleware = __webpack_require__(511);
+	
+	var _user_middleware2 = _interopRequireDefault(_user_middleware);
+	
+	var _task_middleware = __webpack_require__(513);
+	
+	var _task_middleware2 = _interopRequireDefault(_task_middleware);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var logger = (0, _reduxLogger2.default)();
+	
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, logger, _user_middleware2.default, _task_middleware2.default)(_redux.createStore);
+	var store = createStoreWithMiddleware(_reducers2.default);
+	exports.default = store;
 
 /***/ }
 /******/ ]);

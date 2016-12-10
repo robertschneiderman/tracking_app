@@ -9,9 +9,9 @@ import {
 const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com';
 // const ROOT_URL = 'https://trackyy.herokuapp.com';
 
-export function signinUser({ email, password }) {
+export function signinUser({ email, name, password }) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/signin`, { email, name, password })
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);

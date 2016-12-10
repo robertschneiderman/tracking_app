@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import reduxThunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 
 import App from './components/app';
 import Signin from './components/auth/signin';
@@ -15,15 +12,9 @@ import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
 import Dashboard from './components/dashboard/index';
 import NewTask from './components/new_task/index';
-import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
-import UserMiddleware from './middleware/user_middleware';
-import TaskMiddleware from './middleware/task_middleware';
 
-const logger = createLogger();
-
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger, UserMiddleware, TaskMiddleware)(createStore);
-const store = createStoreWithMiddleware(reducers);
+import store from './store/store'; 
 
 const token = localStorage.getItem('token');
 const currentUser = localStorage.getItem('currentUser');
