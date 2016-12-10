@@ -40046,11 +40046,13 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
+	var _store = __webpack_require__(515);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// import store from './store';
 	
 	// const validation = {};
 	// validation.required = value => value ? undefined : 'Required';
@@ -40124,7 +40126,7 @@
 	      password = _ref2.password;
 	
 	  debugger;
-	  actions.signupUser({ email: email, name: name, password: password });
+	  actions.signupUser({ email: email, name: name, password: password })(_store2.default.dispatch);
 	};
 	
 	var Signup = function Signup(props) {
@@ -40400,18 +40402,18 @@
 	  }
 	
 	  _createClass(Dashboard, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.requestTasks();
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // this.props.requestUser(localStorage.getItem('currentUser'));
 	    }
 	  }, {
 	    key: 'renderPersons',
 	    value: function renderPersons() {
-	      if (!this.props.buddy) {
+	      if (!this.props.user.buddy) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal })
+	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.user.tasks, incrementGoal: this.props.incrementGoal })
 	        );
 	      } else {
 	        return _react2.default.createElement(
@@ -40439,19 +40441,16 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    user: state.user.currentUser,
-	    buddy: state.user.buddy,
 	    userTasks: state.tasks.currentUser,
 	    buddyTasks: state.tasks.buddy
 	  };
 	};
 	
+	// requestTasks: () => dispatch(taskActions.requestTasks()),
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    requestUser: function requestUser(userId) {
 	      return dispatch(userActions.requestUser(userId));
-	    },
-	    requestTasks: function requestTasks() {
-	      return dispatch(taskActions.requestTasks());
 	    },
 	    incrementGoal: function incrementGoal(taskId, count) {
 	      return dispatch(taskActions.incrementGoal(taskId, count));
@@ -40704,7 +40703,7 @@
 	        _react2.default.createElement(
 	          'h2',
 	          { className: 'person-title' },
-	          this.props.user.email
+	          this.props.user.name
 	        ),
 	        this.renderTaskGroup()
 	      );
@@ -68600,11 +68599,6 @@
 	        }
 	      }
 	    }
-	
-	    // 12:00
-	    // '2'
-	    // 12:200
-	
 	  }, {
 	    key: 'numericalTime',
 	    value: function numericalTime(time) {
@@ -68898,13 +68892,18 @@
 	
 	var _task_reducer2 = _interopRequireDefault(_task_reducer);
 	
+	var _new_task_reducer = __webpack_require__(516);
+	
+	var _new_task_reducer2 = _interopRequireDefault(_new_task_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  form: _reduxForm.reducer,
 	  auth: _auth_reducer2.default,
 	  user: _user_reducer2.default,
-	  tasks: _task_reducer2.default
+	  tasks: _task_reducer2.default,
+	  newTask: _new_task_reducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -69844,7 +69843,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var userReducer = function userReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: { email: '' }, buddy: { email: '' } };
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: { email: '', tasks: [] }, buddy: null };
 	  var action = arguments[1];
 	
 	
@@ -70131,6 +70130,50 @@
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, logger, _user_middleware2.default, _task_middleware2.default)(_redux.createStore);
 	var store = createStoreWithMiddleware(_reducers2.default);
 	exports.default = store;
+
+/***/ },
+/* 516 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _merge = __webpack_require__(485);
+	
+	var _merge2 = _interopRequireDefault(_merge);
+	
+	var _reactRouter = __webpack_require__(202);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var newtaskReducer = function newtaskReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: [], buddy: [] };
+	  var action = arguments[1];
+	
+	
+	  switch (action.type) {
+	
+	    case "RECEIVE_TASKS":
+	      return (0, _merge2.default)({}, state, { currentUser: action.payload.user, buddy: action.payload.buddy });
+	    case "RECEIVE_TASK":
+	      var modifiedTaskIndex = void 0;
+	      for (var i = 0; i < state.currentUser.length; i++) {
+	        var task = state.currentUser[i];
+	        if (task._id === action.payload.task._id) modifiedTaskIndex = i;
+	      }
+	      var newArr = (0, _merge2.default)([], state.currentUser);
+	      newArr[modifiedTaskIndex] = action.payload.task;
+	
+	      return (0, _merge2.default)({}, state, { currentUser: newArr });
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = newtaskReducer;
 
 /***/ }
 /******/ ]);

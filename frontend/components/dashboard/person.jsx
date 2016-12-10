@@ -105,7 +105,7 @@ class Person extends React.Component {
   render() {
     return(
       <div className="person">
-        <h2 className="person-title">{this.props.user.email}</h2>
+        <h2 className="person-title">{this.props.user.name}</h2>
         {this.renderTaskGroup()}
       </div>
     );

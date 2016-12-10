@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/authentication/index';
 import { connect } from 'react-redux';
-// import store from './store';
+import store from '../../store/store.js';
 
 // const validation = {};
 // validation.required = value => value ? undefined : 'Required';
@@ -51,7 +51,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 
 const handleFormSubmit = ({ email, name, password }) => {
   debugger;
-  actions.signupUser({ email, name, password});
+  actions.signupUser({ email, name, password})(store.dispatch);
 };
 
 const Signup = (props) => {

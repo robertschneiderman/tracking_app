@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 import {router, hashHistory} from 'react-router';
 
-const userReducer = (state = {currentUser: {email: ''}, buddy: {email: ''}}, action) => {
+const userReducer = (state = {currentUser: {email: '', tasks: []}, buddy: null}, action) => {
 
   switch (action.type) {
 

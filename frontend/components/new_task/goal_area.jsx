@@ -106,10 +106,6 @@ class GoalOptions extends React.Component {
     }
   }
 
-  // 12:00
-  // '2'
-  // 12:200
-
   numericalTime(time) {
     let hours = parseInt(time.slice(0, 2));
     let minutes = parseInt(time.slice(3));

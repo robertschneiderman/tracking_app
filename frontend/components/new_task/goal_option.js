@@ -11,6 +11,6 @@ const GoalOption = props => (
       type="radio"
       value={props.name.toLowerCase()}/>
   </div>
-)
+);
 
 export default GoalOption;
