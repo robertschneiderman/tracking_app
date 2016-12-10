@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../../actions/task/';
+
 
 const convertToTime = (minutes) => {
   let hours = Math.floor(minutes / 60);
@@ -8,8 +11,7 @@ const convertToTime = (minutes) => {
   return `${hours}:${minutesRemaining}`;
 };
 
-const goal = props => {
-  // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
+const Goal = props => {
   let style = (props.enabled) ? { 'display': 'inline-block'} : { 'display': 'none' };
   let formattedValue = (props.type === 'time') ? convertToTime(props.value) : props.value;
   return (
@@ -23,13 +25,13 @@ const goal = props => {
         className="goal-input input ibm" />
       <div className="goal-input-btns ibm" style={style}>
         <button
-          onClick={props.incrementGoal}
+          onClick={props.incrementGoal.bind(null, {name: props.name.toLowerCase(), value: formattedValue})}
           data-enabled={props.enabled}
           data-name={props.name.toLowerCase()}
           data-increment="1"
           className="goal-input-btn top">^</button>
         <button
-          onClick={props.incrementGoal}
+          onClick={props.incrementGoal.bind(null, props.name.toLowerCase(), formattedValue)}
           data-enabled={props.enabled}
           data-name={props.name.toLowerCase()}
           data-increment="-1"
@@ -39,4 +41,13 @@ const goal = props => {
   );
 };
 
-export default goal;
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  incrementGoal: taskDetails => dispatch(actions.createTask(taskDetails)),
+  createTask: taskDetails => dispatch(actions.createTask(taskDetails))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Goal);

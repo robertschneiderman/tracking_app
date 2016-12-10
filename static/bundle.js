@@ -86,7 +86,7 @@
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(478);
+	var _index3 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/new_task/index\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
@@ -68277,596 +68277,11 @@
 
 
 /***/ },
-/* 478 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _task_details = __webpack_require__(479);
-	
-	var _task_details2 = _interopRequireDefault(_task_details);
-	
-	var _goal_area = __webpack_require__(480);
-	
-	var _goal_area2 = _interopRequireDefault(_goal_area);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import Container from './/_container';
-	
-	var NewTask = function (_React$Component) {
-	  _inherits(NewTask, _React$Component);
-	
-	  function NewTask(props) {
-	    _classCallCheck(this, NewTask);
-	
-	    return _possibleConstructorReturn(this, (NewTask.__proto__ || Object.getPrototypeOf(NewTask)).call(this, props));
-	  }
-	
-	  _createClass(NewTask, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'new-task' },
-	        _react2.default.createElement(_goal_area2.default, null)
-	      );
-	    }
-	  }]);
-	
-	  return NewTask;
-	}(_react2.default.Component);
-	
-	exports.default = NewTask;
-
-/***/ },
-/* 479 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(172);
-	
-	var _index = __webpack_require__(471);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import Container from './/_container';
-	
-	var TaskDetails = function (_React$Component) {
-	  _inherits(TaskDetails, _React$Component);
-	
-	  function TaskDetails(props) {
-	    _classCallCheck(this, TaskDetails);
-	
-	    var _this = _possibleConstructorReturn(this, (TaskDetails.__proto__ || Object.getPrototypeOf(TaskDetails)).call(this, props));
-	
-	    _this.state = {
-	      name: '',
-	      description: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(TaskDetails, [{
-	    key: 'submitForm',
-	    value: function submitForm(e) {
-	      e.preventDefault();
-	      console.log("this.state:", this.state);
-	      this.props.createTask(this.state);
-	    }
-	  }, {
-	    key: 'updateValue',
-	    value: function updateValue(evt) {
-	      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'task-details' },
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Task'
-	        ),
-	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.submitForm.bind(this), className: '' },
-	          _react2.default.createElement('input', {
-	            value: this.state.name,
-	            onChange: this.updateValue.bind(this),
-	            name: 'name',
-	            className: 'input',
-	            type: 'text',
-	            placeholder: 'Name' }),
-	          _react2.default.createElement('input', {
-	            value: this.state.description,
-	            onChange: this.updateValue.bind(this),
-	            name: 'description',
-	            className: 'input',
-	            type: 'text',
-	            placeholder: 'Description' }),
-	          _react2.default.createElement('input', { type: 'submit' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return TaskDetails;
-	}(_react2.default.Component);
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    createTask: function createTask(info) {
-	      return dispatch((0, _index.createTask)(info));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TaskDetails);
-
-/***/ },
-/* 480 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _goal_option = __webpack_require__(481);
-	
-	var _goal_option2 = _interopRequireDefault(_goal_option);
-	
-	var _goal = __webpack_require__(482);
-	
-	var _goal2 = _interopRequireDefault(_goal);
-	
-	var _reactRedux = __webpack_require__(172);
-	
-	var _task = __webpack_require__(471);
-	
-	var actions = _interopRequireWildcard(_task);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var GoalOptions = function (_React$Component) {
-	  _inherits(GoalOptions, _React$Component);
-	
-	  function GoalOptions(props) {
-	    _classCallCheck(this, GoalOptions);
-	
-	    var _this = _possibleConstructorReturn(this, (GoalOptions.__proto__ || Object.getPrototypeOf(GoalOptions)).call(this, props));
-	
-	    _this.state = {
-	      name: '',
-	      goalType: null,
-	      goalInterval: null,
-	      time: {
-	        daily: 15,
-	        weekly: 84,
-	        monthly: 371
-	      },
-	      frequency: {
-	        daily: 1,
-	        weekly: 5,
-	        monthly: 22
-	      }
-	    };
-	    _this.handleOptionChange = _this.handleOptionChange.bind(_this);
-	    _this.incrementGoal = _this.incrementGoal.bind(_this);
-	    _this.changeGoal = _this.changeGoal.bind(_this);
-	    _this.renderGoals = _this.renderGoals.bind(_this);
-	    _this.createTask = _this.createTask.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(GoalOptions, [{
-	    key: 'updateValue',
-	    value: function updateValue(evt) {
-	      this.setState(_defineProperty({}, evt.target.name, evt.target.value));
-	    }
-	  }, {
-	    key: 'handleOptionChange',
-	    value: function handleOptionChange(evt) {
-	      var property = evt.target.name === 'goal-type' ? 'goalType' : 'goalInterval';
-	      var value = evt.target.value;
-	      this.setState(_defineProperty({}, property, value));
-	    }
-	  }, {
-	    key: 'syncIntervals',
-	    value: function syncIntervals(intervalChanged, value) {
-	      var daily = void 0,
-	          weekly = void 0,
-	          monthly = void 0;
-	      if (intervalChanged === 'daily') {
-	        daily = value;
-	        weekly = Math.floor(daily * 7 * .8);
-	        monthly = Math.floor(weekly * 4.42);
-	      } else if (intervalChanged === 'weekly') {
-	        weekly = value;
-	        monthly = Math.floor(weekly * 4.42);
-	        daily = Math.floor(this.state[this.state.goalType].weekly * 1.25 / 7);
-	      } else {
-	        monthly = value;
-	        weekly = Math.floor(monthly * .226);
-	        daily = Math.floor(weekly * 7 * .8);
-	      }
-	      this.setState(_defineProperty({}, this.state.goalType, {
-	        daily: daily,
-	        weekly: weekly,
-	        monthly: monthly
-	      }));
-	    }
-	  }, {
-	    key: 'incrementGoal',
-	    value: function incrementGoal(evt) {
-	      var name = evt.target.getAttribute('data-name');
-	      var increment = parseInt(evt.target.getAttribute('data-increment'));
-	
-	      this.syncIntervals(name, this.state[this.state.goalType][name] + increment);
-	    }
-	  }, {
-	    key: 'changeGoal',
-	    value: function changeGoal(evt) {
-	      var cursorPos = evt.target.selectionStart - 1;
-	      var name = evt.target.getAttribute('data-name');
-	      var value = evt.target.value;
-	      // let prevValue = evt.target.defaultValue;
-	      var addedVal = value[cursorPos + 1];
-	      if (value.length === 3 || !Number.isInteger(parseInt(value[cursorPos]))) {
-	        return; // break if string goes under 3 is not a number 
-	      }
-	      var overwrittenTime = value.slice(0, cursorPos + 1) + value.slice(cursorPos + 2);
-	      var numericalTime = this.numericalTime(overwrittenTime);
-	
-	      this.syncIntervals(name, numericalTime);
-	
-	      console.log(value);
-	    }
-	  }, {
-	    key: 'addedChar',
-	    value: function addedChar(newVal, oldVal) {
-	      for (var i = 0; i < newVal.length; i++) {
-	        var char = newVal[i];
-	        if (!oldVal[i] || char !== oldVal[i]) return char;
-	      }
-	    }
-	  }, {
-	    key: 'overwriteTime',
-	    value: function overwriteTime(newVal, addedVal) {
-	      for (var i = 0; i < newVal.length; i++) {
-	        var char = newVal[i];
-	        if (char === addedVal) {
-	          return newVal.slice(0, i + 1) + newVal.slice(i + 2);
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'numericalTime',
-	    value: function numericalTime(time) {
-	      var hours = parseInt(time.slice(0, 2));
-	      var minutes = parseInt(time.slice(3));
-	
-	      return hours * 60 + minutes;
-	    }
-	  }, {
-	    key: 'createTask',
-	    value: function createTask() {
-	      var goals = [];
-	      var daily = this.state[this.state.goalType].daily;
-	      var weekly = this.state[this.state.goalType].weekly;
-	      var monthly = this.state[this.state.goalType].monthly;
-	
-	      if (this.state.goalInterval === 'daily') {
-	        goals = [{ interval: 'daily', count: 0, goal: daily }, { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly }];
-	      } else if (this.state.goalInterval === 'weekly') {
-	        goals = [{ interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly }];
-	      } else {
-	        goals = [{ interval: 'monthly', count: 0, goal: monthly }];
-	      }
-	
-	      var taskInfo = {
-	        name: this.state.name,
-	        type: this.state.goalType,
-	        shortestInterval: this.state.goalInterval,
-	        goals: goals,
-	        stubs: []
-	      };
-	
-	      if (this.state.goalType === 'time') {
-	        // Make Daily Goal === 1 for time goal
-	        var timeDefaults = [1, 5, 22];
-	        taskInfo.timeUnit = daily;
-	        var j = 2;
-	        for (var i = taskInfo.goals.length - 1; i >= 0; i--) {
-	          var goal = taskInfo.goals[i];
-	          goal.goal = timeDefaults[j];
-	          j--;
-	        }
-	        // for (let interval in taskInfo.goals) {
-	        //   taskInfo.goals[interval].goal = timeDefaults[i];
-	        //   i++; 
-	        // }
-	      }
-	
-	      this.props.createTask(taskInfo);
-	    }
-	  }, {
-	    key: 'renderGoals',
-	    value: function renderGoals() {
-	      var values = this.state[this.state.goalType];
-	      values = values ? values : this.state.time;
-	      if (this.state.goalInterval === 'daily') {
-	        return [_react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Daily', enabled: true, type: this.state.goalType, value: values.daily }), _react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Weekly', enabled: false, type: this.state.goalType, value: values.weekly }), _react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Monthly', enabled: false, type: this.state.goalType, value: values.monthly })];
-	      } else if (this.state.goalInterval === 'weekly') {
-	        return [_react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Weekly', enabled: true, type: this.state.goalType, value: values.weekly }), _react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Monthly', enabled: false, type: this.state.goalType, value: values.monthly })];
-	      } else {
-	        return _react2.default.createElement(_goal2.default, { changeGoal: this.changeGoal, incrementGoal: this.incrementGoal, name: 'Monthly', enabled: true, type: this.state.goalType, value: values.monthly });
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var goalsStyle = this.state.goalType && this.state.goalInterval ? { 'display': 'block' } : { 'display': 'none' };
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'task-area' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'title' },
-	            'Task'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'task-form' },
-	            _react2.default.createElement('input', {
-	              value: this.state.name,
-	              onChange: this.updateValue.bind(this),
-	              name: 'name',
-	              className: 'input task-input',
-	              type: 'text',
-	              placeholder: 'Name' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'goal-options' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'goal-option-group' },
-	              _react2.default.createElement(
-	                'h3',
-	                { className: 'subtitle' },
-	                'Type'
-	              ),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Time', type: 'goal-type', onChange: this.handleOptionChange }),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Frequency', type: 'goal-type', onChange: this.handleOptionChange }),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Truthy', type: 'goal-type', onChange: this.handleOptionChange })
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'goal-option-group' },
-	              _react2.default.createElement(
-	                'h3',
-	                { className: 'subtitle' },
-	                'Interval'
-	              ),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Daily', type: 'goal-interval', onChange: this.handleOptionChange }),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Weekly', type: 'goal-interval', onChange: this.handleOptionChange }),
-	              _react2.default.createElement(_goal_option2.default, { name: 'Monthly', type: 'goal-interval', onChange: this.handleOptionChange })
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'goal-area' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'title' },
-	            'Goals'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'goals', style: goalsStyle },
-	            this.renderGoals()
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.createTask, className: 'btn btn-primary' },
-	            'Add Task'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return GoalOptions;
-	}(_react2.default.Component);
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    createTask: function createTask(taskDetails) {
-	      return dispatch(actions.createTask(taskDetails));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GoalOptions);
-
-/***/ },
-/* 481 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// import Container from './/_container';
-	
-	var GoalOption = function GoalOption(props) {
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "goal-option" },
-	    _react2.default.createElement(
-	      "label",
-	      { className: "goal-option-label", htmlFor: "" },
-	      props.name
-	    ),
-	    _react2.default.createElement("input", {
-	      onChange: props.onChange,
-	      className: "ibm",
-	      name: props.type,
-	      type: "radio",
-	      value: props.name.toLowerCase() })
-	  );
-	};
-	
-	exports.default = GoalOption;
-
-/***/ },
-/* 482 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var convertToTime = function convertToTime(minutes) {
-	  var hours = Math.floor(minutes / 60);
-	  if (hours < 10) hours = '0' + hours;
-	  var minutesRemaining = minutes - hours * 60;
-	  // minutesRemaining = 
-	  return hours + ':' + minutesRemaining;
-	};
-	
-	var goal = function goal(props) {
-	  // let value = (props.type === 'time') ? `${props.value} minutes` : props.value;
-	  var style = props.enabled ? { 'display': 'inline-block' } : { 'display': 'none' };
-	  var formattedValue = props.type === 'time' ? convertToTime(props.value) : props.value;
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'goal-wrapper' },
-	    _react2.default.createElement(
-	      'label',
-	      { className: 'goal-label ibm' },
-	      props.name
-	    ),
-	    _react2.default.createElement('input', {
-	      onChange: props.changeGoal,
-	      type: 'text',
-	      'data-name': props.name.toLowerCase(),
-	      value: formattedValue,
-	      className: 'goal-input input ibm' }),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'goal-input-btns ibm', style: style },
-	      _react2.default.createElement(
-	        'button',
-	        {
-	          onClick: props.incrementGoal,
-	          'data-enabled': props.enabled,
-	          'data-name': props.name.toLowerCase(),
-	          'data-increment': '1',
-	          className: 'goal-input-btn top' },
-	        '^'
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        {
-	          onClick: props.incrementGoal,
-	          'data-enabled': props.enabled,
-	          'data-name': props.name.toLowerCase(),
-	          'data-increment': '-1',
-	          className: 'goal-input-btn bottom' },
-	        '@'
-	      )
-	    )
-	  );
-	};
-	
-	exports.default = goal;
-
-/***/ },
+/* 478 */,
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
 /* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -70138,7 +69553,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _merge = __webpack_require__(485);
@@ -70149,28 +69564,41 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var defaultState = {
+	    name: '',
+	    type: null,
+	    interval: null,
+	    time: {
+	        daily: 15,
+	        weekly: 84,
+	        monthly: 371
+	    },
+	    frequency: {
+	        daily: 1,
+	        weekly: 5,
+	        monthly: 22
+	    }
+	};
+	
 	var newtaskReducer = function newtaskReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: [], buddy: [] };
-	  var action = arguments[1];
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+	    var action = arguments[1];
 	
+	    var newState = void 0;
+	    switch (action.type) {
 	
-	  switch (action.type) {
+	        case "TASK_OPTION_CHANGE":
+	            newState = (0, _merge2.default)({}, state);
+	            newState[action.payload.btnGroup] = action.payload.value;
+	            return newState;
+	        case "INCREMENT_GOAL":
+	            newState = (0, _merge2.default)({}, state);
+	            newState[newState.goalType][state.interval] += 1;
+	            return newState;
 	
-	    case "RECEIVE_TASKS":
-	      return (0, _merge2.default)({}, state, { currentUser: action.payload.user, buddy: action.payload.buddy });
-	    case "RECEIVE_TASK":
-	      var modifiedTaskIndex = void 0;
-	      for (var i = 0; i < state.currentUser.length; i++) {
-	        var task = state.currentUser[i];
-	        if (task._id === action.payload.task._id) modifiedTaskIndex = i;
-	      }
-	      var newArr = (0, _merge2.default)([], state.currentUser);
-	      newArr[modifiedTaskIndex] = action.payload.task;
-	
-	      return (0, _merge2.default)({}, state, { currentUser: newArr });
-	    default:
-	      return state;
-	  }
+	        default:
+	            return state;
+	    }
 	};
 	
 	exports.default = newtaskReducer;

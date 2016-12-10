@@ -1,11 +1,11 @@
 import React from 'react';
 // import Container from './/_container';
 
-const GoalOption = props => (
+const TaskOption = props => (
   <div className="goal-option">
     <label className="goal-option-label" htmlFor="">{props.name}</label>
     <input
-      onChange={props.onChange}
+      onChange={props.onChange({btnGroup: props.type, value: props.value})}
       className="ibm" 
       name={props.type} 
       type="radio"
@@ -13,4 +13,4 @@ const GoalOption = props => (
   </div>
 );
 
-export default GoalOption;
+export default TaskOption;

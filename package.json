@@ -8,7 +8,8 @@
     "test": "mocha --compilers js:babel-core/register --require ./frontend/test/test_helper.js --recursive ./frontend/test",
     "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js",
-    "dev": "nodemon ./server/index.js"
+    "dev": "nodemon ./server/index.js",
+    "cron": "node ./server/cron.js"
   },
   "repository": {
     "type": "git",
@@ -57,6 +58,7 @@
     "redux-form": "^6.2.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
+    "sendgrid": "^4.7.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },
