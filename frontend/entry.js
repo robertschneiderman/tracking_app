@@ -33,8 +33,6 @@ if (token) {
 }
 
 if (currentUser) {
-  debugger;
-  
   store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 }
 

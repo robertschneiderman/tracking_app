@@ -1,7 +1,6 @@
 import React from 'react';
 import TaskDetails from './task_details';
 import GoalArea from './goal_area';
-import Goals from './goals';
 // import Container from './/_container';
 
 class NewTask extends React.Component {
@@ -15,7 +14,7 @@ class NewTask extends React.Component {
       <div className="new-task">
         <GoalArea />
       </div>
-    )
+    );
   }
 }
 

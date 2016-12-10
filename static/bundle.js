@@ -100,17 +100,17 @@
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
-	var _reducers = __webpack_require__(484);
+	var _reducers = __webpack_require__(483);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
 	var _types = __webpack_require__(465);
 	
-	var _user_middleware = __webpack_require__(512);
+	var _user_middleware = __webpack_require__(511);
 	
 	var _user_middleware2 = _interopRequireDefault(_user_middleware);
 	
-	var _task_middleware = __webpack_require__(514);
+	var _task_middleware = __webpack_require__(513);
 	
 	var _task_middleware2 = _interopRequireDefault(_task_middleware);
 	
@@ -40056,7 +40056,7 @@
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _react = __webpack_require__(1);
 	
@@ -40074,111 +40074,144 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var validation = {};
+	validation.required = function (value) {
+	  return value ? undefined : 'Required';
+	};
+	validation.maxLength = function (max) {
+	  return function (value) {
+	    return value && value.length > max ? 'Must be ' + max + ' characters or less' : undefined;
+	  };
+	};
+	validation.minLength = function (min) {
+	  return function (value) {
+	    return value && value.length > min ? 'Must be ' + min + ' characters or less' : undefined;
+	  };
+	};
+	validation.maxLength15 = validation.maxLength(15);
+	validation.number = function (value) {
+	  return value && isNaN(Number(value)) ? 'Must be a number' : undefined;
+	};
+	validation.minValue = function (min) {
+	  return function (value) {
+	    return value && value < min ? 'Must be at least ' + min : undefined;
+	  };
+	};
+	validation.minValue18 = validation.minValue(18);
+	validation.email = function (value) {
+	  return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
+	};
+	validation.tooOld = function (value) {
+	  return value && value > 65 ? 'You might be too old for this' : undefined;
+	};
+	validation.aol = function (value) {
+	  return value && /.+@aol\.com/.test(value) ? 'Really? You still use AOL for your email?' : undefined;
+	};
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var renderField = function renderField(_ref) {
+	  var input = _ref.input,
+	      label = _ref.label,
+	      type = _ref.type,
+	      _ref$meta = _ref.meta,
+	      touched = _ref$meta.touched,
+	      error = _ref$meta.error,
+	      warning = _ref$meta.warning;
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	  debugger;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'label',
+	      null,
+	      label
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('input', _extends({}, input, { placeholder: label, type: type })),
+	      touched && (error && _react2.default.createElement(
+	        'span',
+	        null,
+	        error
+	      ) || warning && _react2.default.createElement(
+	        'span',
+	        null,
+	        warning
+	      ))
+	    )
+	  );
+	};
 	
-	var Signup = function (_Component) {
-	  _inherits(Signup, _Component);
+	var handleFormSubmit = function handleFormSubmit(_ref2) {
+	  var email = _ref2.email,
+	      name = _ref2.name,
+	      password = _ref2.password;
 	
-	  function Signup() {
-	    _classCallCheck(this, Signup);
+	  actions.signupUser({ email: email, password: password });
+	};
 	
-	    return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).apply(this, arguments));
-	  }
+	var Signup = function Signup(props) {
+	  var handleSubmit = props.handleSubmit,
+	      _props$fields = props.fields,
+	      email = _props$fields.email,
+	      name = _props$fields.name,
+	      password = _props$fields.password;
 	
-	  _createClass(Signup, [{
-	    key: 'handleFormSubmit',
-	    value: function handleFormSubmit(_ref) {
-	      var email = _ref.email,
-	          password = _ref.password;
-	
-	      this.props.signupUser({ email: email, password: password });
-	    }
-	  }, {
-	    key: 'renderAlert',
-	    value: function renderAlert() {
-	      if (this.props.errorMessage) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'alert alert-danger' },
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            'Oops!'
-	          ),
-	          ' ',
-	          this.props.errorMessage
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.log("this.props:", this.props);
-	      var _props = this.props,
-	          handleSubmit = _props.handleSubmit,
-	          _props$fields = _props.fields,
-	          email = _props$fields.email,
-	          password = _props$fields.password;
-	
-	      return _react2.default.createElement(
-	        'form',
-	        { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Email:'
-	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'email', component: 'input', className: 'form-control' })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Name:'
-	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'name', component: 'input', className: 'form-control' })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Password:'
-	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'password-confirm', type: 'password', component: 'input', className: 'form-control' })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Confirm Password:'
-	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'password-confirm', type: 'password', component: 'input', className: 'form-control' })
-	        ),
-	        this.renderAlert(),
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-primary', action: 'submit' },
-	          'Sign up'
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Signup;
-	}(_react.Component);
+	  debugger;
+	  return _react2.default.createElement(
+	    'form',
+	    { onSubmit: handleSubmit(handleFormSubmit) },
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: 'form-group' },
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Email:'
+	      ),
+	      _react2.default.createElement(_reduxForm.Field, {
+	        name: 'email',
+	        component: renderField,
+	        className: 'form-control',
+	        validate: [validation.required, validation.email] })
+	    ),
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: 'form-group' },
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Name:'
+	      ),
+	      _react2.default.createElement(_reduxForm.Field, {
+	        name: 'name',
+	        component: renderField,
+	        className: 'form-control',
+	        validate: [validation.required] })
+	    ),
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: 'form-group' },
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'Password:'
+	      ),
+	      _react2.default.createElement(_reduxForm.Field, {
+	        name: 'password',
+	        type: 'password',
+	        component: renderField,
+	        className: 'form-control',
+	        validate: [validation.required, validation.minLength(6)] })
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      { className: 'btn btn-primary', action: 'submit' },
+	      'Sign up'
+	    )
+	  );
+	};
 	
 	function mapStateToProps(state) {
 	  return { errorMessage: state.auth.error };
@@ -40186,7 +40219,7 @@
 	
 	var signUpForm = (0, _reduxForm.reduxForm)({
 	  form: 'signup',
-	  fields: ['email', 'password']
+	  fields: ['email', 'name', 'password']
 	})(Signup);
 	
 	exports.default = signUpForm = (0, _reactRedux.connect)(mapStateToProps, actions)(signUpForm);
@@ -68302,10 +68335,6 @@
 	
 	var _goal_area2 = _interopRequireDefault(_goal_area);
 	
-	var _goals = __webpack_require__(483);
-	
-	var _goals2 = _interopRequireDefault(_goals);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68887,114 +68916,19 @@
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import Container from './/_container';
-	
-	var Goals = function (_React$Component) {
-	  _inherits(Goals, _React$Component);
-	
-	  function Goals(props) {
-	    _classCallCheck(this, Goals);
-	
-	    var _this = _possibleConstructorReturn(this, (Goals.__proto__ || Object.getPrototypeOf(Goals)).call(this, props));
-	
-	    _this.state = {
-	      active: 'time',
-	      time: {
-	        daily: 0,
-	        weekly: 0,
-	        monthly: 0
-	      },
-	      frequency: {
-	        daily: 0,
-	        weekly: 0,
-	        monthly: 0
-	      }
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Goals, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'form',
-	        { className: 'goals' },
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'goals' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Daily: '
-	          ),
-	          _react2.default.createElement('input', { type: 'number' })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'goals' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Weekly: '
-	          ),
-	          _react2.default.createElement('input', { type: 'number' })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'goals' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Monthly: '
-	          ),
-	          _react2.default.createElement('input', { type: 'number' })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Goals;
-	}(_react2.default.Component);
-	
-	exports.default = Goals;
-
-/***/ },
-/* 484 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _redux = __webpack_require__(179);
 	
 	var _reduxForm = __webpack_require__(265);
 	
-	var _auth_reducer = __webpack_require__(485);
+	var _auth_reducer = __webpack_require__(484);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _user_reducer = __webpack_require__(510);
+	var _user_reducer = __webpack_require__(509);
 	
 	var _user_reducer2 = _interopRequireDefault(_user_reducer);
 	
-	var _task_reducer = __webpack_require__(511);
+	var _task_reducer = __webpack_require__(510);
 	
 	var _task_reducer2 = _interopRequireDefault(_task_reducer);
 	
@@ -69010,7 +68944,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 485 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69036,7 +68970,7 @@
 	  return state;
 	};
 	
-	var _merge = __webpack_require__(486);
+	var _merge = __webpack_require__(485);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -69045,11 +68979,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 486 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(487),
-	    createAssigner = __webpack_require__(502);
+	var baseMerge = __webpack_require__(486),
+	    createAssigner = __webpack_require__(501);
 	
 	/**
 	 * This method is like `_.assign` except that it recursively merges own and
@@ -69090,15 +69024,15 @@
 
 
 /***/ },
-/* 487 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Stack = __webpack_require__(341),
-	    assignMergeValue = __webpack_require__(488),
+	    assignMergeValue = __webpack_require__(487),
 	    baseFor = __webpack_require__(319),
-	    baseMergeDeep = __webpack_require__(489),
+	    baseMergeDeep = __webpack_require__(488),
 	    isObject = __webpack_require__(287),
-	    keysIn = __webpack_require__(499);
+	    keysIn = __webpack_require__(498);
 	
 	/**
 	 * The base implementation of `_.merge` without support for multiple sources.
@@ -69137,7 +69071,7 @@
 
 
 /***/ },
-/* 488 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var baseAssignValue = __webpack_require__(316),
@@ -69163,23 +69097,23 @@
 
 
 /***/ },
-/* 489 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignMergeValue = __webpack_require__(488),
-	    cloneBuffer = __webpack_require__(490),
-	    cloneTypedArray = __webpack_require__(491),
+	var assignMergeValue = __webpack_require__(487),
+	    cloneBuffer = __webpack_require__(489),
+	    cloneTypedArray = __webpack_require__(490),
 	    copyArray = __webpack_require__(273),
-	    initCloneObject = __webpack_require__(493),
+	    initCloneObject = __webpack_require__(492),
 	    isArguments = __webpack_require__(324),
 	    isArray = __webpack_require__(274),
-	    isArrayLikeObject = __webpack_require__(495),
+	    isArrayLikeObject = __webpack_require__(494),
 	    isBuffer = __webpack_require__(326),
 	    isFunction = __webpack_require__(286),
 	    isObject = __webpack_require__(287),
 	    isPlainObject = __webpack_require__(181),
 	    isTypedArray = __webpack_require__(329),
-	    toPlainObject = __webpack_require__(496);
+	    toPlainObject = __webpack_require__(495);
 	
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -69262,7 +69196,7 @@
 
 
 /***/ },
-/* 490 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(184);
@@ -69304,10 +69238,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(193)(module)))
 
 /***/ },
-/* 491 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var cloneArrayBuffer = __webpack_require__(492);
+	var cloneArrayBuffer = __webpack_require__(491);
 	
 	/**
 	 * Creates a clone of `typedArray`.
@@ -69326,7 +69260,7 @@
 
 
 /***/ },
-/* 492 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Uint8Array = __webpack_require__(356);
@@ -69348,10 +69282,10 @@
 
 
 /***/ },
-/* 493 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCreate = __webpack_require__(494),
+	var baseCreate = __webpack_require__(493),
 	    getPrototype = __webpack_require__(188),
 	    isPrototype = __webpack_require__(335);
 	
@@ -69372,7 +69306,7 @@
 
 
 /***/ },
-/* 494 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(287);
@@ -69408,7 +69342,7 @@
 
 
 /***/ },
-/* 495 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isArrayLike = __webpack_require__(337),
@@ -69447,11 +69381,11 @@
 
 
 /***/ },
-/* 496 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(497),
-	    keysIn = __webpack_require__(499);
+	var copyObject = __webpack_require__(496),
+	    keysIn = __webpack_require__(498);
 	
 	/**
 	 * Converts `value` to a plain object flattening inherited enumerable string
@@ -69485,10 +69419,10 @@
 
 
 /***/ },
-/* 497 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignValue = __webpack_require__(498),
+	var assignValue = __webpack_require__(497),
 	    baseAssignValue = __webpack_require__(316);
 	
 	/**
@@ -69531,7 +69465,7 @@
 
 
 /***/ },
-/* 498 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var baseAssignValue = __webpack_require__(316),
@@ -69565,11 +69499,11 @@
 
 
 /***/ },
-/* 499 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var arrayLikeKeys = __webpack_require__(322),
-	    baseKeysIn = __webpack_require__(500),
+	    baseKeysIn = __webpack_require__(499),
 	    isArrayLike = __webpack_require__(337);
 	
 	/**
@@ -69603,12 +69537,12 @@
 
 
 /***/ },
-/* 500 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(287),
 	    isPrototype = __webpack_require__(335),
-	    nativeKeysIn = __webpack_require__(501);
+	    nativeKeysIn = __webpack_require__(500);
 	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
@@ -69642,7 +69576,7 @@
 
 
 /***/ },
-/* 501 */
+/* 500 */
 /***/ function(module, exports) {
 
 	/**
@@ -69668,10 +69602,10 @@
 
 
 /***/ },
-/* 502 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseRest = __webpack_require__(503),
+	var baseRest = __webpack_require__(502),
 	    isIterateeCall = __webpack_require__(397);
 	
 	/**
@@ -69711,12 +69645,12 @@
 
 
 /***/ },
-/* 503 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var identity = __webpack_require__(376),
-	    overRest = __webpack_require__(504),
-	    setToString = __webpack_require__(506);
+	    overRest = __webpack_require__(503),
+	    setToString = __webpack_require__(505);
 	
 	/**
 	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -69734,10 +69668,10 @@
 
 
 /***/ },
-/* 504 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(505);
+	var apply = __webpack_require__(504);
 	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
@@ -69776,7 +69710,7 @@
 
 
 /***/ },
-/* 505 */
+/* 504 */
 /***/ function(module, exports) {
 
 	/**
@@ -69803,11 +69737,11 @@
 
 
 /***/ },
-/* 506 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseSetToString = __webpack_require__(507),
-	    shortOut = __webpack_require__(509);
+	var baseSetToString = __webpack_require__(506),
+	    shortOut = __webpack_require__(508);
 	
 	/**
 	 * Sets the `toString` method of `func` to return `string`.
@@ -69823,10 +69757,10 @@
 
 
 /***/ },
-/* 507 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var constant = __webpack_require__(508),
+	var constant = __webpack_require__(507),
 	    defineProperty = __webpack_require__(317),
 	    identity = __webpack_require__(376);
 	
@@ -69851,7 +69785,7 @@
 
 
 /***/ },
-/* 508 */
+/* 507 */
 /***/ function(module, exports) {
 
 	/**
@@ -69883,7 +69817,7 @@
 
 
 /***/ },
-/* 509 */
+/* 508 */
 /***/ function(module, exports) {
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -69926,7 +69860,7 @@
 
 
 /***/ },
-/* 510 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69935,7 +69869,7 @@
 	  value: true
 	});
 	
-	var _merge = __webpack_require__(486);
+	var _merge = __webpack_require__(485);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -69960,7 +69894,7 @@
 	exports.default = userReducer;
 
 /***/ },
-/* 511 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69969,7 +69903,7 @@
 	  value: true
 	});
 	
-	var _merge = __webpack_require__(486);
+	var _merge = __webpack_require__(485);
 	
 	var _merge2 = _interopRequireDefault(_merge);
 	
@@ -70004,7 +69938,7 @@
 	exports.default = taskReducer;
 
 /***/ },
-/* 512 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70013,7 +69947,7 @@
 	  value: true
 	});
 	
-	var _users_api_util = __webpack_require__(513);
+	var _users_api_util = __webpack_require__(512);
 	
 	var API = _interopRequireWildcard(_users_api_util);
 	
@@ -70053,7 +69987,7 @@
 	exports.default = userMiddleware;
 
 /***/ },
-/* 513 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -70083,7 +70017,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 514 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70092,7 +70026,7 @@
 	  value: true
 	});
 	
-	var _tasks_api_util = __webpack_require__(515);
+	var _tasks_api_util = __webpack_require__(514);
 	
 	var API = _interopRequireWildcard(_tasks_api_util);
 	
@@ -70153,7 +70087,7 @@
 	exports.default = taskMiddleware;
 
 /***/ },
-/* 515 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';

@@ -5,11 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}/app.js",
-            "cwd": "${workspaceRoot}"
+            "name": "Google Chrome Debugger Program",
+            "url": "http://localhost:3090",
+            "webRoot": "${workspaceRoot}",
+            "sourcemaps": true,
+            "port": 3090
         },
         {
             "type": "node",

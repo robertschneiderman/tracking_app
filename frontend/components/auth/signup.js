@@ -3,54 +3,83 @@ import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/authentication/index';
 import { connect } from 'react-redux';
 
-class Signup extends Component {
+// const validation = {};
+// validation.required = value => value ? undefined : 'Required';
+// validation.maxLength = max => value =>
+//   value && value.length > max ? `Must be ${max} characters or less` : undefined;
+// validation.minLength = min => value =>
+//   value && value.length > min ? `Must be ${min} characters or less` : undefined;
+// validation.email = value =>
+//   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+//   'Invalid email address' : undefined;
 
-  handleFormSubmit({ email, password }) {
-    this.props.signupUser({ email, password});
+const validate = values => {
+  const errors = {};
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  } else if (!values.name) {
+    errors.name = 'Required';
   }
 
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
-        </div>
-      );
-    }
-  }
+  return errors;
+};
 
-  render() {
-    console.log("this.props:", this.props);
-    const { handleSubmit, fields: { email, password }} = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className="form-group">
-          <label>Email:</label>
-          <Field name="email" component="input" className="form-control" />
-        </fieldset>
 
-        <fieldset className="form-group">
-          <label>Name:</label>
-          <Field name="name" component="input" className="form-control" />
-        </fieldset>
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => {
+  return (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+  );
+};
 
-        <fieldset className="form-group">
-          <label>Password:</label>
-          <Field name="password-confirm" type="password" component="input" className="form-control" />
-        </fieldset>
+const handleFormSubmit = ({ email, name, password }) => {
+  actions.signupUser({ email, password});
+};
 
-        <fieldset className="form-group">
-          <label>Confirm Password:</label>
-          <Field name="password-confirm" type="password" component="input" className="form-control" />
-        </fieldset>
+const Signup = (props) => {
+  debugger;
+  const { handleSubmit, fields: { email, name, password }} = props;
+  return (
+    <form onSubmit={handleSubmit}>
+      <fieldset className="form-group">
+        <label>Email:</label>
+        <Field 
+          name="email"
+          component={renderField}
+          className="form-control" 
+          validate={[validation.required, validation.email]} />
+      </fieldset>
 
-        {this.renderAlert()}
+      <fieldset className="form-group">
+        <label>Name:</label>
+        <Field 
+          name="name" 
+          component={renderField} 
+          className="form-control" 
+          validate={[validation.required]} />
+      </fieldset>
 
-        <button className="btn btn-primary" action="submit">Sign up</button>    
-      </form>
-    );
-  }
-}
+      <fieldset className="form-group">
+        <label>Password:</label>
+        <Field 
+          name="password" 
+          type="password" 
+          component={renderField} 
+          className="form-control"
+          validate={[validation.required, validation.minLength(6)]} />
+      </fieldset>
+      
+      <button className="btn btn-primary" action="submit">Sign up</button>    
+    </form>
+  );
+};
 
 function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
@@ -58,7 +87,7 @@ function mapStateToProps(state) {
 
 let signUpForm = reduxForm({
   form: 'signup',
-  fields: ['email', 'password']
+  validate
 })(Signup);
 
 export default signUpForm = connect(mapStateToProps, actions)(signUpForm);
