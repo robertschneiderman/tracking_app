@@ -6,10 +6,15 @@ exports.find = function(req, res, next) {
     // console.log("user:", user);
     User.findById(user.buddy).then(buddy => {
       // console.log("buddy:", buddy);
-
-      res.send({
-        user: {id: user._id, email: user.email, name: user.name, tasks: user.tasks, buddy},
-      });        
+      if (buddy) {
+        res.send({
+          user: {id: user._id, email: user.email, name: user.name, buddy: { email: buddy.email, name: buddy.name}},
+        });
+      } else {
+        res.send({
+          user: {id: user._id, email: user.email, name: user.name},
+        });        
+      }
     }).catch((e) => {
       res.status(401).send();
     });

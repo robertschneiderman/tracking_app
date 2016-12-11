@@ -12,14 +12,14 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.requestUser(localStorage.getItem('currentUser'));
+    this.props.requestTasks(localStorage.getItem('currentUser'));
   }
 
   renderPersons() {
     if (!this.props.user.buddy) {
       return (
         <div className="persons">       
-          <Person user={this.props.user} tasks={this.props.user.tasks} incrementGoal={this.props.incrementGoal} />
+          <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
         </div>
       );
     } else {
@@ -49,7 +49,7 @@ const mapStateToProps = state => ({
 
   // requestTasks: () => dispatch(taskActions.requestTasks()),
 const mapDispatchToProps = dispatch => ({
-  requestUser: userId => dispatch(userActions.requestUser(userId)),
+  requestTasks: userId => dispatch(taskActions.requestTasks(userId)),
   incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
 });
 

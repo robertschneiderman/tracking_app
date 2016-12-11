@@ -41209,7 +41209,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var userReducer = function userReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: { email: '', tasks: [] }, buddy: null };
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { currentUser: { email: '', name: '' }, buddy: null };
 	  var action = arguments[1];
 	
 	
@@ -41252,7 +41252,6 @@
 	    case "RECEIVE_TASKS":
 	      return (0, _merge2.default)({}, state, { currentUser: action.payload.user, buddy: action.payload.buddy });
 	    case "RECEIVE_TASK":
-	      debugger;
 	      var modifiedTaskIndex = void 0;
 	      for (var i = 0; i < state.currentUser.length; i++) {
 	        var task = state.currentUser[i];
@@ -41795,7 +41794,7 @@
 	  _createClass(Dashboard, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      // this.props.requestUser(localStorage.getItem('currentUser'));
+	      this.props.requestTasks(localStorage.getItem('currentUser'));
 	    }
 	  }, {
 	    key: 'renderPersons',
@@ -41804,7 +41803,7 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.user.tasks, incrementGoal: this.props.incrementGoal })
+	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal })
 	        );
 	      } else {
 	        return _react2.default.createElement(
@@ -41840,8 +41839,8 @@
 	// requestTasks: () => dispatch(taskActions.requestTasks()),
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    requestUser: function requestUser(userId) {
-	      return dispatch(userActions.requestUser(userId));
+	    requestTasks: function requestTasks(userId) {
+	      return dispatch(taskActions.requestTasks(userId));
 	    },
 	    incrementGoal: function incrementGoal(taskId, count) {
 	      return dispatch(taskActions.incrementGoal(taskId, count));
