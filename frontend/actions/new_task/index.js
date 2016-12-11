@@ -1,5 +1,15 @@
-export const incrementGoal = payload => ({
-  type: "INCREMENT_GOAL",
+export const createTask = payload => ({
+  type: "CREATE_TASK",
+  payload
+});
+
+export const updateName = payload => ({
+  type: "UPDATE_NAME",
+  payload
+});
+
+export const updateGoals = payload => ({
+  type: "UPDATE_GOALS",
   payload
 });
 

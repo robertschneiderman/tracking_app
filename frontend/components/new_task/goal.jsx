@@ -1,13 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../actions/task/';
+import * as actions from '../../actions/new_task/';
 
 
 const convertToTime = (minutes) => {
   let hours = Math.floor(minutes / 60);
   if (hours < 10) hours = `0${hours}`;
   let minutesRemaining = minutes - (hours * 60);
-  // minutesRemaining = 
   return `${hours}:${minutesRemaining}`;
 };
 
@@ -20,21 +19,19 @@ const Goal = props => {
       <input
         onChange={props.changeGoal}
         type="text"
-        data-name={props.name.toLowerCase()}
+        data-name={props.name}
         value={formattedValue}
         className="goal-input input ibm" />
       <div className="goal-input-btns ibm" style={style}>
         <button
-          onClick={props.incrementGoal.bind(null, {name: props.name.toLowerCase(), value: formattedValue})}
+          onClick={props.incrementGoal.bind(null, props.name, props.value + 1)}
           data-enabled={props.enabled}
-          data-name={props.name.toLowerCase()}
-          data-increment="1"
+          data-name={props.name}
           className="goal-input-btn top">^</button>
         <button
-          onClick={props.incrementGoal.bind(null, props.name.toLowerCase(), formattedValue)}
+          onClick={props.incrementGoal.bind(null, props.name, props.value - 1)}
           data-enabled={props.enabled}
-          data-name={props.name.toLowerCase()}
-          data-increment="-1"
+          data-name={props.name}
           className="goal-input-btn bottom">@</button>
       </div>
     </div>
@@ -46,8 +43,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  incrementGoal: taskDetails => dispatch(actions.createTask(taskDetails)),
-  createTask: taskDetails => dispatch(actions.createTask(taskDetails))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Goal);

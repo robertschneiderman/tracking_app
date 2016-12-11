@@ -1,49 +1,41 @@
 import React from 'react';
 
-import {actions} from '../actions/new_task';
+import * as actions from '../../actions/new_task';
 import {connect} from 'react-redux';
+
+import GoalArea from './goal_area';
+import TaskArea from './task_area';
 
 class NewTask extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  updateValue(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    });
-  }  
-
-  handleOptionChange(evt) {
-    let property = (evt.target.name === 'goal-type') ? 'goalType' : 'goalInterval';
-    let value = evt.target.value;
-    this.setState({[property]: value });
+    this.createTask = this.createTask.bind(this);
   }
 
   createTask() {
     let goals = [];
-    let daily = this.state[this.state.goalType].daily;
-    let weekly = this.state[this.state.goalType].weekly;
-    let monthly = this.state[this.state.goalType].monthly;
+    let daily = this.props.state[this.props.state.type].daily;
+    let weekly = this.props.state[this.props.state.type].weekly;
+    let monthly = this.props.state[this.props.state.type].monthly;
 
-    if (this.state.goalInterval === 'daily') {
+    if (this.props.state.interval === 'daily') {
       goals = [ { interval: 'daily', count: 0, goal: daily }, { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
-    } else if (this.state.goalInterval === 'weekly') {
+    } else if (this.props.state.interval === 'weekly') {
       goals = [ { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
     } else {
       goals = [ { interval: 'monthly', count: 0, goal: monthly } ] ;
     }
 
     let taskInfo = {
-      name: this.state.name,
-      type: this.state.goalType,
-      shortestInterval: this.state.goalInterval,
+      name: this.props.state.name,
+      type: this.props.state.type,
+      shortestInterval: this.props.state.interval,
       goals,
       stubs: []
     };  
 
-    if (this.state.goalType === 'time') { // Make Daily Goal === 1 for time goal
+    if (this.props.state.type === 'time') { // Make Daily Goal === 1 for time goal
       let timeDefaults = [1, 5, 22];
       taskInfo.timeUnit = daily;
       let j = 2;
@@ -61,18 +53,18 @@ class NewTask extends React.Component {
     return(
       <div className="new-task">
         <TaskArea />
-        <GoalArea />
+        <GoalArea createTask={this.createTask} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-
+  state: state.newTask
 });
 
 const mapDispatchToProps = dispatch => ({
   createTask: taskDetails => dispatch(actions.createTask(taskDetails))
 });
 
-export default NewTask;
+export default connect(mapStateToProps, mapDispatchToProps)(NewTask);

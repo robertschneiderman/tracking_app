@@ -11,7 +11,7 @@ import Signout from './components/auth/signout';
 import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
 import Dashboard from './components/dashboard/index';
-import NewTask from './components/new_task/index';
+import NewTask from './components/new_task/index.jsx';
 import { AUTH_USER } from './actions/types';
 
 import store from './store/store'; 

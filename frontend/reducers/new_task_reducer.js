@@ -20,16 +20,18 @@ let defaultState = {
 const newtaskReducer = (state = defaultState, action) => {
     let newState;
   switch (action.type) {
-
+    case "UPDATE_NAME":
+        newState = merge({}, state);
+        newState.name = action.payload;
+        return newState;
     case "TASK_OPTION_CHANGE":
         newState = merge({}, state);
         newState[action.payload.btnGroup] = action.payload.value;
         return newState;
-    case "INCREMENT_GOAL":
+    case "UPDATE_GOALS":
         newState = merge({}, state);
-        newState[newState.goalType][state.interval] += 1;
+        newState[newState.type] = action.payload;
         return newState;
-     
     default:
       return state;
   }

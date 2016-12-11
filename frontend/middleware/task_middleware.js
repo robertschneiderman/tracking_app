@@ -10,7 +10,7 @@ const taskMiddleware = store => next => action => {
   const createSuccess = res => {
     let tasks = res.data;
     hashHistory.push('/dashboard');
-    dispatch(ACTIONS.receiveTasks(tasks));
+    dispatch(ACTIONS.receiveTask(tasks));
   };
 
   const getSuccess = res => {
