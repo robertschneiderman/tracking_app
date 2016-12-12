@@ -2,6 +2,7 @@ const Authentication = require('./controllers/authentication');
 const User = require('./controllers/user');
 const Task = require('./controllers/task');
 const Goal = require('./controllers/goal');
+const Historyy = require('./controllers/history');
 const passportService = require('./services/passport');
 const passport = require('passport');
 const path = require('path');
@@ -21,4 +22,6 @@ module.exports = function(app) {
   app.get('/tasks', Task.getTasks);
 
   app.patch('/goals/:id', Goal.update);
+
+  app.get('/history/:index', Historyy.get);
 };

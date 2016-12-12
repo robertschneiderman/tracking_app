@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as taskActions from '../task/actions';
 import * as userActions from '../user/actions';
+import * as historyActions from '../history/actions';
 
 import Person from './person';
 
@@ -11,8 +12,8 @@ class Persons extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.requestTasks(localStorage.getItem('currentUser'));
+  componentWillMount() {
+    this.props.requestHistories(0);
   }
 
   renderPersons() {
@@ -43,13 +44,13 @@ class Persons extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user.currentUser,
-  userTasks: state.tasks.currentUser,
+  userTasks: state.history.histories[0].tasks,
   buddyTasks: state.tasks.buddy
 });
 
   // requestTasks: () => dispatch(taskActions.requestTasks()),
 const mapDispatchToProps = dispatch => ({
-  requestTasks: userId => dispatch(taskActions.requestTasks(userId)),
+  requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
   incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
 });
 

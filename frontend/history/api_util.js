@@ -6,6 +6,6 @@ axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const getHistories = (index, success) => {
-  axios.get(`${ROOT_URL}/histories`, index)
+  axios.get(`${ROOT_URL}/history/${index}`)
   .then(success);
 };
