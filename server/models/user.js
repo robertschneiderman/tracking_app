@@ -31,6 +31,12 @@ const userSchema = new Schema({
   ],
   buddy: { type: Schema.Types.ObjectId, default: null }
 });
+
+// history {
+//   tasks -> goals
+// }
+
+
   // tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 
 userSchema.pre('save', function(next) {

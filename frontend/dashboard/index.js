@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as taskActions from '../../actions/task/';
-import * as userActions from '../../actions/user/';
+import * as taskActions from '../task/actions';
+import * as userActions from '../user/actions';
 
 import Person from './person';
 

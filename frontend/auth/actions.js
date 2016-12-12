@@ -4,7 +4,7 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR
-} from '../types';
+} from './types';
 
 const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:3090' : 'https://trackyy.herokuapp.com';
 // const ROOT_URL = 'https://trackyy.herokuapp.com';

@@ -1,8 +1,3 @@
-export const createTask = info => ({
-  type: "CREATE_TASK",
-  payload: info
-});
-
 export const requestTasks = () => ({
   type: "REQUEST_TASKS",
 });

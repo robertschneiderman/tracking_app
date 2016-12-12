@@ -1,10 +1,3 @@
-// Name
-// Goals 
-    // Assessed last, next, whether mult is applied
-    // Streak
-    // Record
-  
-
 import React from 'react';
 
 class TaskPopup extends React.Component {

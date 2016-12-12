@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createTask } from '../../actions/task/index';
+import { createTask } from '../actions';
 // import Container from './/_container';
 
 class TaskDetails extends React.Component {

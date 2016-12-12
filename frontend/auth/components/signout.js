@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/authentication';
+import * as actions from '../actions';
 
 class Signout extends Component {
 
@@ -17,7 +17,7 @@ class Signout extends Component {
       <div className="">
         Sorry to see you go...
       </div>
-    )
+    );
   }
 }
 

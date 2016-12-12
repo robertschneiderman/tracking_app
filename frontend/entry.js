@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
-import App from './components/app';
-import Signin from './components/auth/signin';
-import Signup from './components/auth/signup';
-import Signout from './components/auth/signout';
-import RequireAuth from './components/auth/require_auth';
-import Welcome from './components/welcome';
-import Dashboard from './components/dashboard/index';
-import NewTask from './components/new_task/index.jsx';
-import { AUTH_USER } from './actions/types';
+import App from './app';
+import Signin from './auth/components/signin';
+import Signup from './auth/components/signup';
+import Signout from './auth/components/signout';
+import RequireAuth from './auth/components/require_auth';
+import Welcome from './welcome';
+import Dashboard from './dashboard/index';
+import NewTask from './new_task/components/index.jsx';
+import { AUTH_USER } from './auth/types';
 
-import store from './store/store'; 
+import store from './store'; 
 
 const token = localStorage.getItem('token');
 const currentUser = localStorage.getItem('currentUser');

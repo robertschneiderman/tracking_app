@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions/authentication/index';
+import * as actions from '../actions';
 import { connect } from 'react-redux';
-import store from '../../store/store.js';
+import store from '../../store.js';
 
 // const validation = {};
 // validation.required = value => value ? undefined : 'Required';

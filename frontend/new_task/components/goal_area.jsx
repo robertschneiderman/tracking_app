@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as actions from '../../actions/new_task';
+import * as actions from '../actions';
 import {connect} from 'react-redux';
 
 import Goal from './goal';
