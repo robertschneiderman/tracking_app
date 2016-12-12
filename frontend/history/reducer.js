@@ -39,9 +39,17 @@ const historyReducer = (state = {histories: [ { date: '', tasks: []} ]}, action)
             newState.histories = action.payload.histories.concat(state.histories);
             newState.index = newState.histories.length;
             let date = newState.histories[0].date;
-            debugger;
-            newState.date = formattedDate(date);
+            newState.date = date;
             return newState;
+        case 'RECEIVE_HISTORY':
+            newState = merge({}, state);
+            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
+            newState.histories[0] = {tasks: [action.payload.task].concat(state.histories[0].tasks)};
+            return newState;
+        case 'UPDATE_HISTORY':
+            newState = merge({}, state);
+            newState.histories[0] = action.payload;
+            return newState;             
         default:
             return state;
     }

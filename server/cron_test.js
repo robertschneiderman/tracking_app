@@ -6,7 +6,7 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('35 * * * * *', function() {
+var job = new CronJob('42 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
 
@@ -16,7 +16,6 @@ var job = new CronJob('35 * * * * *', function() {
 
             User.findById(user.buddy).then(buddy => {
                 let people = (buddy) ? [user, buddy] : [user];
-                user.histories.unshift(user.tasks);
                 people.forEach(person => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     if (todayInteger % 4 === 0) {
@@ -40,7 +39,12 @@ var job = new CronJob('35 * * * * *', function() {
                     dailyGoals.forEach(goalObj => {
                         emailText += CronHelpers.assess(goalObj, 'daily');
                     });
-                });                
+                });         
+                let lastDate = user.histories[0].date;
+                let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
+
+                user.histories.unshift({date: testingDate, tasks: user.tasks});       
+                // user.histories.unshift({date: new Date(), tasks: user.tasks});       
 
                 var mailOptions = {
                     from: '"Tracky" <robert.a.schneiderman@gmail.com>',

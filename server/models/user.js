@@ -19,11 +19,8 @@ let task = {
           lastAssessed: Date,
           nextAssessed: Date       
         }
-      ],
-      stubs: [
-        { start: Date, end: Date }
       ]
-    };
+};
 
 const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },

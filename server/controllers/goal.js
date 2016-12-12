@@ -18,7 +18,7 @@ exports.update = function(req, res, next) {
       return Promise.reject();
     }
 
-    let task = user.tasks.find(task2 => {
+    let task = user.histories[0].tasks.find(task2 => {
       return task2._id == req.params.id;
     });
 
@@ -30,7 +30,7 @@ exports.update = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
-      res.json({ task });
+      res.json(user.histories[0]);
     });
 
   }).catch((e) => {

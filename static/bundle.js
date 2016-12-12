@@ -41402,8 +41402,16 @@
 	            newState.histories = action.payload.histories.concat(state.histories);
 	            newState.index = newState.histories.length;
 	            var date = newState.histories[0].date;
-	            debugger;
-	            newState.date = formattedDate(date);
+	            newState.date = date;
+	            return newState;
+	        case 'RECEIVE_HISTORY':
+	            newState = (0, _merge2.default)({}, state);
+	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
+	            newState.histories[0] = { tasks: [action.payload.task].concat(state.histories[0].tasks) };
+	            return newState;
+	        case 'UPDATE_HISTORY':
+	            newState = (0, _merge2.default)({}, state);
+	            newState.histories[0] = action.payload;
 	            return newState;
 	        default:
 	            return state;
@@ -41537,6 +41545,8 @@
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
+	var _actions2 = __webpack_require__(509);
+	
 	var _reactRouter = __webpack_require__(202);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -41556,7 +41566,8 @@
 	        // debugger;
 	        var task = res.data;
 	        console.log(task);
-	        dispatch(ACTIONS.receiveTask(task));
+	        // dispatch(ACTIONS.receiveTask(task));
+	        dispatch((0, _actions2.updateHistory)(task));
 	      };
 	
 	      switch (action.type) {
@@ -41671,6 +41682,8 @@
 	
 	var _actions2 = __webpack_require__(503);
 	
+	var _actions3 = __webpack_require__(509);
+	
 	var _reactRouter = __webpack_require__(202);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -41685,6 +41698,8 @@
 	        var tasks = res.data;
 	        _reactRouter.hashHistory.push('/dashboard');
 	        dispatch((0, _actions2.receiveTask)(tasks));
+	        debugger;
+	        dispatch((0, _actions3.receiveHistory)(tasks));
 	      };
 	
 	      switch (action.type) {
@@ -41859,6 +41874,20 @@
 	var receiveHistories = exports.receiveHistories = function receiveHistories(payload) {
 	    return {
 	        type: 'RECEIVE_HISTORIES',
+	        payload: payload
+	    };
+	};
+	
+	var receiveHistory = exports.receiveHistory = function receiveHistory(payload) {
+	    return {
+	        type: 'RECEIVE_HISTORY',
+	        payload: payload
+	    };
+	};
+	
+	var updateHistory = exports.updateHistory = function updateHistory(payload) {
+	    return {
+	        type: 'UPDATE_HISTORY',
 	        payload: payload
 	    };
 	};

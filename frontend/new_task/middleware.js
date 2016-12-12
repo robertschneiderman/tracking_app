@@ -1,6 +1,7 @@
 import * as API from './api_util';
 import * as ACTIONS from './actions';
 import { receiveTask } from '../task/actions';
+import { receiveHistory } from '../history/actions';
 import {router, hashHistory} from 'react-router';
 
 const taskMiddleware = store => next => action => {
@@ -11,6 +12,8 @@ const taskMiddleware = store => next => action => {
     let tasks = res.data;
     hashHistory.push('/dashboard');
     dispatch(receiveTask(tasks));
+    debugger;
+    dispatch(receiveHistory(tasks));
   };       
 
   switch (action.type) {

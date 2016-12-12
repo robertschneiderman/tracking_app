@@ -78,6 +78,8 @@ exports.newTask = function(req, res, next) {
     };
 
     user.tasks.push(task);
+    if (!user.histories[0]) user.histories[0] = { date: new Date(), tasks: [] };
+    user.histories[0].tasks.push(task);
 
     user.save(function(err) {
       if (err) { return next(err); }

@@ -39,12 +39,15 @@ exports.get = function(req, res, next) {
     }
 
     let histories = user.histories.slice(0, req.params.index + 4);
-    // histories.forEach(history => {
-    //     history.date = formattedDate(history.date);
-    // });
+    let formattedHistories = [];
+    histories.forEach(history => {
+        history = history.toObject();
+        history.date = formattedDate(history.date);
+        formattedHistories.push(history);
+    });
 
 
-    res.json({ histories });
+    res.json({ histories: formattedHistories });
 
   }).catch((e) => {
     res.status(401).send();
