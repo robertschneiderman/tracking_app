@@ -68348,7 +68348,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -68357,21 +68357,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(172);
+	var _date_toggler = __webpack_require__(553);
 	
-	var _actions = __webpack_require__(542);
+	var _date_toggler2 = _interopRequireDefault(_date_toggler);
 	
-	var taskActions = _interopRequireWildcard(_actions);
+	var _persons = __webpack_require__(552);
 	
-	var _actions2 = __webpack_require__(536);
-	
-	var userActions = _interopRequireWildcard(_actions2);
-	
-	var _person = __webpack_require__(526);
-	
-	var _person2 = _interopRequireDefault(_person);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	var _persons2 = _interopRequireDefault(_persons);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -68381,75 +68373,31 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Dashboard = function (_React$Component) {
-	  _inherits(Dashboard, _React$Component);
+	var Dashboard = function (_Component) {
+	    _inherits(Dashboard, _Component);
 	
-	  function Dashboard(props) {
-	    _classCallCheck(this, Dashboard);
+	    function Dashboard(props) {
+	        _classCallCheck(this, Dashboard);
 	
-	    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
-	  }
-	
-	  _createClass(Dashboard, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.requestTasks(localStorage.getItem('currentUser'));
+	        return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
 	    }
-	  }, {
-	    key: 'renderPersons',
-	    value: function renderPersons() {
-	      if (!this.props.user.buddy) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal })
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal }),
-	          _react2.default.createElement(_person2.default, { user: this.props.buddy, tasks: this.props.buddyTasks, incrementGoal: this.props.incrementGoal })
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'dashboard' },
-	        this.renderPersons()
-	      );
-	    }
-	  }]);
 	
-	  return Dashboard;
-	}(_react2.default.Component);
+	    _createClass(Dashboard, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'dashboard' },
+	                _react2.default.createElement(_date_toggler2.default, null),
+	                _react2.default.createElement(_persons2.default, null)
+	            );
+	        }
+	    }]);
 	
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    user: state.user.currentUser,
-	    userTasks: state.tasks.currentUser,
-	    buddyTasks: state.tasks.buddy
-	  };
-	};
+	    return Dashboard;
+	}(_react.Component);
 	
-	// requestTasks: () => dispatch(taskActions.requestTasks()),
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    requestTasks: function requestTasks(userId) {
-	      return dispatch(taskActions.requestTasks(userId));
-	    },
-	    incrementGoal: function incrementGoal(taskId, count) {
-	      return dispatch(taskActions.incrementGoal(taskId, count));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Dashboard);
-	
-	// export default connect(null, actions)(Dashboard);
+	exports.default = Dashboard;
 
 /***/ },
 /* 526 */
@@ -69835,7 +69783,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.incrementGoal = exports.createTask = undefined;
+	exports.createTask = undefined;
 	
 	var _axios = __webpack_require__(433);
 	
@@ -69850,13 +69798,6 @@
 	
 	var createTask = exports.createTask = function createTask(task, success) {
 	  _axios2.default.post(ROOT_URL + '/tasks', task).then(success);
-	};
-	
-	var incrementGoal = exports.incrementGoal = function incrementGoal(taskId, increment, success) {
-	  console.log("increment:", increment);
-	  _axios2.default.patch(ROOT_URL + '/goals/' + taskId, { increment: increment }).then(success).catch(function (error) {
-	    console.log(error);
-	  });
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
@@ -70058,7 +69999,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getTasks = undefined;
+	exports.incrementGoal = exports.getTasks = undefined;
 	
 	var _axios = __webpack_require__(433);
 	
@@ -70073,6 +70014,13 @@
 	
 	var getTasks = exports.getTasks = function getTasks(success) {
 	  _axios2.default.get(ROOT_URL + '/tasks').then(success).catch(function (error) {
+	    console.log(error);
+	  });
+	};
+	
+	var incrementGoal = exports.incrementGoal = function incrementGoal(taskId, increment, success) {
+	  console.log("increment:", increment);
+	  _axios2.default.patch(ROOT_URL + '/goals/' + taskId, { increment: increment }).then(success).catch(function (error) {
 	    console.log(error);
 	  });
 	};
@@ -70279,6 +70227,161 @@
 	};
 	
 	exports.default = newtaskReducer;
+
+/***/ },
+/* 552 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	var _actions = __webpack_require__(542);
+	
+	var taskActions = _interopRequireWildcard(_actions);
+	
+	var _actions2 = __webpack_require__(536);
+	
+	var userActions = _interopRequireWildcard(_actions2);
+	
+	var _person = __webpack_require__(526);
+	
+	var _person2 = _interopRequireDefault(_person);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Persons = function (_React$Component) {
+	  _inherits(Persons, _React$Component);
+	
+	  function Persons(props) {
+	    _classCallCheck(this, Persons);
+	
+	    return _possibleConstructorReturn(this, (Persons.__proto__ || Object.getPrototypeOf(Persons)).call(this, props));
+	  }
+	
+	  _createClass(Persons, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.requestTasks(localStorage.getItem('currentUser'));
+	    }
+	  }, {
+	    key: 'renderPersons',
+	    value: function renderPersons() {
+	      if (!this.props.user.buddy) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'persons' },
+	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'persons' },
+	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal }),
+	          _react2.default.createElement(_person2.default, { user: this.props.buddy, tasks: this.props.buddyTasks, incrementGoal: this.props.incrementGoal })
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'persons' },
+	        this.renderPersons()
+	      );
+	    }
+	  }]);
+	
+	  return Persons;
+	}(_react2.default.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    user: state.user.currentUser,
+	    userTasks: state.tasks.currentUser,
+	    buddyTasks: state.tasks.buddy
+	  };
+	};
+	
+	// requestTasks: () => dispatch(taskActions.requestTasks()),
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    requestTasks: function requestTasks(userId) {
+	      return dispatch(taskActions.requestTasks(userId));
+	    },
+	    incrementGoal: function incrementGoal(taskId, count) {
+	      return dispatch(taskActions.incrementGoal(taskId, count));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Persons);
+	
+	// export default connect(null, actions)(Dashboard);
+
+/***/ },
+/* 553 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DateToggler = function (_Component) {
+	    _inherits(DateToggler, _Component);
+	
+	    function DateToggler(props) {
+	        _classCallCheck(this, DateToggler);
+	
+	        return _possibleConstructorReturn(this, (DateToggler.__proto__ || Object.getPrototypeOf(DateToggler)).call(this, props));
+	    }
+	
+	    _createClass(DateToggler, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement("div", { className: "" });
+	        }
+	    }]);
+	
+	    return DateToggler;
+	}(_react.Component);
+	
+	exports.default = DateToggler;
 
 /***/ }
 /******/ ]);

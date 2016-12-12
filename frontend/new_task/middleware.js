@@ -18,7 +18,7 @@ const taskMiddleware = store => next => action => {
     case "CREATE_TASK":
       API.createTask(action.payload, createSuccess);
       return next(action);      
-      break;          
+      break;
     default:
       return next(action);
       break;      

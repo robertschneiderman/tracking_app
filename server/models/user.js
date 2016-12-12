@@ -3,12 +3,8 @@ const jwt = require('jwt-simple');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
-const userSchema = new Schema({
-  email: { type: String, unique: true, lowercase: true },
-  name: String,
-  password: String,
-  tasks: [
-    {
+
+let task = {
       name: String,
       type: { type: String },
       shortestInterval: String,
@@ -27,10 +23,33 @@ const userSchema = new Schema({
       stubs: [
         { start: Date, end: Date }
       ]
-    }
+    };
+
+const userSchema = new Schema({
+  email: { type: String, unique: true, lowercase: true },
+  name: String,
+  password: String,
+  tasks: [
+    task
+  ],
+  histories: [
+    { date: Date, tasks: [task] }
   ],
   buddy: { type: Schema.Types.ObjectId, default: null }
 });
+
+// 0->2
+
+// tasks: [
+
+// ]
+
+
+
+histories ->
+tasks1
+tasks2
+tasks3
 
 // history {
 //   tasks -> goals

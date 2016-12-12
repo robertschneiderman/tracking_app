@@ -9,12 +9,3 @@ export const createTask = (task, success) => {
   axios.post(`${ROOT_URL}/tasks`, task)
   .then(success);
 };
-
-export const incrementGoal = (taskId, increment, success) => {
-  console.log("increment:", increment);
-  axios.patch(`${ROOT_URL}/goals/${taskId}`, {increment})
-  .then(success)
-  .catch(function (error) {
-    console.log(error);
-  });
-};

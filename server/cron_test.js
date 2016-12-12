@@ -6,7 +6,7 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('40 * * * * *', function() {
+var job = new CronJob('35 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
 
@@ -16,6 +16,7 @@ var job = new CronJob('40 * * * * *', function() {
 
             User.findById(user.buddy).then(buddy => {
                 let people = (buddy) ? [user, buddy] : [user];
+                user.histories.unshift(user.tasks);
                 people.forEach(person => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     if (todayInteger % 4 === 0) {
