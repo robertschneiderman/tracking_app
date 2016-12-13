@@ -6,9 +6,8 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('00 * * * * *', function() {
+var job = new CronJob('00 01 * * * *', function() {
     todayInteger = new Date().getMinutes();
-
 
     User.find({}, function(err, users) {
         users.forEach(function(user) { 

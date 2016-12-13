@@ -23,9 +23,7 @@ exports.update = function(req, res, next) {
     });
 
     let goals = task.goals;
-
     let newGoals = (req.body.increment) ? increment(task.goals, req.body) : req.body;
-
     task.goals = newGoals;
 
     user.save(function(err) {

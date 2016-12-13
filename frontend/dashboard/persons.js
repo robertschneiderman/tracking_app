@@ -20,14 +20,27 @@ class Persons extends React.Component {
     if (!this.props.user.buddy) {
       return (
         <div className="persons">       
-          <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
+          <Person 
+            user={this.props.user}
+            tasks={this.props.userTasks}
+            incrementGoal={this.props.incrementGoal}
+            date={this.props.date}
+            index={this.props.index} />
         </div>
       );
     } else {
       return (
         <div className="persons">        
-          <Person user={this.props.user} tasks={this.props.userTasks} incrementGoal={this.props.incrementGoal} />
-          <Person user={this.props.buddy} tasks={this.props.buddyTasks} incrementGoal={this.props.incrementGoal} />
+          <Person
+            user={this.props.user}
+            tasks={this.props.userTasks}
+            incrementGoal={this.props.incrementGoal}
+            index={this.props.index} />
+          <Person
+            user={this.props.buddy}
+            tasks={this.props.buddyTasks}
+            incrementGoal={this.props.incrementGoal}
+            index={this.props.index} />
         </div>
       );
     }
@@ -45,8 +58,9 @@ class Persons extends React.Component {
 const mapStateToProps = state => {
   return {
   user: state.user.currentUser,
-  userTasks: state.history.histories[0].tasks,
-  buddyTasks: state.tasks.buddy
+  userTasks: state.history.histories[state.history.index].tasks,
+  buddyTasks: state.tasks.buddy,
+  index: state.history.index
 };};
 
   // requestTasks: () => dispatch(taskActions.requestTasks()),

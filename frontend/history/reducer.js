@@ -31,13 +31,13 @@ const formattedDate = date => {
     return `${month} ${dayStrFull} ${date.getFullYear()}`;
 };
 
-const historyReducer = (state = {histories: [ { date: '', tasks: []} ]}, action) => {
+const historyReducer = (state = {index: 0, histories: [ { date: '', tasks: []} ]}, action) => {
     let newState;
     switch (action.type) {
         case 'RECEIVE_HISTORIES':
             newState = merge({}, state);
             newState.histories = action.payload.histories.concat(state.histories);
-            newState.index = newState.histories.length;
+            newState.index = 0;
             let date = newState.histories[0].date;
             newState.date = date;
             return newState;
@@ -46,6 +46,10 @@ const historyReducer = (state = {histories: [ { date: '', tasks: []} ]}, action)
             // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
             newState.histories[0] = {tasks: [action.payload.task].concat(state.histories[0].tasks)};
             return newState;
+        case 'ALTERNATE_HISTORIES':
+            newState = merge({}, state);
+            newState.index = state.index + action.payload;   
+            return newState;  
         case 'UPDATE_HISTORY':
             newState = merge({}, state);
             newState.histories[0] = action.payload;

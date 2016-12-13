@@ -65,8 +65,12 @@ class Task extends React.Component {
   renderTicker() {
     let result = '';
     let count = this.props.count, type = this.type, goal = this.props.goal;
-
-    return (this.props.type === 'time') ? this.timeTicker() : this.frequencyTicker();
+    if (this.props.btnsEnabled) {
+      let tickerType= (this.props.type === 'time') ? this.timeTicker() : this.frequencyTicker();
+      return <button className="task-btn" onClick={this.incrementGoal.bind(this, 1)}>{tickerType}</button>;
+    } else {
+      return <div className="ibm"></div>;
+    }
   }
 
   renderCount() {
@@ -74,18 +78,28 @@ class Task extends React.Component {
     return `${this.props.count} / ${goal}`;
   }
 
+  renderBtns() {
+    if (this.props.btnsEnabled) {
+      return (
+        <div className="increment-btns ibm">
+          <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
+          <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
+        </div>        
+      );
+    } else {
+      return (      
+        <div className="increment-btns ibm"></div>
+      );
+    }
+  }
+
   render() {
     return(
       <li className="task">
         <label onMouseEnter={this.props.reveal} onMouseLeave={this.props.hide} className="task-label" htmlFor="">{this.props.task.name}</label>       
-        <button className="task-btn" onClick={this.incrementGoal.bind(this, 1)}>
-          {this.renderTicker()}
-        </button>
+        {this.renderTicker()}
         <span className="count">{this.renderCount()}</span>
-        <div className="increment-btns ibm">
-          <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
-          <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
-        </div>
+        {this.renderBtns()}
       </li>
     );
         // <TaskPopup 

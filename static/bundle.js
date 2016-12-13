@@ -41392,7 +41392,7 @@
 	};
 	
 	var historyReducer = function historyReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { histories: [{ date: '', tasks: [] }] };
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, histories: [{ date: '', tasks: [] }] };
 	    var action = arguments[1];
 	
 	    var newState = void 0;
@@ -41400,7 +41400,7 @@
 	        case 'RECEIVE_HISTORIES':
 	            newState = (0, _merge2.default)({}, state);
 	            newState.histories = action.payload.histories.concat(state.histories);
-	            newState.index = newState.histories.length;
+	            newState.index = 0;
 	            var date = newState.histories[0].date;
 	            newState.date = date;
 	            return newState;
@@ -41408,6 +41408,10 @@
 	            newState = (0, _merge2.default)({}, state);
 	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
 	            newState.histories[0] = { tasks: [action.payload.task].concat(state.histories[0].tasks) };
+	            return newState;
+	        case 'ALTERNATE_HISTORIES':
+	            newState = (0, _merge2.default)({}, state);
+	            newState.index = state.index + action.payload;
 	            return newState;
 	        case 'UPDATE_HISTORY':
 	            newState = (0, _merge2.default)({}, state);
@@ -41891,6 +41895,13 @@
 	        payload: payload
 	    };
 	};
+	
+	var alternateHistories = exports.alternateHistories = function alternateHistories(payload) {
+	    return {
+	        type: 'ALTERNATE_HISTORIES',
+	        payload: payload
+	    };
+	};
 
 /***/ },
 /* 510 */
@@ -42156,8 +42167,8 @@
 	
 	    _createClass(DateToggler, [{
 	        key: 'handleDateClick',
-	        value: function handleDateClick() {
-	            this.props.requestHistories(this.props.index);
+	        value: function handleDateClick(index) {
+	            this.props.alternateHistories(index);
 	        }
 	    }, {
 	        key: 'render',
@@ -42167,7 +42178,7 @@
 	                { className: 'date-toggler' },
 	                _react2.default.createElement(
 	                    'button',
-	                    { className: 'date-btn', onClick: this.handleDateClick },
+	                    { className: 'date-btn', onClick: this.handleDateClick.bind(this, 1) },
 	                    '@'
 	                ),
 	                _react2.default.createElement(
@@ -42177,7 +42188,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'button',
-	                    { className: 'date-btn', onClick: this.handleDateClick },
+	                    { className: 'date-btn', onClick: this.handleDateClick.bind(this, -1) },
 	                    '@'
 	                )
 	            );
@@ -42189,8 +42200,8 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
-	        index: state.index,
-	        date: state.history.date
+	        index: state.history.index,
+	        date: state.history.histories[state.history.index].date
 	    };
 	};
 	
@@ -42198,7 +42209,11 @@
 	    return {
 	        requestHistories: function requestHistories(payload) {
 	            return dispatch(actions.requestHistories(payload));
+	        },
+	        alternateHistories: function alternateHistories(payload) {
+	            return dispatch(actions.alternateHistories(payload));
 	        }
+	
 	    };
 	};
 	
@@ -42269,14 +42284,27 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal })
+	          _react2.default.createElement(_person2.default, {
+	            user: this.props.user,
+	            tasks: this.props.userTasks,
+	            incrementGoal: this.props.incrementGoal,
+	            date: this.props.date,
+	            index: this.props.index })
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, { user: this.props.user, tasks: this.props.userTasks, incrementGoal: this.props.incrementGoal }),
-	          _react2.default.createElement(_person2.default, { user: this.props.buddy, tasks: this.props.buddyTasks, incrementGoal: this.props.incrementGoal })
+	          _react2.default.createElement(_person2.default, {
+	            user: this.props.user,
+	            tasks: this.props.userTasks,
+	            incrementGoal: this.props.incrementGoal,
+	            index: this.props.index }),
+	          _react2.default.createElement(_person2.default, {
+	            user: this.props.buddy,
+	            tasks: this.props.buddyTasks,
+	            incrementGoal: this.props.incrementGoal,
+	            index: this.props.index })
 	        );
 	      }
 	    }
@@ -42297,8 +42325,9 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    user: state.user.currentUser,
-	    userTasks: state.history.histories[0].tasks,
-	    buddyTasks: state.tasks.buddy
+	    userTasks: state.history.histories[state.history.index].tasks,
+	    buddyTasks: state.tasks.buddy,
+	    index: state.history.index
 	  };
 	};
 	
@@ -42370,7 +42399,10 @@
 	  function Person(props) {
 	    _classCallCheck(this, Person);
 	
-	    return _possibleConstructorReturn(this, (Person.__proto__ || Object.getPrototypeOf(Person)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Person.__proto__ || Object.getPrototypeOf(Person)).call(this, props));
+	
+	    _this.renderTasks = _this.renderTasks.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Person, [{
@@ -42454,6 +42486,7 @@
 	    value: function renderTasks(tasksByInterval) {
 	      var _this2 = this;
 	
+	      debugger;
 	      return tasksByInterval.map(function (task) {
 	        var goals = task.goals;
 	        // let goals = this.applyMultiplier(task.goals);
@@ -42471,7 +42504,8 @@
 	            type: task.type,
 	            goal: goals[0],
 	            count: goals[0].count,
-	            incrementGoal: _this2.props.incrementGoal }),
+	            incrementGoal: _this2.props.incrementGoal,
+	            btnsEnabled: _this2.props.index === 0 }),
 	          _react2.default.createElement(_task_popup2.default, {
 	            ref: 'popup',
 	            name: task.name,
@@ -42616,8 +42650,16 @@
 	      var count = this.props.count,
 	          type = this.type,
 	          goal = this.props.goal;
-	
-	      return this.props.type === 'time' ? this.timeTicker() : this.frequencyTicker();
+	      if (this.props.btnsEnabled) {
+	        var tickerType = this.props.type === 'time' ? this.timeTicker() : this.frequencyTicker();
+	        return _react2.default.createElement(
+	          'button',
+	          { className: 'task-btn', onClick: this.incrementGoal.bind(this, 1) },
+	          tickerType
+	        );
+	      } else {
+	        return _react2.default.createElement('div', { className: 'ibm' });
+	      }
 	    }
 	  }, {
 	    key: 'renderCount',
@@ -42626,27 +42668,10 @@
 	      return this.props.count + ' / ' + goal;
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'li',
-	        { className: 'task' },
-	        _react2.default.createElement(
-	          'label',
-	          { onMouseEnter: this.props.reveal, onMouseLeave: this.props.hide, className: 'task-label', htmlFor: '' },
-	          this.props.task.name
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'task-btn', onClick: this.incrementGoal.bind(this, 1) },
-	          this.renderTicker()
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'count' },
-	          this.renderCount()
-	        ),
-	        _react2.default.createElement(
+	    key: 'renderBtns',
+	    value: function renderBtns() {
+	      if (this.props.btnsEnabled) {
+	        return _react2.default.createElement(
 	          'div',
 	          { className: 'increment-btns ibm' },
 	          _react2.default.createElement(
@@ -42659,7 +42684,29 @@
 	            { className: 'increment-btn', onClick: this.incrementGoal.bind(this, 1) },
 	            '+'
 	          )
-	        )
+	        );
+	      } else {
+	        return _react2.default.createElement('div', { className: 'increment-btns ibm' });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'li',
+	        { className: 'task' },
+	        _react2.default.createElement(
+	          'label',
+	          { onMouseEnter: this.props.reveal, onMouseLeave: this.props.hide, className: 'task-label', htmlFor: '' },
+	          this.props.task.name
+	        ),
+	        this.renderTicker(),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'count' },
+	          this.renderCount()
+	        ),
+	        this.renderBtns()
 	      );
 	      // <TaskPopup 
 	      //   description={this.props.description}

@@ -12,6 +12,7 @@ class Person extends React.Component {
 
   constructor(props) {
     super(props);
+    this.renderTasks = this.renderTasks.bind(this);
   }
 
   componentWillMount() {
@@ -74,6 +75,7 @@ class Person extends React.Component {
   }  
 
   renderTasks(tasksByInterval) {
+    debugger;
     return tasksByInterval.map(task => {
       let goals = task.goals;
       // let goals = this.applyMultiplier(task.goals);
@@ -90,7 +92,8 @@ class Person extends React.Component {
               type={task.type}
               goal={goals[0]}
               count={goals[0].count}
-              incrementGoal={this.props.incrementGoal} />
+              incrementGoal={this.props.incrementGoal}
+              btnsEnabled={this.props.index === 0} />
             <TaskPopup 
               ref="popup"
               name={task.name}

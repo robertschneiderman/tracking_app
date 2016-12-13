@@ -17,3 +17,8 @@ export const updateHistory = payload => ({
     type: 'UPDATE_HISTORY',
     payload
 });
+
+export const alternateHistories = payload => ({
+    type: 'ALTERNATE_HISTORIES',
+    payload
+});
