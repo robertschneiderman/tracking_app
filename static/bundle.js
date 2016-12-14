@@ -39329,19 +39329,19 @@
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
-	var _middleware = __webpack_require__(498);
+	var _middleware = __webpack_require__(499);
 	
 	var _middleware2 = _interopRequireDefault(_middleware);
 	
-	var _middleware3 = __webpack_require__(501);
+	var _middleware3 = __webpack_require__(502);
 	
 	var _middleware4 = _interopRequireDefault(_middleware3);
 	
-	var _middleware5 = __webpack_require__(504);
+	var _middleware5 = __webpack_require__(505);
 	
 	var _middleware6 = _interopRequireDefault(_middleware5);
 	
-	var _middleware7 = __webpack_require__(507);
+	var _middleware7 = __webpack_require__(508);
 	
 	var _middleware8 = _interopRequireDefault(_middleware7);
 	
@@ -41362,59 +41362,26 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var months = {
-	    0: 'January',
-	    1: 'February',
-	    2: 'March',
-	    3: 'April',
-	    4: 'May',
-	    5: 'June',
-	    6: 'July',
-	    7: 'August',
-	    8: 'September',
-	    9: 'October',
-	    10: 'November',
-	    11: 'December'
-	};
-	
-	var numberEndings = {
-	    1: 'st',
-	    2: 'nd',
-	    3: 'rd'
-	};
-	
-	var formattedDate = function formattedDate(date) {
-	    var month = months[date.getMonth()];
-	    var day = date.getDate();
-	    var ending = day > 3 ? 'th' : numberEndings[day];
-	    var dayStrFull = '' + day.toString() + ending;
-	    return month + ' ' + dayStrFull + ' ' + date.getFullYear();
-	};
-	
 	var historyReducer = function historyReducer() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, histories: [{ date: '', tasks: [] }] };
 	    var action = arguments[1];
 	
-	    var newState = void 0;
+	    var newState = (0, _merge2.default)({}, state);
 	    switch (action.type) {
 	        case 'RECEIVE_HISTORIES':
-	            newState = (0, _merge2.default)({}, state);
-	            newState.histories = action.payload.histories.concat(state.histories);
-	            newState.index = 0;
+	            var tempVar = state.histories[0].date === '' ? [] : state.histories;
+	            newState.histories = tempVar.concat(action.payload.histories);
 	            var date = newState.histories[0].date;
 	            newState.date = date;
 	            return newState;
 	        case 'RECEIVE_HISTORY':
-	            newState = (0, _merge2.default)({}, state);
 	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
 	            newState.histories[0] = { tasks: [action.payload.task].concat(state.histories[0].tasks) };
 	            return newState;
 	        case 'ALTERNATE_HISTORIES':
-	            newState = (0, _merge2.default)({}, state);
 	            newState.index = state.index + action.payload;
 	            return newState;
 	        case 'UPDATE_HISTORY':
-	            newState = (0, _merge2.default)({}, state);
 	            newState.histories[0] = action.payload;
 	            return newState;
 	        default:
@@ -41431,6 +41398,50 @@
 
 /***/ },
 /* 498 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var requestHistories = exports.requestHistories = function requestHistories(payload) {
+	    return {
+	        type: 'REQUEST_HISTORIES',
+	        payload: payload
+	    };
+	};
+	
+	var receiveHistories = exports.receiveHistories = function receiveHistories(payload) {
+	    return {
+	        type: 'RECEIVE_HISTORIES',
+	        payload: payload
+	    };
+	};
+	
+	var receiveHistory = exports.receiveHistory = function receiveHistory(payload) {
+	    return {
+	        type: 'RECEIVE_HISTORY',
+	        payload: payload
+	    };
+	};
+	
+	var updateHistory = exports.updateHistory = function updateHistory(payload) {
+	    return {
+	        type: 'UPDATE_HISTORY',
+	        payload: payload
+	    };
+	};
+	
+	var alternateHistories = exports.alternateHistories = function alternateHistories(payload) {
+	    return {
+	        type: 'ALTERNATE_HISTORIES',
+	        payload: payload
+	    };
+	};
+
+/***/ },
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41439,11 +41450,11 @@
 	  value: true
 	});
 	
-	var _api_util = __webpack_require__(499);
+	var _api_util = __webpack_require__(500);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(500);
+	var _actions = __webpack_require__(501);
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
@@ -41479,7 +41490,7 @@
 	exports.default = userMiddleware;
 
 /***/ },
-/* 499 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41509,7 +41520,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 500 */
+/* 501 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -41532,7 +41543,7 @@
 	};
 
 /***/ },
-/* 501 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41541,15 +41552,15 @@
 	  value: true
 	});
 	
-	var _api_util = __webpack_require__(502);
+	var _api_util = __webpack_require__(503);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(503);
+	var _actions = __webpack_require__(504);
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(509);
+	var _actions2 = __webpack_require__(498);
 	
 	var _reactRouter = __webpack_require__(202);
 	
@@ -41595,7 +41606,7 @@
 	exports.default = taskMiddleware;
 
 /***/ },
-/* 502 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41631,7 +41642,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 503 */
+/* 504 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -41667,7 +41678,7 @@
 	};
 
 /***/ },
-/* 504 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41676,17 +41687,17 @@
 	  value: true
 	});
 	
-	var _api_util = __webpack_require__(505);
+	var _api_util = __webpack_require__(506);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(506);
+	var _actions = __webpack_require__(507);
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(503);
+	var _actions2 = __webpack_require__(504);
 	
-	var _actions3 = __webpack_require__(509);
+	var _actions3 = __webpack_require__(498);
 	
 	var _reactRouter = __webpack_require__(202);
 	
@@ -41723,7 +41734,7 @@
 	exports.default = taskMiddleware;
 
 /***/ },
-/* 505 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41750,7 +41761,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 506 */
+/* 507 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -41787,7 +41798,7 @@
 	};
 
 /***/ },
-/* 507 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41796,11 +41807,11 @@
 	    value: true
 	});
 	
-	var _api_util = __webpack_require__(508);
+	var _api_util = __webpack_require__(509);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(509);
+	var _actions = __webpack_require__(498);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -41833,7 +41844,7 @@
 	exports.default = historyMiddleware;
 
 /***/ },
-/* 508 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41858,50 +41869,6 @@
 	  _axios2.default.get(ROOT_URL + '/history/' + index).then(success);
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 509 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var requestHistories = exports.requestHistories = function requestHistories(payload) {
-	    return {
-	        type: 'REQUEST_HISTORIES',
-	        payload: payload
-	    };
-	};
-	
-	var receiveHistories = exports.receiveHistories = function receiveHistories(payload) {
-	    return {
-	        type: 'RECEIVE_HISTORIES',
-	        payload: payload
-	    };
-	};
-	
-	var receiveHistory = exports.receiveHistory = function receiveHistory(payload) {
-	    return {
-	        type: 'RECEIVE_HISTORY',
-	        payload: payload
-	    };
-	};
-	
-	var updateHistory = exports.updateHistory = function updateHistory(payload) {
-	    return {
-	        type: 'UPDATE_HISTORY',
-	        payload: payload
-	    };
-	};
-	
-	var alternateHistories = exports.alternateHistories = function alternateHistories(payload) {
-	    return {
-	        type: 'ALTERNATE_HISTORIES',
-	        payload: payload
-	    };
-	};
 
 /***/ },
 /* 510 */
@@ -42139,7 +42106,7 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(509);
+	var _actions = __webpack_require__(498);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -42167,30 +42134,37 @@
 	
 	    _createClass(DateToggler, [{
 	        key: 'handleDateClick',
-	        value: function handleDateClick(index) {
-	            this.props.alternateHistories(index);
+	        value: function handleDateClick(increment) {
+	            this.props.alternateHistories(increment);
+	            var newIndex = this.props.index + increment;
+	            if (newIndex >= this.props.historiesLength - 1) {
+	                this.props.requestHistories(newIndex);
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            debugger;
+	            var decrementBtn = this.props.index !== this.props.historiesLength - 1 ? _react2.default.createElement(
+	                'button',
+	                { className: 'date-btn', onClick: this.handleDateClick.bind(this, 1) },
+	                '@'
+	            ) : false;
+	            var incrementBtn = this.props.index !== 0 ? _react2.default.createElement(
+	                'button',
+	                { className: 'date-btn', onClick: this.handleDateClick.bind(this, -1) },
+	                '@'
+	            ) : false;
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'date-toggler' },
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'date-btn', onClick: this.handleDateClick.bind(this, 1) },
-	                    '@'
-	                ),
+	                decrementBtn,
 	                _react2.default.createElement(
 	                    'p',
 	                    { className: 'date' },
 	                    this.props.date
 	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'date-btn', onClick: this.handleDateClick.bind(this, -1) },
-	                    '@'
-	                )
+	                incrementBtn
 	            );
 	        }
 	    }]);
@@ -42201,7 +42175,8 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
 	        index: state.history.index,
-	        date: state.history.histories[state.history.index].date
+	        date: state.history.histories[state.history.index].date,
+	        historiesLength: state.history.histories.length
 	    };
 	};
 	
@@ -42237,15 +42212,15 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(503);
+	var _actions = __webpack_require__(504);
 	
 	var taskActions = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(500);
+	var _actions2 = __webpack_require__(501);
 	
 	var userActions = _interopRequireWildcard(_actions2);
 	
-	var _actions3 = __webpack_require__(509);
+	var _actions3 = __webpack_require__(498);
 	
 	var historyActions = _interopRequireWildcard(_actions3);
 	
@@ -42486,7 +42461,6 @@
 	    value: function renderTasks(tasksByInterval) {
 	      var _this2 = this;
 	
-	      debugger;
 	      return tasksByInterval.map(function (task) {
 	        var goals = task.goals;
 	        // let goals = this.applyMultiplier(task.goals);
@@ -70120,7 +70094,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _actions = __webpack_require__(506);
+	var _actions = __webpack_require__(507);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -70241,7 +70215,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _actions = __webpack_require__(506);
+	var _actions = __webpack_require__(507);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -70424,7 +70398,7 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(506);
+	var _actions = __webpack_require__(507);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -70507,7 +70481,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _actions = __webpack_require__(506);
+	var _actions = __webpack_require__(507);
 	
 	var actions = _interopRequireWildcard(_actions);
 	

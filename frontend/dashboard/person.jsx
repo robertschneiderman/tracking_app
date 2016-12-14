@@ -75,7 +75,6 @@ class Person extends React.Component {
   }  
 
   renderTasks(tasksByInterval) {
-    debugger;
     return tasksByInterval.map(task => {
       let goals = task.goals;
       // let goals = this.applyMultiplier(task.goals);

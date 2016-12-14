@@ -8,16 +8,23 @@ class DateToggler extends Component {
         this.handleDateClick = this.handleDateClick.bind(this);
     }
     
-    handleDateClick(index) {
-        this.props.alternateHistories(index);
+    handleDateClick(increment) {
+        this.props.alternateHistories(increment);
+        let newIndex = this.props.index + increment;
+        if (newIndex >= this.props.historiesLength - 1) { 
+            this.props.requestHistories(newIndex);
+        }
     }
 
     render() {
+        debugger;
+        let decrementBtn = (this.props.index !== this.props.historiesLength - 1) ? <button className="date-btn" onClick={this.handleDateClick.bind(this, 1)}>@</button> : false;
+        let incrementBtn = (this.props.index !== 0) ? <button className="date-btn" onClick={this.handleDateClick.bind(this, -1)}>@</button> : false;
         return(
             <div className="date-toggler">
-                <button className="date-btn" onClick={this.handleDateClick.bind(this, 1)}>@</button>
+                {decrementBtn}
                 <p className="date">{this.props.date}</p>
-                <button className="date-btn" onClick={this.handleDateClick.bind(this, -1)}>@</button>
+                {incrementBtn}
             </div>
         );
     }
@@ -25,7 +32,8 @@ class DateToggler extends Component {
 
 const mapStateToProps = state => ({
     index: state.history.index,
-    date: state.history.histories[state.history.index].date
+    date: state.history.histories[state.history.index].date,
+    historiesLength: state.history.histories.length
 });
 
 const mapDispatchToProps = dispatch => ({

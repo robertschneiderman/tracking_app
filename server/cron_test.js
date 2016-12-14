@@ -6,7 +6,7 @@ const User = require('./models/user');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('00 01 * * * *', function() {
+var job = new CronJob('42 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {
@@ -18,7 +18,7 @@ var job = new CronJob('00 01 * * * *', function() {
                 people.forEach(person => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     if (todayInteger % 4 === 0) {
-                        let monthlyGoals = CronHelpers.getGoalObjs(person.tasks, 'monthly');
+                        let monthlyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'monthly');
                         emailText += `<br/><b>Monthly:</b><br/><br/>`;                    
                         monthlyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'montly');
@@ -26,14 +26,14 @@ var job = new CronJob('00 01 * * * *', function() {
                     }
 
                     if (todayInteger % 2 === 0) {
-                        let weeklyGoals = CronHelpers.getGoalObjs(person.tasks, 'weekly');
+                        let weeklyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'weekly');
                         emailText += `<br/><b>Weekly:</b><br/><br/>`;                    
                         weeklyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'weekly');
                         });
                     }
 
-                    let dailyGoals = CronHelpers.getGoalObjs(person.tasks, 'daily');
+                    let dailyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'daily');
                     emailText += `<br/><b>Daily:</b><br/><br/>`;                    
                     dailyGoals.forEach(goalObj => {
                         emailText += CronHelpers.assess(goalObj, 'daily');
@@ -42,7 +42,7 @@ var job = new CronJob('00 01 * * * *', function() {
                 let lastDate = user.histories[0].date;
                 let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
 
-                user.histories.unshift({date: testingDate, tasks: user.tasks});       
+                user.histories.unshift({date: testingDate, tasks: user.histories[0].tasks});       
                 // user.histories.unshift({date: new Date(), tasks: user.tasks});       
 
                 var mailOptions = {

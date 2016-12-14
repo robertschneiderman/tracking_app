@@ -38,7 +38,7 @@ exports.get = function(req, res, next) {
       return Promise.reject();
     }
 
-    let histories = user.histories.slice(0, req.params.index + 4);
+    let histories = user.histories.slice(req.params.index, req.params.index + 4);
     let formattedHistories = [];
     histories.forEach(history => {
         history = history.toObject();
