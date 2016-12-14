@@ -1,3 +1,4 @@
 node_modules
 sendgrid.env
 ./server/config.js
+sendgrid.env

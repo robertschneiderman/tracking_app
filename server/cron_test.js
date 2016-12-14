@@ -4,9 +4,11 @@ var MailGun = require('./mailgun_helpers');
 
 const User = require('./models/user');
 
+const config = require('./config');
+
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('42 * * * * *', function() {
+var job = new CronJob('07 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {
@@ -43,21 +45,44 @@ var job = new CronJob('42 * * * * *', function() {
                 let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
 
                 user.histories.unshift({date: testingDate, tasks: user.histories[0].tasks});       
-                // user.histories.unshift({date: new Date(), tasks: user.tasks});       
+                // user.histories.unshift({date: new Date(), tasks: user.tasks});
 
-                var mailOptions = {
-                    from: '"Tracky" <robert.a.schneiderman@gmail.com>',
-                    to: `${user.email}`,
-                    subject: 'Tracky',
-                    html: `${emailText}`
-                };
 
-                MailGun.transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        return console.log(error);
-                    }
-                    console.log('Message sent: ' + info.response);
+
+                var helper = require('sendgrid').mail;
+                
+                let fromEmail = new helper.Email("robert.a.schneiderman@gmail.com");
+                let toEmail = new helper.Email(`${user.email}`);
+                let subject = "Tracky Update";
+                let content = new helper.Content("text/html", `${emailText}`);
+                let mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+                var sg = require('sendgrid')(config.sgApiKey);
+                var request = sg.emptyRequest({
+                    method: 'POST',
+                    path: '/v3/mail/send',
+                    body: mail.toJSON()
                 });
+
+                sg.API(request, function(error, response) {
+                    console.log(response.statusCode);
+                    console.log(response.body);
+                    console.log(response.headers);
+                });
+
+                // var mailOptions = {
+                //     from: '"Tracky" <robert.a.schneiderman@gmail.com>',
+                //     to: `${user.email}`,
+                //     subject: 'Tracky',
+                //     html: `${emailText}`
+                // };
+
+                // MailGun.transporter.sendMail(mailOptions, function(error, info){
+                //     if(error){
+                //         return console.log(error);
+                //     }
+                //     console.log('Message sent: ' + info.response);
+                // });
 
                 user.save(function(err2) {
                     // if (err) { return next(err); }                

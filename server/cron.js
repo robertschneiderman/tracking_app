@@ -14,7 +14,7 @@ const User = require('./models/user');
                 let people = (buddy) ? [user, buddy] : [user];                
                 people.forEach(person => {
                     if (CronHelpers.isTimeOfMonth(today)) {
-                        let monthlyGoals = CronHelpers.getGoalObjs(person.tasks, 'monthly');
+                        let monthlyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'monthly');
                         emailText += `<b>Monthly:</b><br/><br/>`;                    
                         monthlyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'montly');
@@ -22,32 +22,43 @@ const User = require('./models/user');
                     }
 
                     if (CronHelpers.isTimeOfWeek(today)) {
-                        let weeklyGoals = CronHelpers.getGoalObjs(person.tasks, 'weekly');
+                        let weeklyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'weekly');
                         emailText += `<b>Weekly:</b><br/><br/>`;                    
                         weeklyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'weekly');
                         });
                     }
 
-                    let dailyGoals = CronHelpers.getGoalObjs(person.tasks, 'daily');
+                    let dailyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'daily');
                     emailText += `<b>Daily:</b><br/><br/>`;                    
                     dailyGoals.forEach(goalObj => {
                         emailText += CronHelpers.assess(goalObj, 'daily');
                     });
                 }); 
 
-                var mailOptions = {
-                    from: '"Tracky" <robert.a.schneiderman@gmail.com>',
-                    to: `${user.email} ${buddy.email}`,
-                    subject: 'Tracky',
-                    html: `${emailText}`
-                };
+                let lastDate = user.histories[0].date;
+                let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
+                user.histories.unshift({date: testingDate, tasks: user.histories[0].tasks});     
+                
+                var helper = require('sendgrid').mail;
+                
+                let fromEmail = new helper.Email("robert.a.schneiderman@gmail.com");
+                let toEmail = new helper.Email(`${user.email}`);
+                let subject = "Tracky Update";
+                let content = new helper.Content("text/html", `${emailText}`);
+                let mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
-                MailGun.transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        return console.log(error);
-                    }
-                    console.log('Message sent: ' + info.response);
+                var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+                var request = sg.emptyRequest({
+                    method: 'POST',
+                    path: '/v3/mail/send',
+                    body: mail.toJSON()
+                });
+
+                sg.API(request, function(error, response) {
+                    console.log(response.statusCode);
+                    console.log(response.body);
+                    console.log(response.headers);
                 }); 
 
                 user.save(function(err2) {
