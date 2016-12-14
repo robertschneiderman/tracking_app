@@ -8,7 +8,7 @@ const config = require('./environment');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('07 * * * * *', function() {
+var job = new CronJob('55 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {

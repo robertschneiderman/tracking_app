@@ -1,4 +1,6 @@
 const User = require('../models/user');
+var _ = require('lodash');
+const dh = require('../date_helpers');
 
 let today = new Date();
 let msInDay = (24 * 60 * 60 * 1000);
@@ -76,15 +78,16 @@ exports.newTask = function(req, res, next) {
       timeUnit: req.body.timeUnit,
       goals: req.body.goals
     };
+    let date = dh.formattedDate(new Date());
 
     user.tasks.push(task);
-    if (!user.histories[0]) user.histories[0] = { date: new Date(), tasks: [] };
+    if (!user.histories[0]) user.histories[0] = { date: date, tasks: [] };
     user.histories[0].tasks.push(task);
 
     user.save(function(err) {
       if (err) { return next(err); }
       
-      res.json({ task });
+      res.json({ date, task });
     }).catch((e) => {
       res.status(401).send();
     });

@@ -12,7 +12,6 @@ const taskMiddleware = store => next => action => {
     let tasks = res.data;
     hashHistory.push('/dashboard');
     dispatch(receiveTask(tasks));
-    debugger;
     dispatch(receiveHistory(tasks));
   };       
 

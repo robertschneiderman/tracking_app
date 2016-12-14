@@ -39238,7 +39238,6 @@
 	      name = _ref2.name,
 	      password = _ref2.password;
 	
-	  debugger;
 	  actions.signupUser({ email: email, name: name, password: password })(_store2.default.dispatch);
 	};
 	
@@ -41376,7 +41375,7 @@
 	            return newState;
 	        case 'RECEIVE_HISTORY':
 	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
-	            newState.histories[0] = { tasks: [action.payload.task].concat(state.histories[0].tasks) };
+	            newState.histories[0] = { date: action.payload.date, tasks: [action.payload.task].concat(state.histories[0].tasks) };
 	            return newState;
 	        case 'ALTERNATE_HISTORIES':
 	            newState.index = state.index + action.payload;
@@ -41713,7 +41712,6 @@
 	        var tasks = res.data;
 	        _reactRouter.hashHistory.push('/dashboard');
 	        dispatch((0, _actions2.receiveTask)(tasks));
-	        debugger;
 	        dispatch((0, _actions3.receiveHistory)(tasks));
 	      };
 	
@@ -42144,7 +42142,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            debugger;
 	            var decrementBtn = this.props.index !== this.props.historiesLength - 1 ? _react2.default.createElement(
 	                'button',
 	                { className: 'date-btn', onClick: this.handleDateClick.bind(this, 1) },

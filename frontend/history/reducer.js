@@ -13,7 +13,7 @@ const historyReducer = (state = {index: 0, histories: [ { date: '', tasks: []} ]
             return newState;
         case 'RECEIVE_HISTORY':
             // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
-            newState.histories[0] = {tasks: [action.payload.task].concat(state.histories[0].tasks)};
+            newState.histories[0] = {date: action.payload.date, tasks: [action.payload.task].concat(state.histories[0].tasks)};
             return newState;
         case 'ALTERNATE_HISTORIES':
             newState.index = state.index + action.payload;

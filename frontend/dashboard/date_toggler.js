@@ -17,7 +17,6 @@ class DateToggler extends Component {
     }
 
     render() {
-        debugger;
         let decrementBtn = (this.props.index !== this.props.historiesLength - 1) ? <button className="date-btn" onClick={this.handleDateClick.bind(this, 1)}>@</button> : false;
         let incrementBtn = (this.props.index !== 0) ? <button className="date-btn" onClick={this.handleDateClick.bind(this, -1)}>@</button> : false;
         return(

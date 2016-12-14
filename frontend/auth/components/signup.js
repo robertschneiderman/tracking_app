@@ -50,7 +50,6 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
 };
 
 const handleFormSubmit = ({ email, name, password }) => {
-  debugger;
   actions.signupUser({ email, name, password})(store.dispatch);
 };
 

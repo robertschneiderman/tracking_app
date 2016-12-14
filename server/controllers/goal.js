@@ -1,5 +1,5 @@
 const User = require('../models/user');
-
+const dh = require('../date_helpers');
 var _ = require('lodash');
 
 const increment = (goals, incrementObj) => {
@@ -28,8 +28,11 @@ exports.update = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
-      res.json(user.histories[0]);
+      let history = user.histories[0].toObject();
+      history.date = dh.formattedDate(user.histories[0].date);    
+      res.json(history);
     });
+
 
   }).catch((e) => {
     res.status(401).send();
