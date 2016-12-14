@@ -62,8 +62,6 @@ userSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
 
-  console.log('config: ', config);
-  console.log('config.secret: ', config.secret);
   decoded = jwt.decode(token, config.secret);
 
   try {
