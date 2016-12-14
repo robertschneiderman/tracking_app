@@ -1,6 +1,6 @@
 const jwt = require('jwt-simple');
 const User = require('../models/user');
-const config = require('../config');
+const config = require('../../config');
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
@@ -9,7 +9,7 @@ function tokenForUser(user) {
 
 exports.signin = function(req, res, next) {
   res.send({ token: tokenForUser(req.user), user: {id: req.user.id, email: req.user.email} });
-}
+};
 
 exports.signup = function(req, res, next) {
   let email = req.body.email;
@@ -37,5 +37,5 @@ exports.signup = function(req, res, next) {
       res.json({ token: tokenForUser(user), user: req.user });
     });
       
-  })
+  });
 };

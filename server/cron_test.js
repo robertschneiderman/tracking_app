@@ -4,7 +4,7 @@ var MailGun = require('./mailgun_helpers');
 
 const User = require('./models/user');
 
-const config = require('./config');
+const config = require('../config');
 
 let todayInteger = new Date().getMinutes();
 
