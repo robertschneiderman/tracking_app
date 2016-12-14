@@ -1,6 +1,6 @@
 var CronJob = require('cron').CronJob;
 var CronHelpers = require('./cron_helpers');
-var MailGun = require('./mailgun_helpers');
+// var MailGun = require('./mailgun_helpers');
 
 const User = require('./models/user');
 
