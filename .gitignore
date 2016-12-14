@@ -1,5 +1,5 @@
 node_modules
 sendgrid.env
-./server/config.js
+server/config.js
 sendgrid.env
 config.js
