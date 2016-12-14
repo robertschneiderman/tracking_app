@@ -45,7 +45,7 @@ class GoalArea extends React.Component {
         } else if (intervalChanged === 'weekly') {
             weekly = value;
             monthly = Math.floor(weekly * 4.42);
-            daily = Math.floor(this.state[this.state.type].weekly * 1.25 / 7);           
+            daily = Math.floor(weekly * 1.25 / 7);           
         } else {
             monthly = value;
             weekly = Math.floor(monthly * .226);
@@ -62,7 +62,6 @@ class GoalArea extends React.Component {
         let cursorPos = evt.target.selectionStart-1;
         let value = evt.target.value;
         let name = evt.target.getAttribute('data-name');
-        // let prevValue = evt.target.defaultValue;
         let addedVal = value[cursorPos+1];
         if (value.length === 3 || !Number.isInteger(parseInt(value[cursorPos])) ) {
             return; // break if string goes under 3 is not a number 

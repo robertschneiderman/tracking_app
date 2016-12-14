@@ -66,6 +66,7 @@ const mapStateToProps = state => {
   // requestTasks: () => dispatch(taskActions.requestTasks()),
 const mapDispatchToProps = dispatch => ({
   requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
+  clearHistories: userId => dispatch(historyActions.clearHistories(userId)),
   incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
 });
 

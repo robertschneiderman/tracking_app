@@ -39328,11 +39328,11 @@
 	
 	var _root_reducer2 = _interopRequireDefault(_root_reducer);
 	
-	var _middleware = __webpack_require__(499);
+	var _middleware = __webpack_require__(498);
 	
 	var _middleware2 = _interopRequireDefault(_middleware);
 	
-	var _middleware3 = __webpack_require__(502);
+	var _middleware3 = __webpack_require__(501);
 	
 	var _middleware4 = _interopRequireDefault(_middleware3);
 	
@@ -41397,50 +41397,6 @@
 
 /***/ },
 /* 498 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var requestHistories = exports.requestHistories = function requestHistories(payload) {
-	    return {
-	        type: 'REQUEST_HISTORIES',
-	        payload: payload
-	    };
-	};
-	
-	var receiveHistories = exports.receiveHistories = function receiveHistories(payload) {
-	    return {
-	        type: 'RECEIVE_HISTORIES',
-	        payload: payload
-	    };
-	};
-	
-	var receiveHistory = exports.receiveHistory = function receiveHistory(payload) {
-	    return {
-	        type: 'RECEIVE_HISTORY',
-	        payload: payload
-	    };
-	};
-	
-	var updateHistory = exports.updateHistory = function updateHistory(payload) {
-	    return {
-	        type: 'UPDATE_HISTORY',
-	        payload: payload
-	    };
-	};
-	
-	var alternateHistories = exports.alternateHistories = function alternateHistories(payload) {
-	    return {
-	        type: 'ALTERNATE_HISTORIES',
-	        payload: payload
-	    };
-	};
-
-/***/ },
-/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41449,11 +41405,11 @@
 	  value: true
 	});
 	
-	var _api_util = __webpack_require__(500);
+	var _api_util = __webpack_require__(499);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(501);
+	var _actions = __webpack_require__(500);
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
@@ -41489,7 +41445,7 @@
 	exports.default = userMiddleware;
 
 /***/ },
-/* 500 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41519,7 +41475,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 501 */
+/* 500 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -41542,7 +41498,7 @@
 	};
 
 /***/ },
-/* 502 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41551,15 +41507,15 @@
 	  value: true
 	});
 	
-	var _api_util = __webpack_require__(503);
+	var _api_util = __webpack_require__(502);
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(504);
+	var _actions = __webpack_require__(503);
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(498);
+	var _actions2 = __webpack_require__(504);
 	
 	var _reactRouter = __webpack_require__(202);
 	
@@ -41605,7 +41561,7 @@
 	exports.default = taskMiddleware;
 
 /***/ },
-/* 503 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -41641,7 +41597,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 504 */
+/* 503 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -41677,6 +41633,50 @@
 	};
 
 /***/ },
+/* 504 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var requestHistories = exports.requestHistories = function requestHistories(payload) {
+	    return {
+	        type: 'REQUEST_HISTORIES',
+	        payload: payload
+	    };
+	};
+	
+	var receiveHistories = exports.receiveHistories = function receiveHistories(payload) {
+	    return {
+	        type: 'RECEIVE_HISTORIES',
+	        payload: payload
+	    };
+	};
+	
+	var receiveHistory = exports.receiveHistory = function receiveHistory(payload) {
+	    return {
+	        type: 'RECEIVE_HISTORY',
+	        payload: payload
+	    };
+	};
+	
+	var updateHistory = exports.updateHistory = function updateHistory(payload) {
+	    return {
+	        type: 'UPDATE_HISTORY',
+	        payload: payload
+	    };
+	};
+	
+	var alternateHistories = exports.alternateHistories = function alternateHistories(payload) {
+	    return {
+	        type: 'ALTERNATE_HISTORIES',
+	        payload: payload
+	    };
+	};
+
+/***/ },
 /* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -41694,9 +41694,9 @@
 	
 	var ACTIONS = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(504);
+	var _actions2 = __webpack_require__(503);
 	
-	var _actions3 = __webpack_require__(498);
+	var _actions3 = __webpack_require__(504);
 	
 	var _reactRouter = __webpack_require__(202);
 	
@@ -41709,10 +41709,9 @@
 	      var dispatch = store.dispatch;
 	
 	      var createSuccess = function createSuccess(res) {
-	        var tasks = res.data;
+	        var history = res.data;
 	        _reactRouter.hashHistory.push('/dashboard');
-	        dispatch((0, _actions2.receiveTask)(tasks));
-	        dispatch((0, _actions3.receiveHistory)(tasks));
+	        dispatch((0, _actions3.updateHistory)(history));
 	      };
 	
 	      switch (action.type) {
@@ -41809,7 +41808,7 @@
 	
 	var API = _interopRequireWildcard(_api_util);
 	
-	var _actions = __webpack_require__(498);
+	var _actions = __webpack_require__(504);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -42104,7 +42103,7 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(498);
+	var _actions = __webpack_require__(504);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -42136,7 +42135,7 @@
 	            this.props.alternateHistories(increment);
 	            var newIndex = this.props.index + increment;
 	            if (newIndex >= this.props.historiesLength - 1) {
-	                this.props.requestHistories(newIndex);
+	                this.props.requestHistories(newIndex + 1);
 	            }
 	        }
 	    }, {
@@ -42209,15 +42208,15 @@
 	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(504);
+	var _actions = __webpack_require__(503);
 	
 	var taskActions = _interopRequireWildcard(_actions);
 	
-	var _actions2 = __webpack_require__(501);
+	var _actions2 = __webpack_require__(500);
 	
 	var userActions = _interopRequireWildcard(_actions2);
 	
-	var _actions3 = __webpack_require__(498);
+	var _actions3 = __webpack_require__(504);
 	
 	var historyActions = _interopRequireWildcard(_actions3);
 	
@@ -42308,6 +42307,9 @@
 	  return {
 	    requestHistories: function requestHistories(userId) {
 	      return dispatch(historyActions.requestHistories(userId));
+	    },
+	    clearHistories: function clearHistories(userId) {
+	      return dispatch(historyActions.clearHistories(userId));
 	    },
 	    incrementGoal: function incrementGoal(taskId, count) {
 	      return dispatch(taskActions.incrementGoal(taskId, count));
@@ -70284,7 +70286,7 @@
 	            } else if (intervalChanged === 'weekly') {
 	                weekly = value;
 	                monthly = Math.floor(weekly * 4.42);
-	                daily = Math.floor(this.state[this.state.type].weekly * 1.25 / 7);
+	                daily = Math.floor(weekly * 1.25 / 7);
 	            } else {
 	                monthly = value;
 	                weekly = Math.floor(monthly * .226);
@@ -70303,7 +70305,6 @@
 	            var cursorPos = evt.target.selectionStart - 1;
 	            var value = evt.target.value;
 	            var name = evt.target.getAttribute('data-name');
-	            // let prevValue = evt.target.defaultValue;
 	            var addedVal = value[cursorPos + 1];
 	            if (value.length === 3 || !Number.isInteger(parseInt(value[cursorPos]))) {
 	                return; // break if string goes under 3 is not a number 

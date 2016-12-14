@@ -78,7 +78,7 @@ exports.newTask = function(req, res, next) {
       timeUnit: req.body.timeUnit,
       goals: req.body.goals
     };
-    let date = dh.formattedDate(new Date());
+    let date = new Date();
 
     user.tasks.push(task);
     if (!user.histories[0]) user.histories[0] = { date: date, tasks: [] };
@@ -86,8 +86,9 @@ exports.newTask = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
-      
-      res.json({ date, task });
+      let history = user.histories[0].toObject();
+      history.date = dh.formattedDate(date);
+      res.json(history);
     }).catch((e) => {
       res.status(401).send();
     });

@@ -12,7 +12,7 @@ class DateToggler extends Component {
         this.props.alternateHistories(increment);
         let newIndex = this.props.index + increment;
         if (newIndex >= this.props.historiesLength - 1) { 
-            this.props.requestHistories(newIndex);
+            this.props.requestHistories(newIndex+1);
         }
     }
 
