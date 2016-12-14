@@ -4,15 +4,6 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 
-let secret;
-if (process.env.NODE_ENV !== 'production') {
-  const config = require('../config');
-  secret = config.secret;
-} else {
-  secret = process.env.SECRET;
-}
-
-
 const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
   User.findOne({email: email}, function(err, user) {

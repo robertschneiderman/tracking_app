@@ -4,7 +4,7 @@ var CronHelpers = require('./cron_helpers');
 
 const User = require('./models/user');
 
-const config = require('./config');
+const config = require('./environment');
 
 let todayInteger = new Date().getMinutes();
 

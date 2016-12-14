@@ -5,13 +5,15 @@ var CronHelpers = require('./cron_helpers');
 const User = require('./models/user');
 
 // var job = new CronJob('10 00 00 * * *', function() {
+    console.log('cron job!');
     let today = new Date();
     
     User.find({}, function(err, users) {
         users.forEach(function(user) {
             let emailText = '';
             User.findById(user.buddy).then(buddy => {
-                let people = (buddy) ? [user, buddy] : [user];                
+                let people = (buddy) ? [user, buddy] : [user];
+                console.log("people: ", people);            
                 people.forEach(person => {
                     if (CronHelpers.isTimeOfMonth(today)) {
                         let monthlyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'monthly');
@@ -34,7 +36,7 @@ const User = require('./models/user');
                     dailyGoals.forEach(goalObj => {
                         emailText += CronHelpers.assess(goalObj, 'daily');
                     });
-                }); 
+                });
 
                 let lastDate = user.histories[0].date;
                 let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
