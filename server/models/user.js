@@ -3,6 +3,7 @@ const jwt = require('jwt-simple');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
+const config = require('../environment');
 
 let task = {
       name: String,
@@ -35,26 +36,6 @@ const userSchema = new Schema({
   buddy: { type: Schema.Types.ObjectId, default: null }
 });
 
-// 0->2
-
-// tasks: [
-
-// ]
-
-
-
-// histories ->
-// tasks1
-// tasks2
-// tasks3
-
-// history {
-//   tasks -> goals
-// }
-
-
-  // tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
-
 userSchema.pre('save', function(next) {
   const user = this;
   bcrypt.genSalt(10, function(err, salt) {
@@ -81,10 +62,10 @@ userSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
 
-  decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');
+  decoded = jwt.decode(token, config.secret);
 
   try {
-    decoded = jwt.decode(token, 'lsdkflk39s0f02sdkj24');
+    decoded = jwt.decode(token, config.secret);
   } catch (e) {
     return Promise.reject();
   }
