@@ -37603,7 +37603,6 @@
 	    _axios2.default.post(ROOT_URL + '/signin', { email: email, name: name, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });
 	      localStorage.setItem('token', response.data.token);
-	      debugger;
 	      localStorage.setItem('currentUser', response.data.user.id);
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
@@ -37621,6 +37620,7 @@
 	    _axios2.default.post(ROOT_URL + '/signup', { email: email, name: name, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER });
 	      localStorage.setItem('token', response.data.token);
+	      localStorage.setItem('currentUser', response.data.user.id);
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
 	      dispatch(authError("Bad Signup Info"));
@@ -41364,26 +41364,30 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var historyReducer = function historyReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, histories: [{ date: '', tasks: [] }] };
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, userHistories: [{ date: '', tasks: [] }], buddyHistories: [{ date: '', tasks: [] }] };
 	    var action = arguments[1];
 	
 	    var newState = (0, _merge2.default)({}, state);
 	    switch (action.type) {
 	        case 'RECEIVE_HISTORIES':
-	            var tempVar = state.histories[0].date === '' ? [] : state.histories;
-	            newState.histories = tempVar.concat(action.payload.histories);
-	            var date = newState.histories[0].date;
-	            newState.date = date;
+	            var tempVar = state.userHistories[0].date === '' ? [] : state.userHistories;
+	            newState.userHistories = tempVar.concat(action.payload.userHistories);
+	            newState.date = newState.userHistories[0].date;
+	
+	            var tempVar2 = state.buddyHistories[0].date === '' ? [] : state.budddyHistories;
+	            newState.buddyHistories = tempVar2.concat(action.payload.buddyHistories);
+	            newState.date = newState.buddyHistories[0].date;
+	
 	            return newState;
 	        case 'RECEIVE_HISTORY':
 	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
-	            newState.histories[0] = { date: action.payload.date, tasks: [action.payload.task].concat(state.histories[0].tasks) };
+	            newState.userHistories[0] = { date: action.payload.date, tasks: [action.payload.task].concat(state.userHistories[0].tasks) };
 	            return newState;
 	        case 'ALTERNATE_HISTORIES':
 	            newState.index = state.index + action.payload;
 	            return newState;
 	        case 'UPDATE_HISTORY':
-	            newState.histories[0] = action.payload;
+	            newState.userHistories[0] = action.payload;
 	            return newState;
 	        default:
 	            return state;
@@ -42173,8 +42177,8 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
 	        index: state.history.index,
-	        date: state.history.histories[state.history.index].date,
-	        historiesLength: state.history.histories.length
+	        date: state.history.userHistories[state.history.index].date,
+	        historiesLength: state.history.userHistories.length
 	    };
 	};
 	
@@ -42255,7 +42259,7 @@
 	    key: 'renderPersons',
 	    value: function renderPersons() {
 	      if (!this.props.user.buddy) {
-	        return _react2.default.createElement(
+	        return [_react2.default.createElement(
 	          'div',
 	          { className: 'persons' },
 	          _react2.default.createElement(_person2.default, {
@@ -42264,22 +42268,17 @@
 	            incrementGoal: this.props.incrementGoal,
 	            date: this.props.date,
 	            index: this.props.index })
-	        );
+	        )];
 	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, {
-	            user: this.props.user,
-	            tasks: this.props.userTasks,
-	            incrementGoal: this.props.incrementGoal,
-	            index: this.props.index }),
-	          _react2.default.createElement(_person2.default, {
-	            user: this.props.buddy,
-	            tasks: this.props.buddyTasks,
-	            incrementGoal: this.props.incrementGoal,
-	            index: this.props.index })
-	        );
+	        return [_react2.default.createElement(_person2.default, {
+	          user: this.props.user,
+	          tasks: this.props.userTasks,
+	          incrementGoal: this.props.incrementGoal,
+	          index: this.props.index }), _react2.default.createElement(_person2.default, {
+	          user: this.props.buddy,
+	          tasks: this.props.buddyTasks,
+	          incrementGoal: this.props.incrementGoal,
+	          index: this.props.index })];
 	      }
 	    }
 	  }, {
@@ -42299,8 +42298,9 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
 	    user: state.user.currentUser,
-	    userTasks: state.history.histories[state.history.index].tasks,
-	    buddyTasks: state.tasks.buddy,
+	    userTasks: state.history.userHistories[state.history.index].tasks,
+	    buddy: state.user.currentUser.buddy,
+	    buddyTasks: state.history.buddyHistories[state.history.index].tasks,
 	    index: state.history.index
 	  };
 	};

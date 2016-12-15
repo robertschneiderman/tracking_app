@@ -15,7 +15,6 @@ export function signinUser({ email, name, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        debugger;
         localStorage.setItem('currentUser', response.data.user.id);
         hashHistory.push('dashboard');
       })
@@ -31,6 +30,7 @@ export function signupUser({ email, name, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('currentUser', response.data.user.id);        
         hashHistory.push('dashboard');
       })
       .catch(() => {

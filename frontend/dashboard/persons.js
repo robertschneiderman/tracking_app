@@ -19,7 +19,7 @@ class Persons extends React.Component {
 
   renderPersons() {
     if (!this.props.user.buddy) {
-      return (
+      return [
         <div className="persons">       
           <Person 
             user={this.props.user}
@@ -28,22 +28,20 @@ class Persons extends React.Component {
             date={this.props.date}
             index={this.props.index} />
         </div>
-      );
+      ];
     } else {
-      return (
-        <div className="persons">        
+      return [
           <Person
             user={this.props.user}
             tasks={this.props.userTasks}
             incrementGoal={this.props.incrementGoal}
-            index={this.props.index} />
+            index={this.props.index} />,
           <Person
             user={this.props.buddy}
             tasks={this.props.buddyTasks}
             incrementGoal={this.props.incrementGoal}
             index={this.props.index} />
-        </div>
-      );
+      ];
     }
   }
 
@@ -59,8 +57,9 @@ class Persons extends React.Component {
 const mapStateToProps = state => {
   return {
   user: state.user.currentUser,
-  userTasks: state.history.histories[state.history.index].tasks,
-  buddyTasks: state.tasks.buddy,
+  userTasks: state.history.userHistories[state.history.index].tasks,
+  buddy: state.user.currentUser.buddy,
+  buddyTasks: state.history.buddyHistories[state.history.index].tasks,
   index: state.history.index
 };};
 
