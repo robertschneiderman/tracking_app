@@ -24,7 +24,7 @@ var duplicateHistory = history => {
     return { tasks: newTasks };
 };
 
-var job = new CronJob('30 * * * * *', function() {
+var job = new CronJob('30 01 * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {

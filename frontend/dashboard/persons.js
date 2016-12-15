@@ -13,6 +13,7 @@ class Persons extends React.Component {
   }
 
   componentWillMount() {
+    // this.props.requestUser();
     this.props.requestHistories(0);
   }
 

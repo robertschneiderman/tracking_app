@@ -37603,6 +37603,7 @@
 	    _axios2.default.post(ROOT_URL + '/signin', { email: email, name: name, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });
 	      localStorage.setItem('token', response.data.token);
+	      debugger;
 	      localStorage.setItem('currentUser', response.data.user.id);
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
@@ -37613,6 +37614,7 @@
 	
 	function signupUser(_ref2) {
 	  var email = _ref2.email,
+	      name = _ref2.name,
 	      password = _ref2.password;
 	
 	  return function (dispatch) {
@@ -42246,6 +42248,7 @@
 	  _createClass(Persons, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      // this.props.requestUser();
 	      this.props.requestHistories(0);
 	    }
 	  }, {
