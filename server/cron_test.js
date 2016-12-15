@@ -1,5 +1,6 @@
 var CronJob = require('cron').CronJob;
 var CronHelpers = require('./cron_helpers');
+var lodash = require('lodash');
 // var MailGun = require('./mailgun_helpers');
 
 const User = require('./models/user');
@@ -8,7 +9,22 @@ const config = require('./environment');
 
 let todayInteger = new Date().getMinutes();
 
-var job = new CronJob('53 * * * * *', function() {
+var duplicateHistory = history => {
+    let newTasks = [];
+    history.tasks.forEach(task => {
+        let newTask = lodash.merge({}, task.toObject());
+        let newGoals = [];
+        task.goals.forEach(goal => {
+            let newGoal = lodash.merge({}, goal.toObject());
+            newGoals.push(newGoal);
+        });
+        newTask.goals = newGoals;
+        newTasks.push(newTask);
+    });
+    return { tasks: newTasks };
+};
+
+var job = new CronJob('30 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {
@@ -17,35 +33,44 @@ var job = new CronJob('53 * * * * *', function() {
 
             User.findById(user.buddy).then(buddy => {
                 let people = (buddy) ? [user, buddy] : [user];
-                people.forEach(person => {
+                people.forEach((person, index) => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
-                    if (todayInteger % 4 === 0) {
-                        let monthlyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'monthly');
+
+                    let duplicated;
+                    if (index === 0) {  // ADD COPY OF HISTORY IF USER
+                        duplicated = duplicateHistory(person.histories[0]);
+                    }
+                    let tasks = (duplicated) ? duplicated.tasks : person.histories[0].tasks;
+
+                    if (false) {
+                        let monthlyGoals = CronHelpers.getGoalObjs(tasks, 'monthly');
                         emailText += `<br/><b>Monthly:</b><br/><br/>`;                    
                         monthlyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'montly');
                         });                 
                     }
 
-                    if (todayInteger % 2 === 0) {
-                        let weeklyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'weekly');
+                    if (false) {
+                        let weeklyGoals = CronHelpers.getGoalObjs(tasks, 'weekly');
                         emailText += `<br/><b>Weekly:</b><br/><br/>`;                    
                         weeklyGoals.forEach(goalObj => {
                             emailText += CronHelpers.assess(goalObj, 'weekly');
                         });
                     }
 
-                    let dailyGoals = CronHelpers.getGoalObjs(person.histories[0].tasks, 'daily');
+                    let dailyGoals = CronHelpers.getGoalObjs(tasks, 'daily');
                     emailText += `<br/><b>Daily:</b><br/><br/>`;                    
                     dailyGoals.forEach(goalObj => {
                         emailText += CronHelpers.assess(goalObj, 'daily');
                     });
-                });         
-                let lastDate = user.histories[0].date;
-                let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
 
-                user.histories.unshift({date: testingDate, tasks: user.histories[0].tasks});       
-                // user.histories.unshift({date: new Date(), tasks: user.tasks});
+                    if (index === 0) {
+                        let lastDate = user.histories[0].date;
+                        let testingDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);                        
+                        user.histories.unshift({date: testingDate, tasks: tasks});
+                    }
+                });         
+     
 
 
 
