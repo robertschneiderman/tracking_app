@@ -31,7 +31,7 @@ class DateToggler extends Component {
 
 const mapStateToProps = state => ({
     index: state.history.index,
-    date: state.history.userHistories[state.history.index].date,
+    date: state.history.date,
     historiesLength: state.history.userHistories.length
 });
 
@@ -41,4 +41,10 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DateToggler);
+const SmartDateToggler = connect(mapStateToProps, mapDispatchToProps)(DateToggler);
+
+SmartDateToggler.defaultProps = {
+    date: ''
+};
+
+export default SmartDateToggler;

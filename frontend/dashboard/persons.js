@@ -20,14 +20,12 @@ class Persons extends React.Component {
   renderPersons() {
     if (!this.props.user.buddy) {
       return [
-        <div className="persons">       
           <Person 
             user={this.props.user}
             tasks={this.props.userTasks}
             incrementGoal={this.props.incrementGoal}
             date={this.props.date}
             index={this.props.index} />
-        </div>
       ];
     } else {
       return [

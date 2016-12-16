@@ -37639,7 +37639,10 @@
 	function signoutUser() {
 	  localStorage.removeItem('token');
 	  localStorage.removeItem('currentUser');
-	  return { type: _types.UNAUTH_USER };
+	  return function (dispatch) {
+	    dispatch({ type: "SIGNOUT" });
+	    dispatch({ type: _types.UNAUTH_USER });
+	  };
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
@@ -40277,7 +40280,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var rootReducer = (0, _redux.combineReducers)({
+	var appReducer = (0, _redux.combineReducers)({
 	  form: _reduxForm.reducer,
 	  auth: _reducer2.default,
 	  user: _reducer4.default,
@@ -40285,6 +40288,13 @@
 	  newTask: _reducer8.default,
 	  history: _reducer10.default
 	});
+	
+	var rootReducer = function rootReducer(state, action) {
+	  if (action.type === 'SIGNOUT') {
+	    state = undefined;
+	  }
+	  return appReducer(state, action);
+	};
 	
 	exports.default = rootReducer;
 
@@ -41364,21 +41374,33 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var historyReducer = function historyReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, userHistories: [{ date: '', tasks: [] }], buddyHistories: [{ date: '', tasks: [] }] };
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { index: 0, date: '', userHistories: [], buddyHistories: [] };
 	    var action = arguments[1];
 	
 	    var newState = (0, _merge2.default)({}, state);
 	    switch (action.type) {
 	        case 'RECEIVE_HISTORIES':
-	            var tempVar = state.userHistories[0].date === '' ? [] : state.userHistories;
+	            var tempVar = state.userHistories === [] ? [] : state.userHistories;
 	            newState.userHistories = tempVar.concat(action.payload.userHistories);
 	            newState.date = newState.userHistories[0].date;
 	
-	            var tempVar2 = state.buddyHistories[0].date === '' ? [] : state.budddyHistories;
+	            var tempVar2 = state.buddyHistories === [] ? [] : state.buddyHistories;
 	            newState.buddyHistories = tempVar2.concat(action.payload.buddyHistories);
 	            newState.date = newState.buddyHistories[0].date;
-	
 	            return newState;
+	
+	        // return {
+	        //     index: state.index,
+	        //     date: action.payload.userHistories[0].date,
+	        //     userTasks: [
+	        //         ...action.payload.userHistories[0].tasks,
+	        //         ...state.userHistories
+	        //     ],
+	        //     buddyTasks: [
+	        //         ...action.payload.buddyHistories[0].tasks,
+	        //         ...state.buddyHistories
+	        //     ]              
+	        // };
 	        case 'RECEIVE_HISTORY':
 	            // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
 	            newState.userHistories[0] = { date: action.payload.date, tasks: [action.payload.task].concat(state.userHistories[0].tasks) };
@@ -42177,7 +42199,7 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
 	        index: state.history.index,
-	        date: state.history.userHistories[state.history.index].date,
+	        date: state.history.date,
 	        historiesLength: state.history.userHistories.length
 	    };
 	};
@@ -42194,7 +42216,13 @@
 	    };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DateToggler);
+	var SmartDateToggler = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DateToggler);
+	
+	SmartDateToggler.defaultProps = {
+	    date: ''
+	};
+	
+	exports.default = SmartDateToggler;
 
 /***/ },
 /* 515 */
@@ -42259,16 +42287,12 @@
 	    key: 'renderPersons',
 	    value: function renderPersons() {
 	      if (!this.props.user.buddy) {
-	        return [_react2.default.createElement(
-	          'div',
-	          { className: 'persons' },
-	          _react2.default.createElement(_person2.default, {
-	            user: this.props.user,
-	            tasks: this.props.userTasks,
-	            incrementGoal: this.props.incrementGoal,
-	            date: this.props.date,
-	            index: this.props.index })
-	        )];
+	        return [_react2.default.createElement(_person2.default, {
+	          user: this.props.user,
+	          tasks: this.props.userTasks,
+	          incrementGoal: this.props.incrementGoal,
+	          date: this.props.date,
+	          index: this.props.index })];
 	      } else {
 	        return [_react2.default.createElement(_person2.default, {
 	          user: this.props.user,
