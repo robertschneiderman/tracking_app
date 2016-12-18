@@ -37,7 +37,7 @@ console.log('User: ', User);
                 let people = (buddy) ? [user, buddy] : [user];
                 console.log("people: ", people);            
                 people.forEach((person, index) => {
-
+                    emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     let duplicated;
                     if (index === 0) {  // ADD COPY OF HISTORY IF USER
                         duplicated = duplicateHistory(person.histories[0]);
