@@ -45473,24 +45473,23 @@
 	  }, {
 	    key: 'renderPersons',
 	    value: function renderPersons() {
-	      if (!this.props.user.buddy) {
-	        return [_react2.default.createElement(_person2.default, {
-	          user: this.props.user,
-	          tasks: this.props.userTasks,
-	          incrementGoal: this.props.incrementGoal,
-	          date: this.props.date,
-	          index: this.props.index })];
-	      } else {
-	        return [_react2.default.createElement(_person2.default, {
-	          user: this.props.user,
-	          tasks: this.props.userTasks,
-	          incrementGoal: this.props.incrementGoal,
-	          index: this.props.index }), _react2.default.createElement(_person2.default, {
+	      var persons = [_react2.default.createElement(_person2.default, {
+	        key: this.props.user.id,
+	        user: this.props.user,
+	        tasks: this.props.userTasks,
+	        incrementGoal: this.props.incrementGoal,
+	        date: this.props.date,
+	        index: this.props.index })];
+	
+	      if (this.props.user.buddy) {
+	        persons.push(_react2.default.createElement(_person2.default, {
+	          key: this.props.buddy.id,
 	          user: this.props.buddy,
 	          tasks: this.props.buddyTasks,
 	          incrementGoal: this.props.incrementGoal,
-	          index: this.props.index })];
+	          index: this.props.index }));
 	      }
+	      return persons;
 	    }
 	  }, {
 	    key: 'render',

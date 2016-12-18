@@ -6,7 +6,7 @@ exports.find = function(req, res, next) {
     User.findById(user.buddy).then(buddy => {
       if (buddy) {
         res.send({
-          user: {id: user._id, email: user.email, name: user.name, buddy: { email: buddy.email, name: buddy.name}},
+          user: {id: user._id, email: user.email, name: user.name, buddy: { id: buddy._id, email: buddy.email, name: buddy.name}},
         });
       } else {
         res.send({

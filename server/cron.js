@@ -2,12 +2,14 @@ var CronJob = require('cron').CronJob;
 var CronHelpers = require('./cron_helpers');
 var lodash = require('lodash');
 // var MailGun = require('./mailgun_helpers');
+const mongoose = require('./db/mongoose');
+
 
 const User = require('./models/user');
 
 // var job = new CronJob('10 00 00 * * *', function() {
-    console.log('cron job!');
-    let today = new Date();
+console.log('cron job!');
+let today = new Date();
 
 var duplicateHistory = history => {
     let newTasks = [];
@@ -24,8 +26,11 @@ var duplicateHistory = history => {
     return { tasks: newTasks };
 };
 
+console.log('User: ', User);
+
     
     User.find({}, function(err, users) {
+        console.log('users: ', users);
         users.forEach(function(user) {
             let emailText = '';
             User.findById(user.buddy).then(buddy => {

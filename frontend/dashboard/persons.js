@@ -18,29 +18,27 @@ class Persons extends React.Component {
   }
 
   renderPersons() {
-    if (!this.props.user.buddy) {
-      return [
-          <Person 
-            user={this.props.user}
-            tasks={this.props.userTasks}
-            incrementGoal={this.props.incrementGoal}
-            date={this.props.date}
-            index={this.props.index} />
-      ];
-    } else {
-      return [
+    let persons = [
+        <Person 
+          key={this.props.user.id}          
+          user={this.props.user}
+          tasks={this.props.userTasks}
+          incrementGoal={this.props.incrementGoal}
+          date={this.props.date}
+          index={this.props.index} />
+    ];
+
+    if (this.props.user.buddy) {
+      persons.push(
           <Person
-            user={this.props.user}
-            tasks={this.props.userTasks}
-            incrementGoal={this.props.incrementGoal}
-            index={this.props.index} />,
-          <Person
+            key={this.props.buddy.id}                    
             user={this.props.buddy}
             tasks={this.props.buddyTasks}
             incrementGoal={this.props.incrementGoal}
             index={this.props.index} />
-      ];
+      );
     }
+    return persons;
   }
 
   render() {
