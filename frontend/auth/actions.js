@@ -29,11 +29,12 @@ export function signinUser({ email, name, password }) {
 
 export function signupUser({ email, name, password }) {
   return function(dispatch) {
+    debugger;
     axios.post(`${ROOT_URL}/signup`, { email, name, password})
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('currentUser', response.data.user.id);        
+        localStorage.setItem('currentUser', response.data.user._id);        
         hashHistory.push('dashboard');
       })
       .catch(() => {

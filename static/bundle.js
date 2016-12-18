@@ -37660,10 +37660,11 @@
 	      password = _ref2.password;
 	
 	  return function (dispatch) {
+	    debugger;
 	    _axios2.default.post(ROOT_URL + '/signup', { email: email, name: name, password: password }).then(function (response) {
 	      dispatch({ type: _types.AUTH_USER });
 	      localStorage.setItem('token', response.data.token);
-	      localStorage.setItem('currentUser', response.data.user.id);
+	      localStorage.setItem('currentUser', response.data.user._id);
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
 	      dispatch(authError("Bad Signup Info"));
