@@ -2,19 +2,48 @@ import React, {Component} from 'react';
 import merge from 'lodash/merge';
 import {router, hashHistory} from 'react-router';
 
-const historyReducer = (state = {index: 0, date: '', userHistories: [], buddyHistories: []},  action) => {
+let initialState = {
+    index: 0,
+    date: '',
+    userHistories: [{date: '', tasks: []}],
+    buddyHistories: [{date: '', tasks: []}]
+};
+
+const historyReducer = (state = initialState, action) => {
     let newState = merge({}, state);
     switch (action.type) {
         case 'RECEIVE_HISTORIES':
-            let tempVar = (state.userHistories === []) ? [] : state.userHistories;
-            newState.userHistories = tempVar.concat(action.payload.userHistories);
-            newState.date = newState.userHistories[0].date;
-            
-
-            let tempVar2 = (state.buddyHistories === []) ? [] : state.buddyHistories;
-            newState.buddyHistories = tempVar2.concat(action.payload.buddyHistories);
-            newState.date = newState.buddyHistories[0].date;
+            let prevUHistories = (state.userHistories[0].date === '' ? [] : state.userHistories);
+            let prevBHistories = (state.buddyHistories[0].date === '' ? [] : state.buddyHistories);
+            debugger;
+            newState.userHistories = prevUHistories.concat(action.payload.userHistories);
+            newState.buddyHistories = prevBHistories.concat(action.payload.buddyHistories);
+            newState.date = newState.userHistories[newState.index].date;
+            // }
             return newState;
+
+            // histories: {
+            //     byId: {
+            //         history: {
+            //             date,
+            //             tasks: [ids]
+            //         }
+            //     },
+            //     allIds : [ids]
+            // },
+            // tasks: {
+            //     byId: {
+            //         ...
+            //         goals: [ids]
+            //     }
+            //     allIds: [ids]
+            // },
+            // goals: {
+            //     byId: {
+            //         ...
+            //     }
+            //     allIds: [ids]
+            // }
 
             // return {
             //     index: state.index,
@@ -34,6 +63,7 @@ const historyReducer = (state = {index: 0, date: '', userHistories: [], buddyHis
             return newState;
         case 'ALTERNATE_HISTORIES':
             newState.index = state.index + action.payload;
+            newState.date = newState.userHistories[newState.index].date;
             return newState;  
         case 'UPDATE_HISTORY':
             newState.userHistories[0] = action.payload;

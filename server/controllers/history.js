@@ -9,7 +9,7 @@ exports.get = function(req, res, next) {
       return Promise.reject();
     }
     User.findById(user.buddy).then(buddy => {
-      let histories = user.histories.slice(req.params.index, req.params.index + 4);
+      let histories = user.histories.slice(req.params.index, parseInt(req.params.index) + 4);
       let userHistories = [];
       histories.forEach(history => {
           history = history.toObject();
@@ -18,7 +18,7 @@ exports.get = function(req, res, next) {
       });
 
       if (buddy) {    
-        histories = buddy.histories.slice(req.params.index, req.params.index + 4);
+        histories = buddy.histories.slice(req.params.index, parseInt(req.params.index) + 4);
         let buddyHistories = [];
         histories.forEach(history => {
             history = history.toObject();

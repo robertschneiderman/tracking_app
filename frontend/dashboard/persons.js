@@ -68,6 +68,11 @@ const mapDispatchToProps = dispatch => ({
   incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+const persons = connect(mapStateToProps, mapDispatchToProps)(Persons);
 
-// export default connect(null, actions)(Dashboard);
+persons.defaultProps = {
+  userTasks: [],
+  buddyTasks: []
+};
+
+export default persons;
