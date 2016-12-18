@@ -14,7 +14,9 @@ class Persons extends React.Component {
 
   componentWillMount() {
     // this.props.requestUser();
-    this.props.requestHistories(0);
+    if (this.props.userTasks.length === 0 && this.props.buddyTasks.length === 0) {
+      this.props.requestHistories(0);
+    }
   }
 
   renderPersons() {

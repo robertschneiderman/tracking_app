@@ -15,7 +15,7 @@ const historyReducer = (state = initialState, action) => {
         case 'RECEIVE_HISTORIES':
             let prevUHistories = (state.userHistories[0].date === '' ? [] : state.userHistories);
             let prevBHistories = (state.buddyHistories[0].date === '' ? [] : state.buddyHistories);
-            debugger;
+            
             newState.userHistories = prevUHistories.concat(action.payload.userHistories);
             newState.buddyHistories = prevBHistories.concat(action.payload.buddyHistories);
             newState.date = newState.userHistories[newState.index].date;

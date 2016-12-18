@@ -37644,6 +37644,9 @@
 	      dispatch({ type: _types.AUTH_USER, payload: response.data.user });
 	      localStorage.setItem('token', response.data.token);
 	      localStorage.setItem('currentUser', response.data.user.id);
+	
+	      var currentUser = localStorage.getItem('currentUser');
+	      dispatch({ type: 'REQUEST_USER', payload: currentUser });
 	      _reactRouter.hashHistory.push('dashboard');
 	    }).catch(function () {
 	      dispatch(authError("Bad Login Info"));
@@ -41429,7 +41432,7 @@
 	        case 'RECEIVE_HISTORIES':
 	            var prevUHistories = state.userHistories[0].date === '' ? [] : state.userHistories;
 	            var prevBHistories = state.buddyHistories[0].date === '' ? [] : state.buddyHistories;
-	            debugger;
+	
 	            newState.userHistories = prevUHistories.concat(action.payload.userHistories);
 	            newState.buddyHistories = prevBHistories.concat(action.payload.buddyHistories);
 	            newState.date = newState.userHistories[newState.index].date;
@@ -45468,7 +45471,9 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      // this.props.requestUser();
-	      this.props.requestHistories(0);
+	      if (this.props.userTasks.length === 0 && this.props.buddyTasks.length === 0) {
+	        this.props.requestHistories(0);
+	      }
 	    }
 	  }, {
 	    key: 'renderPersons',
@@ -45700,6 +45705,7 @@
 	          _react2.default.createElement(_task_popup2.default, {
 	            ref: 'popup',
 	            name: task.name,
+	            key: task._id + '-p',
 	            goals: task.goals,
 	            reduced: _this2.applyMultiplier(task.goals) })
 	        );

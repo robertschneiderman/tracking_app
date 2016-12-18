@@ -96,6 +96,7 @@ class Person extends React.Component {
             <TaskPopup 
               ref="popup"
               name={task.name}
+              key={`${task._id}-p`}              
               goals={task.goals}
               reduced={this.applyMultiplier(task.goals)} />
         </div>
