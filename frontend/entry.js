@@ -18,7 +18,6 @@ import store from './store';
 
 const token = localStorage.getItem('token');
 const currentUser = localStorage.getItem('currentUser');
-
 if (token) {
   store.dispatch({ type: AUTH_USER });
 }
