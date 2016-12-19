@@ -22,11 +22,11 @@ exports.getNextMonth = (today = new Date()) => {
 };
 
 exports.isTimeOfWeek = (today = new Date()) => {
-    today.getDay() === 1;
+    return (today.getDay() === 1);
 };
 
 exports.isTimeOfMonth = (today = new Date()) => {
-    today.getDate() === 1;
+    return (today.getDate() === 1);
 };
 
 exports.compareDates = (date1, date2) => {
@@ -36,8 +36,6 @@ exports.compareDates = (date1, date2) => {
 exports.assess = (goalObj, interval) => {
     let goal = goalObj.goal;
     let task = goalObj.task;
-    // let taskName = goalObj.taskName;
-    // let taskStreak = goalObj.taskStreak;
     let message;
 
     if (goal.count < goal.goal) {

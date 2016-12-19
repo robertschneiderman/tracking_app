@@ -25,17 +25,12 @@ var duplicateHistory = history => {
     });
     return { tasks: newTasks };
 };
-
-console.log('User: ', User);
-
     
     User.find({}, function(err, users) {
-        console.log('users: ', users);
         users.forEach(function(user) {
             let emailText = '';
             User.findById(user.buddy).then(buddy => {
                 let people = (buddy) ? [user, buddy] : [user];
-                console.log("people: ", people);            
                 people.forEach((person, index) => {
                     emailText += `<br/><b>${person.email}</b><br/><br/>`;
                     let duplicated;
@@ -52,10 +47,13 @@ console.log('User: ', User);
                         });                 
                     }
 
+                    console.log('CronHelpers.isTimeOfWeek(today): ', CronHelpers.isTimeOfWeek(today));
+
                     if (CronHelpers.isTimeOfWeek(today)) {
                         let weeklyGoals = CronHelpers.getGoalObjs(tasks, 'weekly');
                         emailText += `<b>Weekly:</b><br/><br/>`;                    
                         weeklyGoals.forEach(goalObj => {
+                            console.log("inside weekly");
                             emailText += CronHelpers.assess(goalObj, 'weekly');
                         });
                     }
