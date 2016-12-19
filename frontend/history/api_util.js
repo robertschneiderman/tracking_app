@@ -12,7 +12,6 @@ export const getHistories = (index, success) => {
 };
 
 export const createHistory = (success) => {
-  debugger;
   axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');  
   axios.post(`${ROOT_URL}/history/`)
   .then(success);

@@ -13,11 +13,11 @@ const historyReducer = (state = initialState, action) => {
     let newState = merge({}, state);
     switch (action.type) {
         case 'RECEIVE_HISTORIES':
-            // let prevUHistories = (state.userHistories[0].date === '' ? [] : state.userHistories);
-            // let prevBHistories = (state.buddyHistories[0].date === '' ? [] : state.buddyHistories);
-            
-            newState.userHistories = state.userHistories.concat(action.payload.userHistories);
-            newState.buddyHistories = state.buddyHistories.concat(action.payload.buddyHistories);
+            let prevUHistories = (state.userHistories[0].date) === '' ? [] : state.userHistories;
+            let prevBHistories = (state.buddyHistories[0].date) === '' ? [] : state.buddyHistories;
+
+            newState.userHistories = prevUHistories.concat(action.payload.userHistories);
+            newState.buddyHistories = prevBHistories.concat(action.payload.buddyHistories);
             newState.date = newState.userHistories[newState.index].date;
             // }
             return newState;

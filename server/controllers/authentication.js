@@ -2,6 +2,7 @@ const jwt = require('jwt-simple');
 const User = require('../models/user');
 
 const config = require('../environment');
+const bcrypt = require('bcrypt-nodejs');
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
@@ -34,11 +35,24 @@ exports.signup = function(req, res, next) {
       name
     });
 
-    user.save(function(err) {
+    bcrypt.genSalt(10, function(err, salt) {
       if(err) { return next(err); }
-      
-      res.json({ token: tokenForUser(user), user });
-    });
+
+      bcrypt.hash(user.password, salt, null, function(err, hash) {
+        if(err) { return next(err); }
+
+        user.password = hash;
+
+        user.save(function(err) {
+          if(err) { return next(err); }
+          
+          res.json({ token: tokenForUser(user), user });
+        });
+
+
+      });
+    });    
+
       
   });
 };

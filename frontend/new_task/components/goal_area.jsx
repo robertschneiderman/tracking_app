@@ -66,7 +66,6 @@ class GoalArea extends React.Component {
         if (value.length === 3 || !Number.isInteger(parseInt(value[cursorPos])) ) {
             return; // break if string goes under 3 is not a number 
         }
-        debugger;
         let overwrittenTime = value.slice(0, cursorPos+1) + value.slice(cursorPos+2);
         let numericalTime = this.numericalTime(overwrittenTime);
 
