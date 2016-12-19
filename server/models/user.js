@@ -27,9 +27,6 @@ const userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   name: String,
   password: String,
-  tasks: [
-    task
-  ],
   histories: [
     { date: Date, tasks: [task] }
   ],

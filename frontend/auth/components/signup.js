@@ -42,7 +42,7 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} placeholder={label} type={type}/>
+      <input {...input} className="input auth-input" placeholder={label} type={type}/>
       {touched && ((error && <span className="form-error">{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   </div>
@@ -61,16 +61,14 @@ const Signup = (props) => {
         <label>Email:</label>
         <Field 
           name="email"
-          component={renderField}
-          className="form-control" />
+          component={renderField} />
       </fieldset>
       
       <fieldset className="form-group">
         <label>Name:</label>
         <Field 
           name="name" 
-          component={renderField} 
-          className="form-control" />
+          component={renderField} />
       </fieldset>
 
       <fieldset className="form-group">
@@ -78,8 +76,7 @@ const Signup = (props) => {
         <Field 
           name="password" 
           type="password" 
-          component={renderField} 
-          className="form-control" />
+          component={renderField} />
       </fieldset>
       
       <button className="btn btn-primary" action="submit">Sign up</button>    

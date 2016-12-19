@@ -24,4 +24,5 @@ module.exports = function(app) {
   app.patch('/goals/:id', Goal.update);
 
   app.get('/history/:index', Historyy.get);
+  app.post('/history', requireAuth, Historyy.create);
 };

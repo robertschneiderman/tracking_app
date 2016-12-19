@@ -67,7 +67,6 @@ exports.newTask = function(req, res, next) {
       return Promise.reject();
     }
     
-
     fillAssessments(req.body.goals);
     calculateMultipliers(req.body.goals);
 
@@ -80,7 +79,6 @@ exports.newTask = function(req, res, next) {
     };
     let date = new Date();
 
-    user.tasks.push(task);
     if (!user.histories[0]) user.histories[0] = { date: date, tasks: [] };
     user.histories[0].tasks.push(task);
 

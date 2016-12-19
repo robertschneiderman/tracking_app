@@ -8,6 +8,7 @@ module.exports = {
   },  
   output: {
     path: path.join(__dirname, 'static'),
+    publicPath: "static",    
     filename: "./bundle.js"
   },
   module: {

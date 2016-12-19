@@ -1,8 +1,13 @@
+.fieldset {
+  
+}
+
 .form {
 
 }
 
 .input {
+  width: 7rem;
 }
 
 .text-area {height: 7rem;}

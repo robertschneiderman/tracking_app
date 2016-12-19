@@ -37,3 +37,28 @@ exports.get = function(req, res, next) {
     res.status(401).send();
   });    
 };
+
+
+
+exports.create = function(req, res, next) {
+  var token = req.header('x-auth');
+  User.findByToken(token).then((user) => {
+    if (!user) {
+      return Promise.reject();
+    }
+
+    user.histories.push({date: new Date(), tasks: []});
+
+    user.save(function(err) {
+      if (err) { return next(err); }
+      let history = user.histories[0].toObject();
+      history.date = dh.formattedDate(user.histories[0].date);
+      res.json(history);
+    }).catch((e) => {
+      res.status(401).send();
+    });    
+
+  }).catch((e) => {
+    res.status(401).send();
+  });    
+};

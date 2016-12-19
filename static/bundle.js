@@ -28327,7 +28327,7 @@
 	            null,
 	            'Email:'
 	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'email', component: 'input', className: 'form-control' })
+	          _react2.default.createElement(_reduxForm.Field, { name: 'email', component: 'input', className: 'input auth-input' })
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -28337,7 +28337,7 @@
 	            null,
 	            'Password:'
 	          ),
-	          _react2.default.createElement(_reduxForm.Field, { name: 'password', type: 'password', component: 'input', className: 'form-control' })
+	          _react2.default.createElement(_reduxForm.Field, { name: 'password', type: 'password', component: 'input', className: 'input auth-input' })
 	        ),
 	        this.renderAlert(),
 	        _react2.default.createElement(
@@ -39298,7 +39298,7 @@
 	    { onSubmit: handleSubmit(handleFormSubmit) },
 	    _react2.default.createElement(
 	      'fieldset',
-	      { className: 'form-group' },
+	      { className: 'form-group anything' },
 	      _react2.default.createElement(
 	        'label',
 	        null,
@@ -39307,7 +39307,7 @@
 	      _react2.default.createElement(_reduxForm.Field, {
 	        name: 'email',
 	        component: renderField,
-	        className: 'form-control' })
+	        className: 'input auth-input' })
 	    ),
 	    _react2.default.createElement(
 	      'fieldset',
@@ -39320,7 +39320,7 @@
 	      _react2.default.createElement(_reduxForm.Field, {
 	        name: 'name',
 	        component: renderField,
-	        className: 'form-control' })
+	        className: 'input auth-input' })
 	    ),
 	    _react2.default.createElement(
 	      'fieldset',
@@ -39334,7 +39334,7 @@
 	        name: 'password',
 	        type: 'password',
 	        component: renderField,
-	        className: 'form-control' })
+	        className: 'input auth-input' })
 	    ),
 	    _react2.default.createElement(
 	      'button',
