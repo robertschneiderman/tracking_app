@@ -42,7 +42,8 @@ class Task extends React.Component {
 
   timeTicker() {
     let className = (this.props.count === 0) ? 'hollow' : 'solid';
-    let value = (this.props.goal.count < 1) ? this.convertTime(this.props.task.timeUnit) : '√';
+    let value = (this.props.count < this.props.goal.goal) ? this.convertTime(this.props.task.timeUnit) : '√';
+    // let value = this.convertTime(this.props.task.timeUnit);
 
     return <span className={className}>{value}</span>;
   }

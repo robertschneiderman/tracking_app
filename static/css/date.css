@@ -1,0 +1,11 @@
+.date-toggler {display: flex;justify-content: center;margin-bottom: 3rem;}
+
+.date-btn {color: #aaa;display: inline-block;}
+
+.date {
+    color: #aaa;
+    display: inline-block;
+    font-size: 1.3rem;
+    margin: 0 1rem;
+}
+
