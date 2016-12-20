@@ -1,7 +1,13 @@
-.task-type {margin-bottom: 2rem;}
+.task-type {margin-bottom: 2rem; font-size: 1.3rem;}
+
+@media (min-width: 700px) {
+  .task-type {  
+    font-size: 1rem;
+  }
+}
 
 .tasks-subtitle {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   left: -2rem;
   margin-bottom: .5rem !important;
   text-transform: uppercase;
@@ -22,17 +28,20 @@
 
 .task-btn {
   border-bottom: 1px solid #aaa;
-  height: 1rem;
+  /* height: 1rem; */
   width: 4rem;
   margin-right: 0.6rem;
+  vertical-align: middle;
 }
 
 .task-btn > .hollow {
   color: #999;
+  bottom: 0;
 }
 
 .task-btn > .solid {
   color: #444;
+  bottom: 0;
 }
 
 .count {
@@ -48,5 +57,6 @@
 .increment-btn {
   outline: 0;
 }
+
 
 /*.task*/
