@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../history/actions';
 
 class DateToggler extends Component {
     constructor(props) {
@@ -29,22 +28,4 @@ class DateToggler extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    index: state.history.index,
-    date: state.history.date,
-    historiesLength: state.history.userHistories.length
-});
-
-const mapDispatchToProps = dispatch => ({
-    requestHistories: payload => dispatch(actions.requestHistories(payload)),
-    alternateHistories: payload => dispatch(actions.alternateHistories(payload))
-
-});
-
-const SmartDateToggler = connect(mapStateToProps, mapDispatchToProps)(DateToggler);
-
-SmartDateToggler.defaultProps = {
-    date: ''
-};
-
-export default SmartDateToggler;
+export default DateToggler;

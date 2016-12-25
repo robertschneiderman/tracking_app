@@ -1,22 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as taskActions from '../task/actions';
-import * as userActions from '../user/actions';
-import * as historyActions from '../history/actions';
-
 import Person from './person';
 
 class Persons extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    // this.props.requestUser();
-    if (this.props.userTasks.length === 0 && this.props.buddyTasks.length === 0) {
-      this.props.requestHistories(0);
-    }
   }
 
   renderPersons() {
@@ -52,27 +41,9 @@ class Persons extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-  user: state.user.currentUser,
-  userTasks: state.history.userHistories[state.history.index].tasks,
-  buddy: state.user.currentUser.buddy,
-  buddyTasks: state.history.buddyHistories[state.history.index].tasks,
-  index: state.history.index
-};};
+// persons.defaultProps = {
+//   userTasks: [],
+//   buddyTasks: []
+// };
 
-  // requestTasks: () => dispatch(taskActions.requestTasks()),
-const mapDispatchToProps = dispatch => ({
-  requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
-  clearHistories: userId => dispatch(historyActions.clearHistories(userId)),
-  incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
-});
-
-const persons = connect(mapStateToProps, mapDispatchToProps)(Persons);
-
-persons.defaultProps = {
-  userTasks: [],
-  buddyTasks: []
-};
-
-export default persons;
+export default Persons;
