@@ -4,16 +4,17 @@ import {router, hashHistory} from 'react-router';
 import { arrayOf, normalize, Schema } from 'normalizr';
 // import { userHistorySchema, buddyHistorySchema, taskSchema, goalSchema } from '../constants/schemas';
 
-const userHistorySchema = new Schema('userHistories', { idAttribute: '_id' });
-const buddyHistorySchema = new Schema('buddyHistories', { idAttribute: '_id' });
+const userSchema = new Schema('users', { idAttribute: '_id' });
+const historySchema = new Schema('histories', { idAttribute: '_id' });
+// const buddyHistorySchema = new Schema('buddyHistories', { idAttribute: '_id' });
 const taskSchema = new Schema('tasks', { idAttribute: '_id' });
 const goalSchema = new Schema('goals', { idAttribute: '_id' });
 
-userHistorySchema.define({
-  tasks: arrayOf(taskSchema),
+userSchema.define({
+  histories: arrayOf(historySchema),
 });
 
-buddyHistorySchema.define({
+historySchema.define({
   tasks: arrayOf(taskSchema),
 });
 
@@ -26,13 +27,14 @@ const historyMiddleware = ({dispatch}) => next => action => {
 
     const getSuccess = res => {
         const normalized = normalize(res.data, {
-            userHistories: arrayOf(userHistorySchema),
-            buddyHistories: arrayOf(buddyHistorySchema),
+            users: arrayOf(userSchema),
+            histories: arrayOf(historySchema),
             tasks: arrayOf(taskSchema),
             goals: arrayOf(goalSchema)
         });        
-        dispatch(actions.receiveHistories(res.data));
-        dispatch({type: 'entities', entities: normalized});        
+        // dispatch(actions.receiveHistories(res.data));
+        dispatch({type: 'data', data: normalized});    
+        dispatch({type: 'STOP_LOADING'});    
     };
 
     const createSuccess = res => {

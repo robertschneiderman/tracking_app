@@ -33,3 +33,7 @@ export const alternateHistories = payload => ({
     type: 'ALTERNATE_HISTORIES',
     payload
 });
+
+export const stopLoading = () => ({
+    type: 'STOP_LOADING',
+});

@@ -14,16 +14,18 @@ class Dashboard extends Component {
     }
 
     componentWillMount() {
-        const { userTasks, buddyTasks } = this.props;        
-        if (userTasks.length === 0 && buddyTasks.length === 0) {
+        const { user, buddy } = this.props;        
+        // if (user.tasks.length === 0 && buddy.tasks.length === 0) {
             this.props.requestHistories(0);
-        }
+        // }
     }
 
     render() {
-        const { user, buddy, userTasks, buddyTasks, date, index } = this.props;
+        const { loading, user, buddy, userTasks, buddyTasks, date, index } = this.props;
         return (
+            !loading &&
             <div className="dashboard">
+                <h1>NOTLOADING</h1>
                 <DateToggler 
                     date={date}
                     index={index} />
@@ -39,19 +41,38 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-  const { user, entities, history } = state;
-  const { currentUser } = user;
-  const buddy = currentUser.buddy;
-  const { index, date } = history;
-  let { userTasks, buddyTasks } = entities;
+  const { data, history } = state;
+  const { entities } = data;
+  const { index, date, loading } = history;
+  let { tasks } = entities;
+
+  let userTasks = [];
+  let buddyTasks = [];
+
+
+  if (!Array.isArray(entities.histories)) {
+
+    data.result = data.result.users.map(userId => entities.users[userId]);
+    data.result.forEach(user => {
+        user.histories = user.histories.map(historyId => entities.histories[historyId]);        
+        user.histories.forEach(historyy => {
+            historyy.tasks = historyy.tasks.map(taskId => entities.tasks[taskId]);
+            historyy.tasks.forEach(task => {
+                task.goals = task.goals.map(goalId => entities.goals[goalId]);
+            });
+        });
+    });
+    debugger;
+  }
+
+let [user, buddy] = data.result;
 
   return {
     user,
-    userTasks,
     buddy,
-    buddyTasks,
     index,
-    date
+    date,
+    loading
   };
 };
 

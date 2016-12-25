@@ -6,7 +6,8 @@ let initialState = {
     index: 0,
     date: '',
     userHistories: [{date: '', tasks: []}],
-    buddyHistories: [{date: '', tasks: []}]
+    buddyHistories: [{date: '', tasks: []}],
+    loading: false
 };
 
 const historyReducer = (state = initialState, action) => {
@@ -31,7 +32,9 @@ const historyReducer = (state = initialState, action) => {
             return newState;  
         case 'UPDATE_HISTORY':
             newState.userHistories[0] = action.payload;
-            return newState;             
+            return newState;
+        case 'STOP_LOADING':
+            newState.loading = true;
         default:
             return state;
     }

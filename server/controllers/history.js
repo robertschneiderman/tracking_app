@@ -25,9 +25,12 @@ exports.get = function(req, res, next) {
             history.date = dh.formattedDate(history.date);
             buddyHistories.push(history);
         });
-        res.json({ userHistories, buddyHistories });        
+        user.histories = userHistories;
+        buddy.histories = buddyHistories;
+
+        res.json({ users: [user, buddy] });        
       } else {
-        res.json({ userHistories });
+        res.json({ user: [user] });
       }
 
     }).catch((e) => {

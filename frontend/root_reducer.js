@@ -5,7 +5,7 @@ import userReducer from './user/reducer';
 import taskReducer from './task/reducer';
 import newTaskReducer from './new_task/reducer';
 import historyReducer from './history/reducer';
-import entitiesReducer from './entities/reducer';
+import dataReducer from './data/reducer';
 
 
 const appReducer = combineReducers({
@@ -15,7 +15,7 @@ const appReducer = combineReducers({
   tasks: taskReducer,
   newTask: newTaskReducer,
   history: historyReducer,
-  entities: entitiesReducer,
+  data: dataReducer,
 });
 
 const rootReducer = (state, action) => {
