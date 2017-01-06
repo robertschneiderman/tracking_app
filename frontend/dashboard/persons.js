@@ -9,24 +9,19 @@ class Persons extends React.Component {
   }
 
   renderPersons() {
-    let persons = [
-        <Person 
-          key={this.props.user.id}          
-          user={this.props.user}
-          incrementGoal={this.props.incrementGoal}
-          index={this.props.index} />
-    ];
+    let persons = [this.props.user];
+    if (this.props.buddy) persons.push(this.props.buddy);
+    debugger;
 
-    if (this.props.user.buddy) {
-      persons.push(
-          <Person
-            key={this.props.buddy.id}                    
-            user={this.props.buddy}
+    return persons.map(user => {
+        return(
+          <Person 
+            key={user.id}          
+            user={user}
             incrementGoal={this.props.incrementGoal}
             index={this.props.index} />
-      );
-    }
-    return persons;
+        );
+    });
   }
 
   render() {

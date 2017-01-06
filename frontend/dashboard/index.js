@@ -15,22 +15,17 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { loading, user, buddy, userTasks, buddyTasks, date, index } = this.props;
-        if (this.props.user44) {
+        const { loading, user, buddy, date, index } = this.props;
+
+        if (this.props.user) {
         return (
-            this.props.user &&
             <div className="dashboard">
-                <h1>NOTLOADING</h1>
-                <DateToggler 
-                    date={date}
-                    index={index} />
+                <DateToggler date={date} index={index} />
                 <Persons 
-                    user={user}
-                    buddy={buddy}
-                    userTasks={userTasks}
-                    buddyTasks={buddyTasks}
-                    index={index} />
-                />
+                    user={user} 
+                    buddy={buddy} 
+                    index={index}
+                    incrementGoal={this.props.incrementGoal} />
             </div>
         ); } else {
             return <div></div>;
@@ -44,19 +39,21 @@ const mapStateToProps = state => {
     const { entities } = data;
     const { index, date, loading } = dashboard;
     // let { tasks } = entities;
+
     users = users ? merge([], selector(users)) : [];
     let newUsers = [];
     users.forEach((user, i) => {
         newUsers[i] = {};
-        newUsers[i].histories = user.histories.map(historyId => histories[historyId]);
+        newUsers[i].id = user._id;
+        newUsers[i].name = user.name;
+        newUsers[i].histories = merge([], user.histories.map(historyId => histories[historyId]));
         newUsers[i].histories.forEach(historyy => {
-            historyy.tasks = historyy.tasks.map(taskId => tasks[taskId]);
+            historyy.tasks = merge([], historyy.tasks.map(taskId => tasks[taskId]));
             historyy.tasks.forEach(task => {
-                task.goals = task.goals.map(goalId => goals[goalId]);
+                task.goals = merge([], task.goals.map(goalId => goals[goalId]));
             });
         });
     });
-
 
   return {
     user: newUsers[0],
