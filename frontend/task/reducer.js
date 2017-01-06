@@ -6,7 +6,7 @@ const taskReducer = (state = {currentUser: [], buddy: []}, action) => {
   switch (action.type) {
 
     case "RECEIVE_TASKS":
-      return merge({}, state, {currentUser: action.payload.user, buddy: action.payload.buddy});
+      return action.payload;
     case "RECEIVE_TASK":
       let modifiedTaskIndex;
       for (var i = 0; i < state.currentUser.length; i++) {

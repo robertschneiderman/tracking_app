@@ -31,10 +31,11 @@ const historyMiddleware = ({dispatch}) => next => action => {
             histories: arrayOf(historySchema),
             tasks: arrayOf(taskSchema),
             goals: arrayOf(goalSchema)
-        });        
-        // dispatch(actions.receiveHistories(res.data));
-        dispatch({type: 'data', data: normalized});    
-        dispatch({type: 'STOP_LOADING'});    
+        }); 
+        // dispatch({type: 'RECEIVE_GOALS', payload: normalized.entities.goals });
+        // dispatch({type: 'RECEIVE_TASKS', payload: normalized.entities.tasks });
+        // dispatch({type: 'RECEIVE_HISTORIES', payload: normalized.entities.histories });
+        dispatch({type: 'RECEIVE_USERS', payload: normalized.entities });
     };
 
     const createSuccess = res => {

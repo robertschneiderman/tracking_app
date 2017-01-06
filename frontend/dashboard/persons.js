@@ -13,9 +13,7 @@ class Persons extends React.Component {
         <Person 
           key={this.props.user.id}          
           user={this.props.user}
-          tasks={this.props.userTasks}
           incrementGoal={this.props.incrementGoal}
-          date={this.props.date}
           index={this.props.index} />
     ];
 
@@ -24,7 +22,6 @@ class Persons extends React.Component {
           <Person
             key={this.props.buddy.id}                    
             user={this.props.buddy}
-            tasks={this.props.buddyTasks}
             incrementGoal={this.props.incrementGoal}
             index={this.props.index} />
       );

@@ -4,9 +4,9 @@ import {router, hashHistory} from 'react-router';
 
 let defaultState = {
     entities: {
-        histories: [],
-        tasks: [],
-        goals: []
+        histories: {},
+        tasks: {},
+        goals: {}
     },
     result: [],
 };
@@ -14,7 +14,6 @@ let defaultState = {
 const dataReducer = (state = defaultState, action) => {
     let newState = merge({}, state);    
     if (action.data) {    
-        // newState
         return merge({}, state, action.data);
     }
     return state;

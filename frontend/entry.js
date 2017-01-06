@@ -13,6 +13,7 @@ import Welcome from './welcome';
 import Dashboard from './dashboard/index';
 import NewTask from './new_task/components/index.jsx';
 import { AUTH_USER } from './auth/types';
+import * as historyActions from './history/actions';
 
 import store from './store'; 
 
@@ -23,8 +24,11 @@ if (token) {
 }
 
 if (currentUser) {
-  store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
+  store.dispatch(historyActions.requestHistories(currentUser));
+  // store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 }
+
+window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>

@@ -20,8 +20,9 @@ class Person extends React.Component {
   }
 
   sortTasks() {
+    let { tasks } = this.props.user.histories[this.props.index];
     let sortedTasks = {};
-    this.props.tasks.forEach(task => {
+    tasks.forEach(task => {
       let key = task.shortestInterval;
       if (sortedTasks[key]) {
         sortedTasks[key].push(task);
@@ -79,6 +80,7 @@ class Person extends React.Component {
       let goals = task.goals;
       // let goals = this.applyMultiplier(task.goals);
     // debugger;      
+      debugger;
       let intervals = ["daily", "weekly", "monthly"];
       let quickestInterval = intervals[3 - Object.keys(task.goals).length];
       return (

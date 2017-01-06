@@ -7,3 +7,8 @@ export const receiveUser = user => ({
   type: "RECEIVE_USER",
   payload: user
 });
+
+export const receiveUsers = users => ({
+  type: "RECEIVE_USERS",
+  payload: users
+});

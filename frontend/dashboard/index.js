@@ -6,6 +6,7 @@ import * as taskActions from '../task/actions';
 import * as userActions from '../user/actions';
 import * as historyActions from '../history/actions';
 import selector from '../selectors/objToArray';
+import merge from 'lodash/merge';
 
 
 class Dashboard extends Component {
@@ -13,17 +14,11 @@ class Dashboard extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        const { user, buddy } = this.props;        
-        // if (user.tasks.length === 0 && buddy.tasks.length === 0) {
-            this.props.requestHistories(0);
-        // }
-    }
-
     render() {
         const { loading, user, buddy, userTasks, buddyTasks, date, index } = this.props;
+        if (this.props.user44) {
         return (
-            !loading &&
+            this.props.user &&
             <div className="dashboard">
                 <h1>NOTLOADING</h1>
                 <DateToggler 
@@ -34,42 +29,38 @@ class Dashboard extends Component {
                     buddy={buddy}
                     userTasks={userTasks}
                     buddyTasks={buddyTasks}
+                    index={index} />
                 />
             </div>
-        );
+        ); } else {
+            return <div></div>;
+        }
     }
 }
 
 const mapStateToProps = state => {
-  const { data, history } = state;
-  const { entities } = data;
-  const { index, date, loading } = history;
-  let { tasks } = entities;
-
-  let userTasks = [];
-  let buddyTasks = [];
-
-
-  if (!Array.isArray(entities.histories)) {
-
-    data.result = data.result.users.map(userId => entities.users[userId]);
-    data.result.forEach(user => {
-        user.histories = user.histories.map(historyId => entities.histories[historyId]);        
-        user.histories.forEach(historyy => {
-            historyy.tasks = historyy.tasks.map(taskId => entities.tasks[taskId]);
+    const { data, user, history, task, goal, dashboard } = state;
+    let { users, histories, tasks, goals} = user; // temp
+    const { entities } = data;
+    const { index, date, loading } = dashboard;
+    // let { tasks } = entities;
+    users = users ? merge([], selector(users)) : [];
+    let newUsers = [];
+    users.forEach((user, i) => {
+        newUsers[i] = {};
+        newUsers[i].histories = user.histories.map(historyId => histories[historyId]);
+        newUsers[i].histories.forEach(historyy => {
+            historyy.tasks = historyy.tasks.map(taskId => tasks[taskId]);
             historyy.tasks.forEach(task => {
-                task.goals = task.goals.map(goalId => entities.goals[goalId]);
+                task.goals = task.goals.map(goalId => goals[goalId]);
             });
         });
     });
-    debugger;
-  }
 
-let [user, buddy] = data.result;
 
   return {
-    user,
-    buddy,
+    user: newUsers[0],
+    buddy: newUsers[1],
     index,
     date,
     loading
