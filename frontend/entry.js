@@ -13,7 +13,7 @@ import Welcome from './welcome';
 import Dashboard from './dashboard/components/index';
 import NewTask from './new_task/components/index.jsx';
 import { AUTH_USER } from './auth/types';
-import * as historyActions from './history/actions';
+import * as userActions from './user/actions';
 
 import store from './store'; 
 
@@ -24,7 +24,7 @@ if (token) {
 }
 
 if (currentUser) {
-  store.dispatch(historyActions.requestHistories(currentUser));
+  store.dispatch(userActions.requestUser(currentUser));
   // store.dispatch({ type: 'REQUEST_USER', payload: currentUser });
 }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import DateToggler from './date_toggler';
 import Persons from './persons';
-import * as taskActions from '../../task/actions';
+import * as goalActions from '../../goal/actions';
 import * as userActions from '../../user/actions';
 import * as historyActions from '../../history/actions';
 import selector from '../../selectors/objToArray';
@@ -36,14 +36,13 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-        debugger;
 
     const { data, user, history, task, goal, dashboard } = state;
     const { entities } = data;
     const { index, date, loading } = dashboard;
     // let { tasks } = entities;
 
-    let users = users ? merge([], selector(user)) : [];
+    let users = user ? merge([], selector(user)) : [];
     let newUsers = [];
     
     users.forEach((user, i) => {
@@ -72,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
     requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
     alternateHistories: payload => dispatch(historyActions.alternateHistories(payload)),
     clearHistories: userId => dispatch(historyActions.clearHistories(userId)),
-    incrementGoal: (taskId, count) => dispatch(taskActions.incrementGoal(taskId, count))
+    incrementGoal: (taskId, count) => dispatch(goalActions.incrementGoals(taskId, count))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -2,42 +2,28 @@ import * as API from './api_util';
 import * as actions from './actions';
 import {router, hashHistory} from 'react-router';
 import { arrayOf, normalize, Schema } from 'normalizr';
-import { getDashboardData } from '../dashboard/actions';
+// import { receiveDashboardData } from '../dashboard/actions';
 // import { userHistorySchema, buddyHistorySchema, taskSchema, goalSchema } from '../constants/schemas';
 
-const userSchema = new Schema('users', { idAttribute: '_id' });
-const historySchema = new Schema('histories', { idAttribute: '_id' });
-// const buddyHistorySchema = new Schema('buddyHistories', { idAttribute: '_id' });
-const taskSchema = new Schema('tasks', { idAttribute: '_id' });
-const goalSchema = new Schema('goals', { idAttribute: '_id' });
+// const userSchema = new Schema('users', { idAttribute: '_id' });
+// const historySchema = new Schema('histories', { idAttribute: '_id' });
+// const taskSchema = new Schema('tasks', { idAttribute: '_id' });
+// const goalSchema = new Schema('goals', { idAttribute: '_id' });
 
-userSchema.define({
-  histories: arrayOf(historySchema),
-});
+// userSchema.define({
+//   histories: arrayOf(historySchema),
+// });
 
-historySchema.define({
-  tasks: arrayOf(taskSchema),
-});
+// historySchema.define({
+//   tasks: arrayOf(taskSchema),
+// });
 
-taskSchema.define({
-    goals: arrayOf(goalSchema)
-});
+// taskSchema.define({
+//     goals: arrayOf(goalSchema)
+// });
 
 
 const historyMiddleware = ({dispatch}) => next => action => {
-
-    const getSuccess = res => {
-        const normalized = normalize(res.data, {
-            users: arrayOf(userSchema),
-            histories: arrayOf(historySchema),
-            tasks: arrayOf(taskSchema),
-            goals: arrayOf(goalSchema)
-        }); 
-
-        let { goals, tasks, histories, users } = normalized.entities;
-        
-        getDashboardData(normalized.entities)(dispatch);
-    };
 
     const createSuccess = res => {
         dispatch(actions.receiveHistory(res.data));
@@ -45,8 +31,8 @@ const historyMiddleware = ({dispatch}) => next => action => {
 
     switch (action.type) {
         case 'REQUEST_HISTORIES':
-            API.getHistories(action.payload, getSuccess);        
-            return next(action);
+            // API.getHistories(action.payload, getSuccess);        
+            // return next(action);
             break;
         case 'CREATE_BLANK_HISTORY':
             API.createHistory(createSuccess);

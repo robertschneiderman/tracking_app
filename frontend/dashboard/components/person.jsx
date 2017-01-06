@@ -78,9 +78,6 @@ class Person extends React.Component {
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
       let goals = task.goals;
-      // let goals = this.applyMultiplier(task.goals);
-    // debugger;      
-      debugger;
       let intervals = ["daily", "weekly", "monthly"];
       let quickestInterval = intervals[3 - Object.keys(task.goals).length];
       return (

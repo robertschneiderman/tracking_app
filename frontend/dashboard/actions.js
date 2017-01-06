@@ -3,7 +3,7 @@
 //     payload
 // });
 
-export function getDashboardData({goals, tasks, histories, users}) {
+export function receiveDashboardData({goals, tasks, histories, users}) {
   return function(dispatch) {
     dispatch({type: 'RECEIVE_GOALS', payload: goals });
     dispatch({type: 'RECEIVE_TASKS', payload: tasks });

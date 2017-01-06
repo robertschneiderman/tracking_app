@@ -30,7 +30,7 @@ exports.update = function(req, res, next) {
       if (err) { return next(err); }
       let history = user.histories[0].toObject();
       history.date = dh.formattedDate(user.histories[0].date);    
-      res.json(history);
+      res.json(task.goals);
     });
 
 

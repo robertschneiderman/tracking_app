@@ -5,7 +5,7 @@ import {router, hashHistory} from 'react-router';
 const dashboardMiddleware = ({dispatch}) => next => action => {
 
     const success = res => {
-    dispatch(actions.receive(res.data));
+        dispatch(actions.receive(res.data));
     };
     switch (action.type) {
         case 'action':

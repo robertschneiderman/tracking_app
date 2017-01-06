@@ -5,8 +5,8 @@ const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:309
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const getTasks = (success) => {
-  axios.get(`${ROOT_URL}/tasks`)
+export const incrementGoals = (taskId, increment, success) => {
+  axios.patch(`${ROOT_URL}/goals/${taskId}`, {increment})
   .then(success)
   .catch(function (error) {
     console.log(error);
