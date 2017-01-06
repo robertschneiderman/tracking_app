@@ -7,7 +7,7 @@ const userReducer = (state = {}, action) => {
 
   switch (action.type) {
     case "RECEIVE_USERS":
-      return merge({}, action.payload);
+      return action.payload;
     case "RECEIVE_USER":
       return merge({}, state, {currentUser: action.payload.user, buddy: action.payload.user.buddy});
     default:

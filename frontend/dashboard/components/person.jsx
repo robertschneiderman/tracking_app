@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import * as actions from '../task/actions';
-import Task from '../task/components/task';
+import Task from '../../task/components/task';
 import _ from 'lodash';
-import TaskPopup from '../task/components/task_popup';
+import TaskPopup from '../../task/components/task_popup';
 import $ from 'jquery';
 
 // import Container from './/_container';

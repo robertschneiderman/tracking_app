@@ -2,6 +2,7 @@ import * as API from './api_util';
 import * as actions from './actions';
 import {router, hashHistory} from 'react-router';
 import { arrayOf, normalize, Schema } from 'normalizr';
+import { getDashboardData } from '../dashboard/actions';
 // import { userHistorySchema, buddyHistorySchema, taskSchema, goalSchema } from '../constants/schemas';
 
 const userSchema = new Schema('users', { idAttribute: '_id' });
@@ -32,10 +33,10 @@ const historyMiddleware = ({dispatch}) => next => action => {
             tasks: arrayOf(taskSchema),
             goals: arrayOf(goalSchema)
         }); 
-        // dispatch({type: 'RECEIVE_GOALS', payload: normalized.entities.goals });
-        // dispatch({type: 'RECEIVE_TASKS', payload: normalized.entities.tasks });
-        // dispatch({type: 'RECEIVE_HISTORIES', payload: normalized.entities.histories });
-        dispatch({type: 'RECEIVE_USERS', payload: normalized.entities });
+
+        let { goals, tasks, histories, users } = normalized.entities;
+        
+        getDashboardData(normalized.entities)(dispatch);
     };
 
     const createSuccess = res => {
