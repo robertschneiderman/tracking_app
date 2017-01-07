@@ -9,10 +9,6 @@ class Task extends React.Component {
     this.incrementGoal = this.incrementGoal.bind(this);
   }
 
-  componentWillMount(nextProps) {
-
-  }
-
   incrementGoal(num) {
     if (num === -1 && this.props.goal.count === 0) return;
     this.props.incrementGoal(this.props.task._id, num);
@@ -104,10 +100,6 @@ class Task extends React.Component {
         {this.renderBtns()}
       </li>
     );
-        // <TaskPopup 
-        //   description={this.props.description}
-        //   count={this.props.count}
-        //   goals={this.props.goals} />
   }
 }
 

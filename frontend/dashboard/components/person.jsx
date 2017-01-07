@@ -84,29 +84,31 @@ class Person extends React.Component {
       let goals = task.goals;
       let intervals = ["daily", "weekly", "monthly"];
       let quickestInterval = intervals[3 - Object.keys(task.goals).length];
+      let props = {
+        reveal: this.revealPopup.bind(this),
+        hide: this.hidePopup.bind(this),
+        key: task._id,
+        task: task,
+        goal: goals[0],
+        count: goals[0].count,
+        incrementGoal: this.props.incrementGoal,
+        btnsEnabled: (this.props.index === 0)
+      };
+      let renderedTask = task.type === 'time' ? <TimeTask {...props} /> : <FrequencyTask {...props} />;
       return (
         <div className="task-container">
-            <Task
-              reveal={this.revealPopup.bind(this)}
-              hide={this.hidePopup.bind(this)}
-              key={task._id}
-              task={task}
-              type={task.type}
-              goal={goals[0]}
-              count={goals[0].count}
-              incrementGoal={this.props.incrementGoal}
-              btnsEnabled={this.props.index === 0} />
-            <TaskPopup 
-              ref="popup"
-              name={task.name}
-              key={`${task._id}-p`}              
-              goals={task.goals}
-              reduced={this.applyMultiplier(task.goals)} />
+            {renderedTask}
         </div>
       );
 
     });
   }
+            // <TaskPopup 
+            //   ref="popup"
+            //   name={task.name}
+            //   key={`${task._id}-p`}              
+            //   goals={task.goals}
+            //   reduced={this.applyMultiplier(task.goals)} />
 
   render() {
     return(
