@@ -4,7 +4,7 @@ import {router, hashHistory} from 'react-router';
 
 let defaultState = {
     index: 0,
-    date: '',
+    date: new Date(),
     loading: true
 };
 
@@ -15,8 +15,8 @@ const dashboardReducer = (state = defaultState, action) => {
             newState.loading = false;
             return newState;
         case 'ALTERNATE_HISTORIES':
-            newState.index += action.payload;
-            return newState;
+            let index = state.index + action.payload;
+            return merge({}, state, {index});
         default:
             return state;
     }

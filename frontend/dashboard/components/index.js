@@ -22,7 +22,8 @@ class Dashboard extends Component {
             <div className="dashboard">
                 <DateToggler 
                     date={date} 
-                    index={index} />
+                    index={index} 
+                    alternateHistories={this.props.alternateHistories} />
                 <Persons 
                     user={user} 
                     buddy={buddy} 
@@ -39,7 +40,7 @@ const mapStateToProps = state => {
 
     const { data, user, history, task, goal, dashboard } = state;
     const { entities } = data;
-    const { index, date, loading } = dashboard;
+    let { index, date, loading } = dashboard;
     // let { tasks } = entities;
 
     let users = user ? merge([], selector(user)) : [];
@@ -56,15 +57,17 @@ const mapStateToProps = state => {
                 task.goals = merge([], task.goals.map(goalId => goal[goalId]));
             });
         });
-    });  
+    });
 
-  return {
-    user: newUsers[0],
-    buddy: newUsers[1],
-    index,
-    date,
-    loading
-  };
+    date = (Object.keys(history).length !== 0 && newUsers[0]) ? newUsers[0].histories[index].date : '';
+
+    return {
+        user: newUsers[0],
+        buddy: newUsers[1],
+        index,
+        date,
+        loading
+    };
 };
 
 const mapDispatchToProps = dispatch => ({

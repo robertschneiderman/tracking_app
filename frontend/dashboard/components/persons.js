@@ -12,12 +12,14 @@ class Persons extends React.Component {
     let persons = [this.props.user];
     if (this.props.buddy) persons.push(this.props.buddy);
 
+      debugger;
     return persons.map(user => {
         return(
           <Person 
             key={user.id}          
             user={user}
             incrementGoal={this.props.incrementGoal}
+            date={this.props.date}
             index={this.props.index} />
         );
     });

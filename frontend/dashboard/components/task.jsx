@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskPopup from './task_popup';
+import { isToday } from '../helpers';
 
 class Task extends React.Component {
 
@@ -80,7 +81,7 @@ class Task extends React.Component {
   }
 
   renderBtns() {
-    if (this.props.btnsEnabled) {
+    if (this.props.index === 0) {
       return (
         <div className="increment-btns ibm">
           <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import * as actions from '../task/actions';
-import Task from '../../task/components/task';
+import Task from './task';
 import _ from 'lodash';
-import TaskPopup from '../../task/components/task_popup';
+import TaskPopup from './task_popup';
 import $ from 'jquery';
 
 // import Container from './/_container';
@@ -19,8 +19,12 @@ class Person extends React.Component {
     // this.props.requestTasks();
   }
 
+  getTasks() {
+    return this.props.user.histories[this.props.index];
+  }
+
   sortTasks() {
-    let { tasks } = this.props.user.histories[this.props.index];
+    let { tasks } = this.getTasks();
     let sortedTasks = {};
     tasks.forEach(task => {
       let key = task.shortestInterval;
@@ -90,8 +94,8 @@ class Person extends React.Component {
               type={task.type}
               goal={goals[0]}
               count={goals[0].count}
-              incrementGoal={this.props.incrementGoal}
-              btnsEnabled={this.props.index === 0} />
+              incrementGoal={this.props.incrementGoal} 
+              index={this.props.index} />
             <TaskPopup 
               ref="popup"
               name={task.name}

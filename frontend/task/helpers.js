@@ -6,4 +6,4 @@ export const applyMultiplier = (goals) => {
         }
     }
     return goals;
-};  
+};

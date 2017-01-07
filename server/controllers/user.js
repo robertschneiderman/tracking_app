@@ -21,6 +21,9 @@ exports.find = function(req, res, next) {
             buddyHistories.push(history);
         });
 
+        user = user.toObject();
+        buddy = buddy.toObject();
+
         user.histories = userHistories;
         buddy.histories = buddyHistories;
 
