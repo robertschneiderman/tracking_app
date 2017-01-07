@@ -81,7 +81,7 @@ class Task extends React.Component {
   }
 
   renderBtns() {
-    if (this.props.index === 0) {
+    if (this.props.btnsEnabled) {
       return (
         <div className="increment-btns ibm">
           <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>

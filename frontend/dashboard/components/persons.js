@@ -12,7 +12,6 @@ class Persons extends React.Component {
     let persons = [this.props.user];
     if (this.props.buddy) persons.push(this.props.buddy);
 
-      debugger;
     return persons.map(user => {
         return(
           <Person 

@@ -20,11 +20,11 @@ class Person extends React.Component {
   }
 
   getTasks() {
-    return this.props.user.histories[this.props.index];
-  }
+    return this.props.user.histories[this.props.index].tasks;    
+  }  
 
   sortTasks() {
-    let { tasks } = this.getTasks();
+    let tasks = this.getTasks();
     let sortedTasks = {};
     tasks.forEach(task => {
       let key = task.shortestInterval;
@@ -94,8 +94,8 @@ class Person extends React.Component {
               type={task.type}
               goal={goals[0]}
               count={goals[0].count}
-              incrementGoal={this.props.incrementGoal} 
-              index={this.props.index} />
+              incrementGoal={this.props.incrementGoal}
+              btnsEnabled={this.props.index === 0} />
             <TaskPopup 
               ref="popup"
               name={task.name}
