@@ -34,3 +34,18 @@ export const isSameDate = (date1, date2) => {
         date1.getFullYear() === date2.getFullYear()
     );
 };
+
+//   renderBtns() {
+//     if (this.props.btnsEnabled) {
+//       return (
+//         <div className="increment-btns ibm">
+//           <button className="increment-btn" onClick={this.incrementGoal.bind(this, -1)}>-</button>
+//           <button className="increment-btn" onClick={this.incrementGoal.bind(this, 1)}>+</button>
+//         </div>        
+//       );
+//     } else {
+//       return (      
+//         <div className="increment-btns ibm"></div>
+//       );
+//     }
+//   }

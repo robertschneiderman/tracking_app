@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import * as actions from '../task/actions';
 import Task from './task';
+import TaskTime from './task_time';
+import TaskFrequency from './task_frequency';
 import _ from 'lodash';
 import TaskPopup from './task_popup';
 import $ from 'jquery';
@@ -85,16 +87,12 @@ class Person extends React.Component {
       let intervals = ["daily", "weekly", "monthly"];
       let quickestInterval = intervals[3 - Object.keys(task.goals).length];
       let props = {
-        reveal: this.revealPopup.bind(this),
-        hide: this.hidePopup.bind(this),
         key: task._id,
         task: task,
-        goal: goals[0],
-        count: goals[0].count,
         incrementGoal: this.props.incrementGoal,
         btnsEnabled: (this.props.index === 0)
       };
-      let renderedTask = task.type === 'time' ? <TimeTask {...props} /> : <FrequencyTask {...props} />;
+      let renderedTask = task.type === 'time' ? <TaskTime {...props} /> : <TaskFrequency {...props} />;
       return (
         <div className="task-container">
             {renderedTask}
