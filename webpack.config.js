@@ -9,7 +9,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'static'),
     publicPath: "static",    
-    filename: "./bundle.js"
+    filename: "./bundle.js",
+    devtoolModuleFilenameTemplate: '../[resource-path]'    
   },
   module: {
     loaders: [
@@ -23,7 +24,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-maps',
+  devtool: 'source-map',
   resolve: {
     extensions: ["", ".js", ".jsx" ]
   },

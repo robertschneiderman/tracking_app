@@ -5,11 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "Launch localhost",
+            "type": "chrome",
             "request": "launch",
-            "name": "Node",
-            "program": "${workspaceRoot}/index.js",
-            "cwd": "${workspaceRoot}"
+            "url": "http://localhost:8080/",
+            "webRoot": "${workspaceRoot}/entry.js",
+            "sourceMaps": true
         },
         {
             "type": "node",

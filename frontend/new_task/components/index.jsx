@@ -30,22 +30,9 @@ class NewTask extends React.Component {
     let taskInfo = {
       name: this.props.state.name,
       type: this.props.state.type,
-      shortestInterval: this.props.state.interval,
       goals,
       stubs: []
     };  
-
-    if (this.props.state.type === 'time') { // Make Daily Goal === 1 for time goal
-      let timeDefaults = [1, 5, 22];
-      taskInfo.timeUnit = this.props.state[this.props.state.type][this.props.state.interval];
-      let j = 2;
-      for (let i = taskInfo.goals.length - 1; i >= 0; i--) {
-        let goal = taskInfo.goals[i];
-        goal.goal = timeDefaults[j];
-        j--;
-      }
-    }    
-
     this.props.createTask(taskInfo);
   }
 

@@ -8,8 +8,6 @@ const config = require('../environment');
 let task = {
       name: String,
       type: { type: String },
-      shortestInterval: String,
-      timeUnit: Number,   
       goals: [
         {
           interval: String,

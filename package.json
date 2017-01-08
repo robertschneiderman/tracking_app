@@ -4,7 +4,7 @@
   "description": "",
   "main": "./server/index.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d",
     "test": "mocha --compilers js:babel-core/register --require ./frontend/test/test_helper.js --recursive ./frontend/test",
     "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js",

@@ -6,6 +6,9 @@ class TaskTime extends Component {
         super(props);
         this.state = {time: 0, active: false};
         this.toggleTimer = this.toggleTimer.bind(this);
+        this.renderTimeTicker = this.renderTimeTicker.bind(this);
+        this.renderCount = this.renderCount.bind(this);
+        this.renderBtns = this.renderBtns.bind(this);
     }
 
     convertTime(minutes) {
@@ -31,8 +34,10 @@ class TaskTime extends Component {
 
     toggleTimer() {
         let interval;
+        let {goals} = this.props.task;
+        let count = goals[0].count;
         if (!this.state.active) {
-            this.state.time = this.props.count;
+            this.state.time = count;
             interval = setInterval(() => {
                 this.setState({
                     time: (this.state.time + 1),
@@ -45,6 +50,16 @@ class TaskTime extends Component {
             this.props.incrementGoal(this.props.task._id, this.state.time);
         }
     }
+
+    renderCount() {
+        let { goals } = this.props.task;
+        let { count, goal } = goals[0];
+        return(
+            <span className="count">
+                {`${count} / ${goal}`}
+            </span>    
+        );
+    }    
 
     renderBtns() {
         let result = [];
@@ -64,7 +79,7 @@ class TaskTime extends Component {
             <li className="task">
                 <label onMouseEnter={this.props.reveal} onMouseLeave={this.props.hide} className="task-label" htmlFor="">{this.props.task.name}</label>       
                 {this.renderTimeTicker()}
-                <span className="count">{this.state.time}</span>
+                {this.renderCount()}
                 {this.renderBtns()}            
             </li>
         );

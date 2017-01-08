@@ -8,9 +8,12 @@ class TaskFrequency extends Component {
 
     incrementGoal(num) {
         let { goals } = this.props.task;
-        let { count } = goals[0];           
+        let { count } = goals[0];        
         if (num === -1 && count === 0) return;
         this.props.incrementGoal(this.props.task._id, num);
+        this.renderFrequencyTicker = this.renderTimeTicker.bind(this);
+        this.renderCount = this.renderCount.bind(this);
+        this.renderBtns = this.renderBtns.bind(this);        
     }    
 
     convertFrequency(num) {
