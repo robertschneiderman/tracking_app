@@ -4,16 +4,17 @@ import * as actions from '../actions';
 class TaskFrequency extends Component {
     constructor(props) {
         super(props);
+        this.incrementGoal = this.incrementGoal.bind(this);
+        this.renderFrequencyTicker = this.renderFrequencyTicker.bind(this);
+        this.renderCount = this.renderCount.bind(this);
+        this.renderBtns = this.renderBtns.bind(this);        
     }
 
     incrementGoal(num) {
         let { goals } = this.props.task;
         let { count } = goals[0];        
         if (num === -1 && count === 0) return;
-        this.props.incrementGoal(this.props.task._id, num);
-        this.renderFrequencyTicker = this.renderTimeTicker.bind(this);
-        this.renderCount = this.renderCount.bind(this);
-        this.renderBtns = this.renderBtns.bind(this);        
+        this.props.incrementGoal(this.props.task._id, count + num);
     }    
 
     convertFrequency(num) {

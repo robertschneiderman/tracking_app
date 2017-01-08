@@ -47,10 +47,9 @@ class TaskTime extends Component {
                 });
             }, 1000);
         } else {
-            // debugger;
-            console.log('interval: ', interval);
             clearInterval(this.state.interval);
-            this.setState({active: false, interval: undefined});
+            this.setState({active: false, interval: undefined, time: 0});
+
             this.props.incrementGoal(this.props.task._id, this.state.time);
             this.props.finishTimestamp(this.props.task._id);
         }

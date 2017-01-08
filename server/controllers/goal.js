@@ -6,7 +6,7 @@ const increment = (goals, incrementObj) => {
   let num = parseInt(incrementObj.increment);
   goals = goals.toObject();
   goals.forEach(goal => {
-    goal.count += num;
+    goal.count = num;
   });
   return goals;
 };
