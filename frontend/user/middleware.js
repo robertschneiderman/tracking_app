@@ -32,7 +32,6 @@ const userMiddleware = store => next => action => {
       tasks: arrayOf(taskSchema),
       goals: arrayOf(goalSchema)
     });
-    debugger;
       
     receiveDashboardData(normalized.entities)(dispatch);
   }; 
