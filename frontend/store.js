@@ -7,9 +7,10 @@ import TaskMiddleware from './task/middleware';
 import GoalMiddleware from './goal/middleware';
 import NewTaskMiddleware from './new_task/middleware';
 import HistoryMiddleware from './history/middleware';
+import TimestampMiddleware from './timestamp/middleware';
 
 const logger = createLogger();
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger, UserMiddleware, TaskMiddleware, GoalMiddleware, NewTaskMiddleware, HistoryMiddleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger, UserMiddleware, TaskMiddleware, GoalMiddleware, NewTaskMiddleware, HistoryMiddleware, TimestampMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
 export default store;

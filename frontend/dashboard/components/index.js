@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DateToggler from './date_toggler';
 import Persons from './persons';
 import * as goalActions from '../../goal/actions';
+import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
 import * as historyActions from '../../history/actions';
 import selector from '../../selectors/objToArray';
@@ -74,7 +75,8 @@ const mapDispatchToProps = dispatch => ({
     requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
     alternateHistories: payload => dispatch(historyActions.alternateHistories(payload)),
     clearHistories: userId => dispatch(historyActions.clearHistories(userId)),
-    incrementGoal: (taskId, count) => dispatch(goalActions.incrementGoals(taskId, count))
+    incrementGoal: (taskId, count) => dispatch(goalActions.incrementGoals(taskId, count)),
+    createTimestamp: (taskId, {start, end}) => dispatch(timestampActions.createTimestamp(taskId, count)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

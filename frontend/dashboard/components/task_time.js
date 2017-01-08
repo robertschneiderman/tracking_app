@@ -38,6 +38,7 @@ class TaskTime extends Component {
             // debugger;
             this.setState({active: true});
             this.state.time = count;
+            this.props.createTimestamp(this.props.task._id);
             let that = this;
             interval = setInterval(() => {
                 that.setState({
@@ -51,7 +52,7 @@ class TaskTime extends Component {
             clearInterval(this.state.interval);
             this.setState({active: false, interval: undefined});
             this.props.incrementGoal(this.props.task._id, this.state.time);
-            this.props.createTimestamp(this.props.task._id, this.state.time);
+            this.props.finishTimestamp(this.props.task._id);
         }
     }    
 

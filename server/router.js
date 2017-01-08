@@ -3,6 +3,7 @@ const User = require('./controllers/user');
 const Task = require('./controllers/task');
 const Goal = require('./controllers/goal');
 const Historyy = require('./controllers/history');
+const Timestamp = require('./controllers/timestamp');
 const passportService = require('./services/passport');
 const passport = require('passport');
 const path = require('path');
@@ -25,4 +26,7 @@ module.exports = function(app) {
 
   app.get('/history/:index', Historyy.get);
   app.post('/history', requireAuth, Historyy.create);
+
+  app.post('/timestamps', requireAuth, Timestamp.create);
+
 };

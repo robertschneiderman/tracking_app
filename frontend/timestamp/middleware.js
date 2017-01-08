@@ -1,20 +1,19 @@
 import * as API from './api_util';
 import * as ACTIONS from './actions';
-// import {updateHistory} from '../history/actions';
 import {router, hashHistory} from 'react-router';
 
 const taskMiddleware = ({dispatch}) => next => action => {
 
-  const getSuccess = res => {
+  const createSuccess = res => {
     let tasks = res.data;
     dispatch(ACTIONS.receiveTasks(tasks));
-  };       
+  };          
 
   switch (action.type) {
 
-    case "REQUEST_TASKS":
-      API.getTasks(getSuccess);
-      return next(action);        
+    case "CREATE_TIMESTAMP":
+      API.createTimestamp(createSuccess);
+      return next(action);           
     default:
       return next(action);
   }
