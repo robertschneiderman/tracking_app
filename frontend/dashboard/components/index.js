@@ -30,7 +30,7 @@ class Dashboard extends Component {
                     buddy={buddy} 
                     index={index}
                     createTimestamp={this.props.createTimestamp}
-                    finishTimestampGoal={this.props.finishTimestampGoal}
+                    finishTimestamp={this.props.finishTimestamp}
                     incrementGoal={this.props.incrementGoal} />
             </div>
         ); } else {

@@ -13,3 +13,11 @@ export const createTimestamp = (taskId, success) => {
     console.log(error);
   });
 };
+
+export const finishTimestamp = (taskId, success) => {
+  axios.patch(`${ROOT_URL}/timestamp/`, {taskId})
+  .then(success)
+  .catch(function (error) {
+    console.log(error);
+  });
+};

@@ -28,5 +28,6 @@ module.exports = function(app) {
   app.post('/history', requireAuth, Historyy.create);
 
   app.post('/timestamps', requireAuth, Timestamp.create);
+  app.patch('/timestamp', requireAuth, Timestamp.edit);
 
 };

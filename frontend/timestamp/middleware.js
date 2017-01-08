@@ -5,8 +5,6 @@ import {router, hashHistory} from 'react-router';
 const taskMiddleware = ({dispatch}) => next => action => {
 
   const createSuccess = res => {
-    let tasks = res.data;
-    dispatch(ACTIONS.receiveTasks(tasks));
   };          
 
   switch (action.type) {
@@ -14,6 +12,9 @@ const taskMiddleware = ({dispatch}) => next => action => {
     case "CREATE_TIMESTAMP":
       API.createTimestamp(action.payload, createSuccess);
       return next(action);           
+    case "FINISH_TIMESTAMP":
+      API.finishTimestamp(action.payload, createSuccess);
+      return next(action);      
     default:
       return next(action);
   }
