@@ -11,7 +11,8 @@ class TaskTime extends Component {
         this.renderBtns = this.renderBtns.bind(this);
     }
 
-    convertTime(minutes) {
+    convertTime(seconds) {
+        let minutes = (seconds / 60);
         let hours = Math.floor(minutes / 60);
         minutes = minutes - (hours * 60);
         if (minutes < 10) minutes = `0${minutes}`;

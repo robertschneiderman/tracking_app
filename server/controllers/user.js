@@ -12,6 +12,9 @@ exports.find = function(req, res, next) {
           history.date = dh.formattedDate(history.date);
           userHistories.push(history);
       });      
+      user = user.toObject();
+      user.histories = userHistories;
+
       if (buddy) {
         histories = buddy.histories.slice(0, parseInt(0) + 4);
         let buddyHistories = [];
@@ -21,15 +24,12 @@ exports.find = function(req, res, next) {
             buddyHistories.push(history);
         });
 
-        user = user.toObject();
         buddy = buddy.toObject();
-
-        user.histories = userHistories;
         buddy.histories = buddyHistories;
 
         res.json({ users: [user, buddy] });        
       } else {
-        res.json({ user: [user] });
+        res.json({ users: [user] });
       }        
     }).catch((e) => {
       res.status(401).send();
