@@ -12,7 +12,7 @@ const taskMiddleware = ({dispatch}) => next => action => {
   switch (action.type) {
 
     case "CREATE_TIMESTAMP":
-      API.createTimestamp(createSuccess);
+      API.createTimestamp(action.payload, createSuccess);
       return next(action);           
     default:
       return next(action);

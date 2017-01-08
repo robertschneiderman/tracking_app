@@ -8,7 +8,7 @@ const config = require('../environment');
 let task = {
       name: String,
       type: { type: String },
-      timeStamps: [
+      timestamps: [
         {start: Date, end: Date}
       ],
       goals: [

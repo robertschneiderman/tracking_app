@@ -84,12 +84,13 @@ class Person extends React.Component {
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
       let goals = task.goals;
-      let intervals = ["daily", "weekly", "monthly"];
-      let quickestInterval = intervals[3 - Object.keys(task.goals).length];
+      let { createTimestamp, finishTimestamp, incrementGoal } = this.props;
       let props = {
         key: task._id,
         task: task,
-        incrementGoal: this.props.incrementGoal,
+        createTimestamp,
+        finishTimestamp,
+        incrementGoal,
         btnsEnabled: (this.props.index === 0)
       };
       let renderedTask = task.type === 'time' ? <TaskTime {...props} /> : <TaskFrequency {...props} />;

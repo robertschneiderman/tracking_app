@@ -7,7 +7,7 @@ axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const createTimestamp = (taskId, success) => {
-  axios.post(`${ROOT_URL}/timestamps/`)
+  axios.post(`${ROOT_URL}/timestamps/`, {taskId})
   .then(success)
   .catch(function (error) {
     console.log(error);

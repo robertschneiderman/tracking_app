@@ -29,6 +29,8 @@ class Dashboard extends Component {
                     user={user} 
                     buddy={buddy} 
                     index={index}
+                    createTimestamp={this.props.createTimestamp}
+                    finishTimestampGoal={this.props.finishTimestampGoal}
                     incrementGoal={this.props.incrementGoal} />
             </div>
         ); } else {
@@ -76,7 +78,8 @@ const mapDispatchToProps = dispatch => ({
     alternateHistories: payload => dispatch(historyActions.alternateHistories(payload)),
     clearHistories: userId => dispatch(historyActions.clearHistories(userId)),
     incrementGoal: (taskId, count) => dispatch(goalActions.incrementGoals(taskId, count)),
-    createTimestamp: (taskId, {start, end}) => dispatch(timestampActions.createTimestamp(taskId, count)),
+    createTimestamp: (taskId) => dispatch(timestampActions.createTimestamp(taskId)),
+    finishTimestamp: (taskId) => dispatch(timestampActions.finishTimestamp(taskId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
