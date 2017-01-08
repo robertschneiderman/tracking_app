@@ -73,8 +73,6 @@ exports.newTask = function(req, res, next) {
     let task = {
       name: req.body.name,
       type: req.body.type,
-      shortestInterval: req.body.shortestInterval,
-      timeUnit: req.body.timeUnit,
       goals: req.body.goals
     };
     let date = new Date();

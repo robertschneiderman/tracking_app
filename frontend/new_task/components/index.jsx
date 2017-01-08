@@ -14,26 +14,21 @@ class NewTask extends React.Component {
   }
 
   createTask() {
+    let { newTask } = this.props;
+    let { name, type, interval } = newTask;
+    let goalsObj = newTask[type];
     let goals = [];
-    let daily = this.props.state[this.props.state.type].daily;
-    let weekly = this.props.state[this.props.state.type].weekly;
-    let monthly = this.props.state[this.props.state.type].monthly;
 
-    if (this.props.state.interval === 'daily') {
-      goals = [ { interval: 'daily', count: 0, goal: daily }, { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
-    } else if (this.props.state.interval === 'weekly') {
-      goals = [ { interval: 'weekly', count: 0, goal: weekly }, { interval: 'monthly', count: 0, goal: monthly } ] ;
-    } else {
-      goals = [ { interval: 'monthly', count: 0, goal: monthly } ] ;
+    for (let key in goalsObj) {
+      let goal = goalsObj[key];
+      if (type === 'time') goal *= 60;
+      goals.push({count: 0, goal, interval: key});
     }
 
-    let taskInfo = {
-      name: this.props.state.name,
-      type: this.props.state.type,
-      goals,
-      stubs: []
-    };  
-    this.props.createTask(taskInfo);
+    if (interval === 'weekly') goals.splice(0, 1);
+    if (interval === 'monthly') goals.shift(0, 2);
+
+    this.props.createTask({ name, type, goals, stubs: [] });
   }
 
   render() {
@@ -46,9 +41,12 @@ class NewTask extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  state: state.newTask
-});
+const mapStateToProps = state => {
+  let { newTask } = state;
+  return {
+    newTask
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   createTask: taskDetails => dispatch(actions.createTask(taskDetails))

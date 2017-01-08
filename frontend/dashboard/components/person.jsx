@@ -29,7 +29,7 @@ class Person extends React.Component {
     let tasks = this.getTasks();
     let sortedTasks = {};
     tasks.forEach(task => {
-      let key = task.shortestInterval;
+      let key = task.goals[0].interval;
       if (sortedTasks[key]) {
         sortedTasks[key].push(task);
       } else {

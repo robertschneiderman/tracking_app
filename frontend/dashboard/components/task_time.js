@@ -18,29 +18,16 @@ class TaskTime extends Component {
         return `${hours}:${minutes}`;
     }
 
-    renderTimeTicker() {
-        let { goals } = this.props.task;
-        let { count, goal } = goals[0];
-
-        let className = (count === 0) ? 'hollow' : 'solid';
-        let value = (count < goal) ? this.convertTime(this.props.task.timeUnit) : '√';
-
-        return (
-            <button className="task-btn" onClick={this.props.incrementGoal.bind(this, 1)}>
-                <span className={className}>{value}</span>
-            </button>
-        );
-    }
-
     toggleTimer() {
         let interval;
         let {goals} = this.props.task;
         let count = goals[0].count;
         if (!this.state.active) {
             this.state.time = count;
+            let that = this;
             interval = setInterval(() => {
-                this.setState({
-                    time: (this.state.time + 1),
+                that.setState({
+                    time: (that.state.time + 1),
                     active: true
                 });
             }, 1000);
@@ -49,14 +36,29 @@ class TaskTime extends Component {
             this.setState({active: false});
             this.props.incrementGoal(this.props.task._id, this.state.time);
         }
+    }    
+
+    renderTimeTicker() {
+        let { goals } = this.props.task;
+        let { count, goal } = goals[0];
+
+        let className = (count === 0) ? 'hollow' : 'solid';
+        let value = (count < goal) ? this.convertTime(count) : '√';
+
+        return (
+            <button className="task-btn" onClick={this.props.incrementGoal.bind(this, 1)}>
+                <span className={className}>{value}</span>
+            </button>
+        );
     }
 
     renderCount() {
         let { goals } = this.props.task;
         let { count, goal } = goals[0];
+        let antecedent = this.state.active ? this.state.time : count;
         return(
             <span className="count">
-                {`${count} / ${goal}`}
+                {`${this.convertTime(antecedent)} / ${this.convertTime(goal)}`}
             </span>    
         );
     }    
