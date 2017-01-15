@@ -37,10 +37,8 @@ const historyMiddleware = ({dispatch}) => next => action => {
         case 'CREATE_BLANK_HISTORY':
             API.createHistory(createSuccess);
             return next(action);
-            break;            
         default:
             return next(action);
-            break;
     }
 };
 

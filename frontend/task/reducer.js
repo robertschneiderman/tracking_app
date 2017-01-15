@@ -15,7 +15,6 @@ const taskReducer = (state = {}, action) => {
       // }
       let newState = merge({}, state);
       newState[action.payload._id] = action.payload;
-      console.log('newState: ', newState);
       return newState;      
     default:
       return state;

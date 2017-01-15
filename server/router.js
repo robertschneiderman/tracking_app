@@ -1,5 +1,6 @@
 const Authentication = require('./controllers/authentication');
 const User = require('./controllers/user');
+const Historyy = require('./controllers/history');
 const Task = require('./controllers/task');
 const Goal = require('./controllers/goal');
 const passportService = require('./services/passport');
@@ -19,6 +20,8 @@ module.exports = function(app) {
   app.post('/signup', Authentication.signup);
 
   app.get('/users/:id', User.find);
+
+  app.post('/histories', requireAuth, Historyy.create);
 
   app.post('/tasks', requireAuth, Task.newTask);
   app.get('/tasks', Task.getTasks);

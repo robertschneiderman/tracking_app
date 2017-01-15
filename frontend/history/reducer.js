@@ -12,8 +12,7 @@ const historyReducer = (state = initialState, action) => {
             return action.payload;
         case 'RECEIVE_HISTORY':
             // let newHistory =[action.payload.task].concat(state.histories[0].tasks);
-            newState.userHistories[0] = {date: action.payload.date, tasks: [action.payload.task].concat(state.userHistories[0].tasks)};
-            return newState;
+            return {[action.payload._id]: action.payload};
         default:
             return state;
     }
