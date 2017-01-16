@@ -8,14 +8,7 @@ const taskReducer = (state = {}, action) => {
     case "RECEIVE_TASKS":
       return action.payload;
     case "RECEIVE_TASK":
-      // let modifiedTaskIndex;
-      // for (var i = 0; i < state.currentUser.length; i++) {
-      //   let task = state.currentUser[i];
-      //   if (task._id === action.payload.task._id) modifiedTaskIndex = i;
-      // }
-      let newState = merge({}, state);
-      newState[action.payload._id] = action.payload;
-      return newState;      
+      return Object.assign({}, state, {[action.payload._id]: action.payload});
     default:
       return state;
   }

@@ -17,6 +17,7 @@ class Persons extends React.Component {
           <Person 
             key={user.id}          
             user={user}
+            tasks={user.histories[0].tasks}
             createTimestamp={this.props.createTimestamp}
             finishTimestamp={this.props.finishTimestamp}
             incrementGoal={this.props.incrementGoal}

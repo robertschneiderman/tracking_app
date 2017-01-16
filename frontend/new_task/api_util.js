@@ -4,8 +4,3 @@ const ROOT_URL = (process.env.NODE_ENV !== "production") ? 'http://localhost:309
 
 axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-
-export const createTask = (task, success) => {
-  axios.post(`${ROOT_URL}/tasks`, task)
-  .then(success);
-};

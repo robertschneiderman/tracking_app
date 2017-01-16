@@ -82,9 +82,10 @@ exports.newTask = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
-      let history = user.histories[0].toObject();
-      history.date = dh.formattedDate(date);
-      res.json(history);
+      // let history = user.histories[0].toObject();
+      // history.date = dh.formattedDate(date);
+      let tasks = user.histories[0].tasks;
+      res.json(tasks[tasks.length-1]);
     }).catch((e) => {
       res.status(401).send();
     });
