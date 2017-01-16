@@ -7,7 +7,7 @@ class TimeBlock extends Component {
     }
     render() {
         return(
-            <div className="time-block">
+            <div className="time-block" style={{'backgroundColor': this.props.color}}>
             </div>
         );
     }

@@ -13,27 +13,39 @@ class Day extends Component {
 
     blankTimeBlocks() {
         let timeBlocks = [];
-        let { history } = this.props.history;
         for (let i = 1; i <= 1440; i++) {
-            let date = new Date();
-            
-            date.setHours(0,i,0,0);
             timeBlocks.push(<TimeBlock />);
         }
-
         return timeBlocks;        
     }
 
-    fillTimeBlocks() {
-        let { tasks } = this.props.history;
-        timeBlocks.map(tb => {
+    fill(color, start, end) {
 
+    }
+
+    fillTimeBlocks(timeBlocks) {
+        let history = this.props.history;
+        let tasks = history ? history.tasks : [];
+        tasks.forEach(task => {
+            task.timestamps.forEach(timestamp => {
+                let startMins = moment(timestamp.start).hours() * 60;
+                startMins += moment(timestamp.start).get('minutes');
+                let endMins = moment(timestamp.end).hours() * 60;
+                endMins += moment(timestamp.end).get('minutes');
+                let i = startMins;
+                while (i <= endMins) {
+                debugger;
+                    timeBlocks[i] = <TimeBlock color={task.color} />; 
+                    i++;
+                }
+            });
         });
+        return timeBlocks;
     }
 
     renderTimeBlocks() {
         let timeBlocks = this.blankTimeBlocks();
-        this.fillTimeBlocks(timeBlocks);
+        return this.fillTimeBlocks(timeBlocks);
     }
     
     render() {

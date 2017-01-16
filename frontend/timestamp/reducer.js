@@ -8,7 +8,8 @@ const timestampReducer = (state = defaultState, action) => {
     let newState;
     switch (action.type) {
         case 'RECEIVE_TIMESTAMPS':
-            return action.payload;
+
+            return merge(state, action.payload);
         default:
             return state;
     }

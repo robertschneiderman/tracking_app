@@ -9,7 +9,7 @@ exports.find = function(req, res, next) {
       let userHistories = [];
       histories.forEach(history => {
           history = history.toObject();
-          history.date = dh.formattedDate(history.date);
+          // history.date = dh.formattedDate(history.date);
           userHistories.push(history);
       });      
       user = user.toObject();
@@ -20,7 +20,7 @@ exports.find = function(req, res, next) {
         let buddyHistories = [];
         histories.forEach(history => {
             history = history.toObject();
-            history.date = dh.formattedDate(history.date);
+            // history.date = dh.formattedDate(history.date);
             buddyHistories.push(history);
         });
 

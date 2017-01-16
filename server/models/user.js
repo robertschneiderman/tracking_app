@@ -8,6 +8,7 @@ const config = require('../environment');
 let task = {
       name: String,
       type: { type: String },
+      color: String,
       timestamps: [
         {start: Date, end: Date}
       ],

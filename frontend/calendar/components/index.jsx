@@ -18,11 +18,10 @@ class Calendar extends Component {
     getDates() {
         let today = moment();
         let dayNumber = (moment().add(6, 'days').get('day')) % 7;
-        let firstDate = moment().subtract(dayNumber, 'days');
-        let dates = [firstDate.get('date')];
+        let dates = [];
         
-        for (let i = 1; i <= 6; i++) {
-            let date = moment().add(i, 'days').subtract(this.props.weekIdx, 'weeks');
+        for (let i = 0; i <= 6; i++) {
+            let date = moment().subtract(dayNumber, 'days').add(i, 'days').subtract(this.props.weekIdx, 'weeks');
             dates.push(date.get('date'));
         }        
         return dates;
@@ -32,11 +31,21 @@ class Calendar extends Component {
         let dates = this.getDates();
         let { weekIdx } = this.props.weekIdx;
         let { histories } = this.props.user;
-        return dates.map((date, i) => {
-            return (
-                <Day history={histories[i]} date={date}/>
-            );
-        });
+        let currentDate = moment();
+        let days = [];
+        let histIdx = histories.length-1;
+        for (let i = 0; i < dates.length; i++) {
+            let date = dates[i];
+            let history = histories[histIdx];
+            if (moment(history.date).get('date') === date) {
+                days.push(<Day history={histories[histIdx]} date={date}/>);
+                histIdx--;
+            } else {
+                days.push(<Day date={date}/>);
+            }
+        }
+
+        return days;
     }
 
     render() {
@@ -78,7 +87,6 @@ const mapStateToProps = state => {
             });
         });
     });
-
     // date = (Object.keys(history).length !== 0 && newUsers[0]) ? newUsers[0].histories[index].date : '';
 
     return {

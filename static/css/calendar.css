@@ -9,12 +9,12 @@
     width: 14.2%;
 }
 
-.day-number {padding: 30px;text-align: center;}
+.day-number {padding: 29px;text-align: center;}
 
 .time-block {
     background-color: #efefef;
     width: 100%;
-    height: 5px;
+    height: 3px;
 }
 
 .timeblock.filled {
