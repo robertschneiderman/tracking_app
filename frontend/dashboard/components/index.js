@@ -8,6 +8,7 @@ import * as userActions from '../../user/actions';
 import * as historyActions from '../../history/actions';
 import selector from '../../selectors/objToArray';
 import merge from 'lodash/merge';
+import moment from 'moment';
 
 
 class Dashboard extends Component {
@@ -62,7 +63,7 @@ const mapStateToProps = state => {
         });
     });
 
-    date = (Object.keys(history).length !== 0 && newUsers[0]) ? newUsers[0].histories[index].date : '';
+    date = (Object.keys(history).length !== 0 && newUsers[0]) ? moment(newUsers[0].histories[index].date).format('MMMM Do YYYY') : '';
 
     return {
         user: newUsers[0],

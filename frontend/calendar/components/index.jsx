@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Day from './day';
+import DayLabel from './day_label';
+import TimeGraph from './time_graph';
 import * as goalActions from '../../goal/actions';
 import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
@@ -33,30 +35,38 @@ class Calendar extends Component {
         let { histories } = this.props.user;
         let currentDate = moment();
         let days = [];
+        let labels = [];
         let histIdx = histories.length-1;
         for (let i = 0; i < dates.length; i++) {
             let date = dates[i];
             let history = histories[histIdx];
             if (moment(history.date).get('date') === date) {
-                days.push(<Day history={histories[histIdx]} date={date}/>);
+                days.push(<Day history={histories[histIdx]}/>);
+                labels.push(<DayLabel date={date} idx={i}/>);
                 histIdx--;
             } else {
-                days.push(<Day date={date}/>);
+                days.push(<Day/>);
+                labels.push(<DayLabel date={date} idx={i}/>);
             }
         }
-
-        return days;
+        return { labels, days };
     }
 
     render() {
         const { loading, user, buddy, date, index } = this.props;
 
         if (this.props.user) {
-        return (
-            <div className="calendar">
-                {this.renderDays()}
-            </div>
-        ); } else {
+            let {days, labels } = this.renderDays();
+            return (
+                <div className="calendar">
+                    <div className="labels">{labels}</div>                    
+                    <div className="days">
+                        <TimeGraph />
+                        {days}
+                    </div>
+                </div>
+            ); 
+        } else {
             return <div></div>;
         }
     }

@@ -1,22 +1,71 @@
 .calendar {
-    display: flex;
-    justify-content: space-between;
     width: 90%;
     margin: 0 auto;
 }
 
-.day {
+.days, .labels {
+    padding-left: 3.7%;
+}
+
+.days {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day, .day-label {
     width: 14.2%;
 }
 
-.day-number {padding: 29px;text-align: center;}
+.day:nth-child(even) {
+    background-color: #efefef;    
+}
+
+.day:nth-child(odd) {
+    background-color: #f7f7f7;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 29px;
+    padding-bottom: 9px;
+}
+
+.day-label {text-align: center;}
+
+.day-label-day {margin-bottom: 6px;}
+
+.day-label-date {
+    
+}
 
 .time-block {
-    background-color: #efefef;
     width: 100%;
-    height: 3px;
+    height: 2px;
 }
+
 
 .timeblock.filled {
     background-color: red;
 }
+
+.time-graph {
+    position: absolute;
+    right: 0%;
+    width: 96.3%;
+    z-index: 8000;
+}
+
+.line-container {
+    height: calc(2px * 30);
+}
+
+.line-container.solid {
+    border-bottom: 1px solid #aaa;
+}
+
+.line-container.dotted {
+    border-bottom: 1px dashed #aaa;
+}
+
+.line-label {color: #888;position: absolute;bottom: 0;transform: translate3d(-150%, 50%, 0);}

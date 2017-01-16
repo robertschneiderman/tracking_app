@@ -14,7 +14,7 @@ class Day extends Component {
     blankTimeBlocks() {
         let timeBlocks = [];
         for (let i = 1; i <= 1440; i++) {
-            timeBlocks.push(<TimeBlock />);
+            timeBlocks.push(<div className="time-block"></div>);
         }
         return timeBlocks;        
     }
@@ -34,7 +34,6 @@ class Day extends Component {
                 endMins += moment(timestamp.end).get('minutes');
                 let i = startMins;
                 while (i <= endMins) {
-                debugger;
                     timeBlocks[i] = <TimeBlock color={task.color} />; 
                     i++;
                 }
