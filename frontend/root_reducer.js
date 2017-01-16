@@ -1,25 +1,29 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import authReducer from './auth/reducer';
-import userReducer from './user/reducer';
-import taskReducer from './task/reducer';
-import goalReducer from './goal/reducer';
-import newTaskReducer from './new_task/reducer';
-import historyReducer from './history/reducer';
-import dashboardReducer from './dashboard/reducer';
-import dataReducer from './data/reducer';
+import auth from './auth/reducer';
+import user from './user/reducer';
+import task from './task/reducer';
+import goal from './goal/reducer';
+import calendar from './calendar/reducer';
+import newTask from './new_task/reducer';
+import history from './history/reducer';
+import timestamp from './timestamp/reducer';
+import dashboard from './dashboard/reducer';
+import data from './data/reducer';
 
 
 const appReducer = combineReducers({
+  auth,
+  goal,
+  calendar,
+  dashboard,
+  data,
   form,
-  auth: authReducer,
-  user: userReducer,
-  task: taskReducer,
-  goal: goalReducer,
-  newTask: newTaskReducer,
-  history: historyReducer,
-  dashboard: dashboardReducer,
-  data: dataReducer,
+  history,
+  newTask,
+  task,
+  timestamp,
+  user
 });
 
 const rootReducer = (state, action) => {

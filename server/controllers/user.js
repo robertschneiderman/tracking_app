@@ -5,7 +5,7 @@ exports.find = function(req, res, next) {
 
   User.findById(req.params.id).then(user => {
     User.findById(user.buddy).then(buddy => {
-      let histories = user.histories.slice(0, parseInt(0) + 4);
+      let histories = user.histories.slice(0, parseInt(0) + 7);
       let userHistories = [];
       histories.forEach(history => {
           history = history.toObject();
@@ -16,7 +16,7 @@ exports.find = function(req, res, next) {
       user.histories = userHistories;
 
       if (buddy) {
-        histories = buddy.histories.slice(0, parseInt(0) + 4);
+        histories = buddy.histories.slice(0, parseInt(0) + 7);
         let buddyHistories = [];
         histories.forEach(history => {
             history = history.toObject();

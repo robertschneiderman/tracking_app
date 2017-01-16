@@ -8,6 +8,7 @@ const userSchema = new Schema('users', { idAttribute: '_id' });
 const historySchema = new Schema('histories', { idAttribute: '_id' });
 const taskSchema = new Schema('tasks', { idAttribute: '_id' });
 const goalSchema = new Schema('goals', { idAttribute: '_id' });
+const timestampSchema = new Schema('timestamps', { idAttribute: '_id' });
 
 userSchema.define({
   histories: arrayOf(historySchema),
@@ -18,7 +19,8 @@ historySchema.define({
 });
 
 taskSchema.define({
-    goals: arrayOf(goalSchema)
+    goals: arrayOf(goalSchema),
+    timestamps: arrayOf(timestampSchema)
 });
 
 const userMiddleware = store => next => action => {
@@ -30,7 +32,8 @@ const userMiddleware = store => next => action => {
       users: arrayOf(userSchema),
       histories: arrayOf(historySchema),
       tasks: arrayOf(taskSchema),
-      goals: arrayOf(goalSchema)
+      goals: arrayOf(goalSchema),
+      timestamps: arrayOf(timestampSchema)
     });
       
     receiveDashboardData(normalized.entities)(dispatch);
@@ -41,10 +44,8 @@ const userMiddleware = store => next => action => {
     case "REQUEST_USER":
       API.getUser(action.payload, getSuccess);
       return next(action);      
-      break;          
     default:
       return next(action);
-      break;      
   }
 };   
 
