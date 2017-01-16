@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import DateToggler from './date_toggler';
-import Persons from './persons';
+import Day from './day';
 import * as goalActions from '../../goal/actions';
 import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
@@ -18,9 +17,10 @@ class Calendar extends Component {
     getDates() {
         let today = new Date();
         let dayNumber = (today.getDay() + 6) % 7;
-        let firstDate = new Date(today.getDate() - dayNumber).getDate();
+        let firstDate = new Date();
+        firstDate.setDate(today.getDate() - dayNumber);
         
-        let dates = [firstDate];
+        let dates = [firstDate.getDate()];
         
         for (let i = 1; i <= 6; i++) {
             let date = new Date();
@@ -34,7 +34,7 @@ class Calendar extends Component {
         let dates = this.getDates();
         return dates.map(date => {
             return (
-                <Date date={date}/>
+                <Day date={date}/>
             );
         });
     }
@@ -45,7 +45,7 @@ class Calendar extends Component {
         if (this.props.user) {
         return (
             <div className="calendar">
-
+                {this.renderDays()}
             </div>
         ); } else {
             return <div></div>;

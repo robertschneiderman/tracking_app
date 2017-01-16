@@ -12,6 +12,7 @@ import RequireAuth from './auth/components/require_auth';
 import Welcome from './welcome';
 import Dashboard from './dashboard/components/index';
 import NewTask from './new_task/components/index.jsx';
+import Calendar from './calendar/components/index.jsx';
 import { AUTH_USER } from './auth/types';
 import * as userActions from './user/actions';
 
@@ -40,6 +41,7 @@ ReactDOM.render(
         <Route path="signup" component={Signup} />
         <Route path="dashboard" component={RequireAuth(Dashboard)} />
         <Route path="new-task" component={RequireAuth(NewTask)} />
+        <Route path="calendar" component={RequireAuth(Calendar)} />
       </Route>
     </Router>
   </Provider>

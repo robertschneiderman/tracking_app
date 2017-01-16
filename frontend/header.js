@@ -7,6 +7,7 @@ class Header extends Component {
   renderLinks() {
     if (this.props.authenticated) {
       return (<li className="navbar-item">
+        <Link className="nav-link" to="/calendar">Calendar</Link>        
         <Link className="nav-link" to="/new-task">New Task</Link>        
         <Link className="nav-link" to="/signout">Sign Out</Link>
       </li>);
@@ -18,7 +19,7 @@ class Header extends Component {
         <li className="navbar-item" key={2}>
           <Link className="nav-link" to="/signup">Sign Up</Link>
         </li>
-      ]
+      ];
     }
   }
 
@@ -37,7 +38,7 @@ class Header extends Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated
-  }
+  };
 }
 
 export default connect(mapStateToProps)(Header);
