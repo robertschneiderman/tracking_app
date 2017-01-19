@@ -15,6 +15,32 @@
 
 .task-input {display: block;margin-bottom: 2rem;}
 
+.color-options {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin-bottom: 2rem;
+}
+
+.color-option {
+  border: 2px solid #ccc;
+  width: 2rem;
+  height: 1.5rem;  
+}
+
+.color-option.selected {
+  border: 4px solid #d0d000;
+}
+
+.color-option.red {background-color: red;}
+.color-option.orange {background-color: orange;}
+.color-option.yellow {background-color: yellow;}
+.color-option.green {background-color: green;}
+.color-option.blue {background-color: blue;}
+.color-option.purple {background-color: purple;}
+.color-option.grey {background-color: grey;}
+.color-option.teal {background-color: teal;}
+
 .goal-area {
 
 }

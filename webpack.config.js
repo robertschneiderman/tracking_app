@@ -24,6 +24,11 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    'cheerio': 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+  },  
   devtool: 'inline-source-map',
   resolve: {
     extensions: ["", ".js", ".jsx" ]

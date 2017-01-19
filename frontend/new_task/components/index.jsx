@@ -16,7 +16,7 @@ class NewTask extends React.Component {
 
   createTask() {
     let { newTask } = this.props;
-    let { name, type, interval } = newTask;
+    let { name, selected, type, interval } = newTask;
     let goalsObj = newTask[type];
     let goals = [];
 
@@ -29,7 +29,7 @@ class NewTask extends React.Component {
     if (interval === 'weekly') goals.splice(0, 1);
     if (interval === 'monthly') goals.shift(0, 2);
 
-    this.props.createTask({ name, type, goals, stubs: [] });
+    this.props.createTask({ name, color: selected, type, goals, stubs: [] });
   }
 
   render() {

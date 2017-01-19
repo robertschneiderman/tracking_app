@@ -8,9 +8,27 @@ import TaskOption from './task_option';
 
 class TaskArea extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.selectColor = this.selectColor.bind(this);
+    }
+
     updateName(evt) {
         this.props.updateName(evt.target.value);
-    }  
+    }
+
+    selectColor(color) {
+        this.props.selectColor(color);
+    }
+
+    renderColorOptions() {
+        let colorOptions = ['red', 'orange', 'green', 'blue', 'yellow', 'teal', 'grey', 'purple'];
+        return colorOptions.map(color => {
+            let className = `color-option ${color}`;
+            if (this.props.selected === color) className += ' selected';
+            return <button className={className} onClick={this.selectColor.bind(this, color)}></button>;
+        });
+    }
 
     render() {
         return (
@@ -18,12 +36,15 @@ class TaskArea extends React.Component {
                 <h2 className="title">Task</h2>
                 <div className="task-form">
                 <input
-                    value={this.props.state.name}
+                    value={this.props.name}
                     onChange={this.updateName.bind(this)}
                     name="name"
                     className="input task-input"
                     type="text"
                     placeholder="Name" />
+                </div>
+                <div className="color-options">
+                    {this.renderColorOptions()}
                 </div>
                 <div className="goal-options">
                 <div className="goal-option-group">
@@ -45,13 +66,16 @@ class TaskArea extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    state
-});
+const mapStateToProps = (state) => {
+    let { newTask } = state;
+    let { name, selected } = newTask;
+    return { name, selected };
+};
 
 const mapDispatchToProps = (dispatch) => ({
     updateName: payload => dispatch(actions.updateName(payload)),
-    optionChange: payload => dispatch(actions.optionChange(payload))
+    optionChange: payload => dispatch(actions.optionChange(payload)),
+    selectColor: color => dispatch(actions.selectColor(color))
 });
 
 //   handleOptionChange(evt) {

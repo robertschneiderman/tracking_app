@@ -5,6 +5,7 @@ let defaultState = {
     name: '',
     type: null,
     interval: null,
+    selected: null,
     time: {
         daily: 15,
         weekly: 84,
@@ -32,6 +33,10 @@ const newtaskReducer = (state = defaultState, action) => {
         newState = merge({}, state);
         newState[newState.type] = action.payload;
         return newState;
+    case "SELECT_COLOR":
+        newState = merge({}, state);
+        newState.selected = action.payload;
+        return newState;        
     default:
       return state;
   }

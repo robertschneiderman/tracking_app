@@ -12,3 +12,8 @@ export const optionChange = payload => ({
   type: "TASK_OPTION_CHANGE",
   payload
 });
+
+export const selectColor = payload => ({
+  type: "SELECT_COLOR",
+  payload
+});

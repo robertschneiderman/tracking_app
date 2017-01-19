@@ -72,6 +72,7 @@ exports.newTask = function(req, res, next) {
 
     let task = {
       name: req.body.name,
+      color: req.body.color,
       type: req.body.type,
       goals: req.body.goals
     };
