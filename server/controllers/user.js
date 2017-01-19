@@ -1,11 +1,15 @@
 const User = require('../models/user');
 const dh = require('../date_helpers');
+const moment = require('moment');
 
 exports.find = function(req, res, next) {
 
   User.findById(req.params.id).then(user => {
     User.findById(user.buddy).then(buddy => {
-      let histories = user.histories.slice(0, parseInt(0) + 7);
+
+      let numberOfHistories = (moment().get('day') + 6) % 7 + 1;
+
+      let histories = user.histories.slice(0, parseInt(0) + numberOfHistories);
       let userHistories = [];
       histories.forEach(history => {
           history = history.toObject();
@@ -16,7 +20,7 @@ exports.find = function(req, res, next) {
       user.histories = userHistories;
 
       if (buddy) {
-        histories = buddy.histories.slice(0, parseInt(0) + 7);
+        histories = buddy.histories.slice(0, parseInt(0) + numberOfHistories);
         let buddyHistories = [];
         histories.forEach(history => {
             history = history.toObject();

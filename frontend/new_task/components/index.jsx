@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as actions from '../actions';
+import * as taskActions from '../../task/actions';
 import {connect} from 'react-redux';
 
 import GoalArea from './goal_area';
@@ -49,7 +50,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  createTask: taskDetails => dispatch(actions.createTask(taskDetails))
+  createTask: taskDetails => dispatch(taskActions.createTask(taskDetails))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewTask);

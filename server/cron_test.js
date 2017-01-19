@@ -19,12 +19,13 @@ var duplicateHistory = history => {
             newGoals.push(newGoal);
         });
         newTask.goals = newGoals;
+        newTask.timestamps = [];        
         newTasks.push(newTask);
     });
     return { tasks: newTasks };
 };
 
-var job = new CronJob('03 00 05 * * *', function() {
+var job = new CronJob('50 * * * * *', function() {
     todayInteger = new Date().getMinutes();
 
     User.find({}, function(err, users) {

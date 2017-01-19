@@ -7,8 +7,8 @@ let defaultState = { loading: false, weekIdx: 0 };
 const calendarReducer = (state = defaultState, action) => {
     let newState;
     switch (action.type) {
-        case 'UPDATE_NAME':
-            return newState;
+        // case 'UPDATE_NAME':
+        //     return newState;
         default:
             return state;
     }

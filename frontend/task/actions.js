@@ -1,3 +1,8 @@
+export const createTask = payload => ({
+  type: "CREATE_TASK",
+  payload
+});
+
 export const requestTasks = () => ({
   type: "REQUEST_TASKS",
 });

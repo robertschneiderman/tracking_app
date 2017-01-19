@@ -21,6 +21,7 @@ var duplicateHistory = history => {
             newGoals.push(newGoal);
         });
         newTask.goals = newGoals;
+        newTask.timestamps = [];
         newTasks.push(newTask);
     });
     return { tasks: newTasks };

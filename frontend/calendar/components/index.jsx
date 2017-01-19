@@ -40,7 +40,8 @@ class Calendar extends Component {
         for (let i = 0; i < dates.length; i++) {
             let date = dates[i];
             let history = histories[histIdx];
-            if (moment(history.date).get('date') === date) {
+            debugger;
+            if (history && moment(history.date).get('date') === date) {
                 days.push(<Day history={histories[histIdx]}/>);
                 labels.push(<DayLabel date={date} idx={i}/>);
                 histIdx--;
