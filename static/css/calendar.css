@@ -51,9 +51,31 @@
     background-color: red;
 }
 
-.time-block-popup {
+.time-block-popup-wrapper {
     height: 100%;
     width: 100%;
+}
+
+.time-block-popup {
+    position: fixed;
+    width: 30%;
+    left: 50%;
+    top: 50%;
+    outline: 0;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 9999;
+}
+
+.time-block-popup-overlay {
+    
+}
+
+.tbp-field {display: flex;justify-content: space-between;/* margin-bottom: 0.7rem; */padding: .5rem 1rem;border-bottom: 1px solid #eee;}
+
+.tbp-label {}
+
+.tbp-value {
 }
 
 .time-graph {

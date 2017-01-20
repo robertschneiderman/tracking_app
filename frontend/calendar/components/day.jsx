@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import TimeBlock from './time_block';
-import moment from 'moment';
 // import * as actions from '../actions';
 
 class Day extends Component {

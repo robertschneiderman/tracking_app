@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TimeBlockPopup from './time_block_popup';
+import moment from 'moment';
 // import * as actions from '../actions';
 
 class TimeBlock extends Component {
