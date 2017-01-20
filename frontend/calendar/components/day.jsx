@@ -34,7 +34,7 @@ class Day extends Component {
                 endMins += moment(timestamp.end).get('minutes');
                 let i = startMins;
                 while (i <= endMins) {
-                    timeBlocks[i] = <TimeBlock color={task.color} />; 
+                    timeBlocks[i] = <TimeBlock color={task.color} key={i} />; 
                     i++;
                 }
             });

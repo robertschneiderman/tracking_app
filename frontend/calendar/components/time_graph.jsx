@@ -14,7 +14,7 @@ class TimeGraph extends Component {
             
             let className = (i % 60 === 0) ? "line-container solid" : "line-container dotted";
             lines.push(
-                <div className={className}>
+                <div className={className} key={i}>
                     <label className="line-label">{hourCount} {meridiem}</label>
                 </div>
             );

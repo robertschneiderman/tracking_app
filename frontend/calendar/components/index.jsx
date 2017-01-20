@@ -40,14 +40,13 @@ class Calendar extends Component {
         for (let i = 0; i < dates.length; i++) {
             let date = dates[i];
             let history = histories[histIdx];
-            debugger;
             if (history && moment(history.date).get('date') === date) {
-                days.push(<Day history={histories[histIdx]}/>);
-                labels.push(<DayLabel date={date} idx={i}/>);
+                days.push(<Day key={i} history={histories[histIdx]}/>);
+                labels.push(<DayLabel key={`${i}-1`} date={date} idx={i}/>);
                 histIdx--;
             } else {
-                days.push(<Day/>);
-                labels.push(<DayLabel date={date} idx={i}/>);
+                days.push(<Day key={i}/>);
+                labels.push(<DayLabel key={`${i}-1`} date={date} idx={i}/>);
             }
         }
         return { labels, days };
@@ -61,9 +60,11 @@ class Calendar extends Component {
             return (
                 <div className="calendar">
                     <div className="labels">{labels}</div>                    
-                    <div className="days">
+                    <div className="days-wrapper">
                         <TimeGraph />
-                        {days}
+                        <div className="days">
+                            {days}
+                        </div>
                     </div>
                 </div>
             ); 
@@ -75,10 +76,8 @@ class Calendar extends Component {
 
 const mapStateToProps = state => {
 
-    const { data, user, history, task, goal, timestamp, calendar } = state;
-    const { entities } = data;
+    const { user, history, task, goal, timestamp, calendar } = state;
     let { weekIdx, loading } = calendar;
-    // let { tasks } = entities;
 
     let users = user ? merge([], selector(user)) : [];
     let newUsers = [];
