@@ -11,46 +11,29 @@ class Day extends Component {
     // get tasks from history
     // instant access blankArray by converting timestamp start and end to idx numbers
 
-    blankTimeBlocks() {
+    getTotalMinutes(timeStr) {
+        let mins = moment(timeStr).hours() * 60;
+        mins += moment(timeStr).get('minutes');
+        return mins;
+    }
+
+    renderTimeBlocks() {
         let timeBlocks = [];
-        for (let i = 1; i <= 1440; i++) {
-            timeBlocks.push(<div className="time-block"></div>);
-        }
-        return timeBlocks;        
-    }
-
-    fill(color, start, end) {
-
-    }
-
-    fillTimeBlocks(timeBlocks) {
         let history = this.props.history;
         let tasks = history ? history.tasks : [];
         tasks.forEach(task => {
             task.timestamps.forEach(timestamp => {
-                let startMins = moment(timestamp.start).hours() * 60;
-                startMins += moment(timestamp.start).get('minutes');
-                let endMins = moment(timestamp.end).hours() * 60;
-                endMins += moment(timestamp.end).get('minutes');
-                let i = startMins;
-                while (i <= endMins) {
-                    timeBlocks[i] = <TimeBlock color={task.color} key={i} />; 
-                    i++;
-                }
+                let startMins = this.getTotalMinutes(timestamp.start);
+                let endMins = this.getTotalMinutes(timestamp.end);
+                timeBlocks.push(<TimeBlock color={task.color} key={timestamp._id} start={startMins} end={endMins} />);
             });
         });
         return timeBlocks;
-    }
-
-    renderTimeBlocks() {
-        let timeBlocks = this.blankTimeBlocks();
-        return this.fillTimeBlocks(timeBlocks);
     }
     
     render() {
         return(
             <div className="day">
-                <p className="day-number">{this.props.date}</p>
                 {this.renderTimeBlocks()}
             </div>
         );

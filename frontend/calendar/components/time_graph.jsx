@@ -10,15 +10,19 @@ class TimeGraph extends Component {
         let hourCount = 1;
         let meridiem = 'AM';
         let lines = [];
-        for (let i = 0; i < 1440; i+=30) {
+        for (let i = 30; i <= 1440; i+=30) {
             
-            let className = (i % 60 === 0) ? "line-container solid" : "line-container dotted";
-            lines.push(
-                <div className={className} key={i}>
-                    <label className="line-label">{hourCount} {meridiem}</label>
-                </div>
-            );
-            hourCount++;
+            if (i % 60 === 0) {
+                lines.push(
+                    <div className="line-container solid" key={i}>
+                        <label className="line-label">{hourCount} {meridiem}</label>
+                    </div>
+                );
+                hourCount++;
+            } else {
+                lines.push(<div className="line-container dotted" key={i}></div>);
+            }
+
             if (hourCount === 12) meridiem = meridiem === 'PM' ? 'AM' : 'PM';
             if (hourCount === 13) hourCount = 1;
         }

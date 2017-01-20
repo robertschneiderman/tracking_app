@@ -60,11 +60,9 @@ class Calendar extends Component {
             return (
                 <div className="calendar">
                     <div className="labels">{labels}</div>                    
-                    <div className="days-wrapper">
+                    <div className="days">
                         <TimeGraph />
-                        <div className="days">
-                            {days}
-                        </div>
+                        {days}
                     </div>
                 </div>
             ); 

@@ -1,25 +1,4 @@
-import React from 'react';
-import { renderComponent, expect } from '../test_helper';
-import Calendar from '../../calendar/components/index';
-import DayLabel from '../../calendar/components/day_label';
-import Day from '../../calendar/components/day';
-import { mount, shallow } from 'enzyme';
-import TestUtils from 'react-addons-test-utils';
-
-import configureStore from 'redux-mock-store';
-// import { createStore } from 'redux';
-
-
-// const store = createStore({});
-
-
-// let Component = TestUtils.renderIntoDocument(
-//   <Provider store={store({})}>
-//     {() => <Calendar />}
-//   </Provider>
-// );
-
-let initialState = {
+export const initialState = {
     user: {
         "58813e4bad8a3da595c1a0c1": {
             __v: 5,
@@ -72,31 +51,3 @@ let initialState = {
         weekIdx: 0
     }
 };
-
-const mockStore = configureStore();
-const store = mockStore(initialState);
-
-describe('<Calendar />', () => {
-    let wrapper, days, dayLabels;
-    beforeEach(() => {
-        wrapper = mount(<Calendar store={store} />);
-        days = wrapper.find(Day);
-        dayLabels = wrapper.find('.labels');
-    });
-    
-    it('should have 7 consecutive labels', () => {
-        expect(dayLabels.children()).to.have.length(7);
-    });
-
-    it('should have 7 consecutive days', () => {
-        expect(days.children()).to.have.length(7);
-    });
-
-    it('the first day should be a Monday', () => {
-        let lastMonday = new Date().getDate() - (new Date().getDay() + 6) % 7;
-        let fistHistory = dayLabels.childAt(0).props().date;
-        expect(fistHistory).to.be.equal(lastMonday);
-    });    
-
-    
-});
