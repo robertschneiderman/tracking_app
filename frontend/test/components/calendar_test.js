@@ -80,7 +80,7 @@ describe('<Calendar />', () => {
     let wrapper, days, dayLabels;
     beforeEach(() => {
         wrapper = mount(<Calendar store={store} />);
-        days = wrapper.find('.days');
+        days = wrapper.find(Day);
         dayLabels = wrapper.find('.labels');
     });
     
