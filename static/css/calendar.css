@@ -51,11 +51,17 @@
     background-color: red;
 }
 
+.time-block-popup {
+    height: 100%;
+    width: 100%;
+}
+
 .time-graph {
     position: absolute;
     right: 0%;
     width: 96.3%;
     z-index: 8000;
+    pointer-events: none;
 }
 
 .line-container {

@@ -22,8 +22,8 @@ class TimeGraph extends Component {
             } else {
                 lines.push(<div className="line-container dotted" key={i}></div>);
             }
-
-            if (hourCount === 12) meridiem = meridiem === 'PM' ? 'AM' : 'PM';
+            
+            if (hourCount === 12 && i % 60 === 0) meridiem = meridiem === 'AM' ? 'PM' : 'AM';
             if (hourCount === 13) hourCount = 1;
         }
         return lines;
