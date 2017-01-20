@@ -7,10 +7,10 @@ import { mount, shallow } from 'enzyme';
 import TestUtils from 'react-addons-test-utils';
 
 import configureStore from 'redux-mock-store';
-import { initialState } from './calendar_helpers';
+import { normalizedState } from './calendar_helpers';
 
 const mockStore = configureStore();
-const store = mockStore(initialState);
+const store = mockStore(normalizedState);
 
 describe('<Calendar />', () => {
     let wrapper, days, dayLabels;
