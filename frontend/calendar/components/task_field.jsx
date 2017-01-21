@@ -11,8 +11,10 @@ class TaskField extends Component {
         let {task} = this.props;
         return(
             <div className="tbp-field">
-                <label className="tbp-label">Task: </label>
-                <p className="tbp-value">{task.name}</p>            
+                <div className="fb space-between">        
+                    <label className="tbp-label">Task: </label>
+                    <p className="tbp-value">{task.name}</p>
+                </div>
             </div>
         );
     }

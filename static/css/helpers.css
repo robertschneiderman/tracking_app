@@ -5,6 +5,14 @@
   left: 50%;  
 }
 
+.fb {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
 .fbj {
   display: flex;
   justify-content: space-between;

@@ -68,15 +68,32 @@
 }
 
 .time-block-popup-overlay {
-    
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;    
+    width: 100%;
+    z-index: 9998;
 }
 
-.tbp-field {display: flex;justify-content: space-between;/* margin-bottom: 0.7rem; */padding: .5rem 1rem;border-bottom: 1px solid #eee;}
+.tbp-field {/* display: flex; *//* justify-content: space-between; *//* margin-bottom: 0.7rem; */padding: .5rem 1rem;border-bottom: 1px solid #eee;}
 
 .tbp-label {}
 
-.tbp-value {
+.tbp-value {font-size: .9rem;color: #5b6aa5;}
+
+.field-dropdown {display: flex;justify-content: space-between;padding: 0.5rem 1rem;background-color: #eee;margin-top: 0.9rem;}
+
+.incrementer {
+
 }
+
+.incrementer-value {display: inline-block;margin-right: 0.4rem;}
+
+.incrementer-btns {display: inline-block;vertical-align: middle;}
+
+.incrementer-btn {display: block;padding: 0;font-size: 0.9rem;width: 100%;}
 
 .time-graph {
     position: absolute;
