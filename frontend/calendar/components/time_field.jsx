@@ -10,7 +10,8 @@ import FieldDropdown from './field_dropdown';
 const DATA = {
     months: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun', 'May', 'Apr', 'Mar', 'Feb', 'Jan'],
     hours: getRange(1, 12),
-    minutes: getRange(0, 59)
+    minutes: getRange(0, 59),
+    meridiem: ['AM', 'PM']
 };
 
 class TimeField extends Component {
@@ -23,7 +24,6 @@ class TimeField extends Component {
     }
 
     revealDropDown() {
-        console.log("revealed?");
         this.setState({dropdownRevealed: true});
     }
 
