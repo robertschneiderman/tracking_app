@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Incrementer from './incrementer';
 import moment from 'moment';
+
+import { getRange } from '../helpers';
 // import * as actions from '../actions';
 
 class FieldDropdown extends Component {
@@ -24,15 +26,20 @@ class FieldDropdown extends Component {
 
         return {
             months: [month, data.months.indexOf(month)],
-            dates: [date, data.dates.indexOf(date)],
+            dates: [date, this.datesInMonth(month).indexOf(date)],
             hours: [hour, data.hours.indexOf(hour)],
             minutes: [minute, data.minutes.indexOf(minute)],
         };
     }
 
+    datesInMonth(month = this.state.months[0]) {
+        let numOfDays = moment(month, "MMM").endOf('month').get('date');
+        return getRange(1, numOfDays);
+    }
+
     changeValue(key, idx) {
         // debugger;
-        let units = this.props.data[key];
+        let units = (key !== 'dates') ? this.props.data[key] : this.datesInMonth();
         idx = (idx === -1) ? units.length-1 : idx;
         let newValue = units[idx % units.length];
         this.setState({ [key]: [newValue, idx] });

@@ -1,23 +1,14 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 
+import { getRange } from '../helpers';
 import FieldDropdown from './field_dropdown';
 
 // import * as actions from '../actions';
 
-const getRange = (frm, to) => {
-    let units = [];
-    let unit = frm;
-    while (unit <= to) {
-        units.push(unit);
-        unit++;
-    }
-    return units;
-};
 
 const DATA = {
     months: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun', 'May', 'Apr', 'Mar', 'Feb', 'Jan'],
-    dates: getRange(1, 31),
     hours: getRange(1, 12),
     minutes: getRange(0, 59)
 };
