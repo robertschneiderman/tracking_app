@@ -5,23 +5,21 @@ import FieldDropdown from './field_dropdown';
 
 // import * as actions from '../actions';
 
-let dates;
-let date = 1;
-while (date <= 31) dates.push(date);
-
-let hours;
-let hour = 1;
-while (hour <= 12) hours.push(hour);
-
-let minutes;
-let minute = 0;
-while (minute <= 59) minutes.push(minute);
+const getRange = (frm, to) => {
+    let units = [];
+    let unit = frm;
+    while (unit <= to) {
+        units.push(unit);
+        unit++;
+    }
+    return units;
+};
 
 const DATA = {
-    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    dates,
-    hours: [1, 2, 3],
-    minutes: [10, 11, 12]
+    months: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul', 'Jun', 'May', 'Apr', 'Mar', 'Feb', 'Jan'],
+    dates: getRange(1, 31),
+    hours: getRange(1, 12),
+    minutes: getRange(0, 59)
 };
 
 class TimeField extends Component {

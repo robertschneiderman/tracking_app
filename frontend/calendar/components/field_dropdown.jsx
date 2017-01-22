@@ -31,17 +31,20 @@ class FieldDropdown extends Component {
     }
 
     changeValue(key, idx) {
-        let newValue = this.props.data[key][idx];
+        // debugger;
+        let units = this.props.data[key];
+        idx = (idx === -1) ? units.length-1 : idx;
+        let newValue = units[idx % units.length];
         this.setState({ [key]: [newValue, idx] });
     }
 
     renderIncrementers() {
-        debugger;
         let incrementers = [];
         // let currentObj = this.makeTimeObj();
         for (let key in this.state) {
             incrementers.push(
                 <Incrementer 
+                    field={key}
                     current={this.state[key][0]}
                     idx={this.state[key][1]}
                     changeValue={this.changeValue} />);
