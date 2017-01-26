@@ -10,6 +10,7 @@ import history from './history/reducer';
 import timestamp from './timestamp/reducer';
 import dashboard from './dashboard/reducer';
 import data from './data/reducer';
+import timestampEditor from './timestamp_editor/reducer';
 
 
 const appReducer = combineReducers({
@@ -22,8 +23,9 @@ const appReducer = combineReducers({
   history,
   newTask,
   task,
+  timestampEditor,
   timestamp,
-  user
+  user,
 });
 
 const rootReducer = (state, action) => {

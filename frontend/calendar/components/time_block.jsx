@@ -1,17 +1,23 @@
 import React, {Component} from 'react';
-import TimeBlockPopup from './time_block_popup';
 import moment from 'moment';
+
+import {router, hashHistory} from 'react-router';
 // import * as actions from '../actions';
 
 class TimeBlock extends Component {
     constructor(props) {
         super(props);
+        this.editTimestamp = this.editTimestamp.bind(this);
     }
 
     getTotalMinutes(timeStr) {
         let mins = moment(timeStr).hours() * 60;
         mins += moment(timeStr).get('minutes');
         return mins;
+    }
+
+    editTimestamp() {
+        hashHistory.push(`calendar/timestamp-editor/${this.props.timestampId}`);
     }
 
     render() {
@@ -25,9 +31,7 @@ class TimeBlock extends Component {
             height: `${height}px`
         };         
         return(
-            <div className="time-block" style={style}>
-                <TimeBlockPopup task={this.props.task} start={this.props.start} end={this.props.end} />
-            </div>
+            <div className="time-block" style={style} onClick={this.editTimestamp}></div>
         );
     }
 }

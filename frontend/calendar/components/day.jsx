@@ -16,7 +16,7 @@ class Day extends Component {
         let tasks = history ? history.tasks : [];
         tasks.forEach(task => {
             task.timestamps.forEach(timestamp => {
-                timeBlocks.push(<TimeBlock task={task} key={timestamp._id} start={timestamp.start} end={timestamp.end} />);
+                timeBlocks.push(<TimeBlock task={task} timestampId={timestamp._id} key={timestamp._id} start={timestamp.start} end={timestamp.end} />);
             });
         });
         return timeBlocks;

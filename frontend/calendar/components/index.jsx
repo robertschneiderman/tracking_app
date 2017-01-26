@@ -64,6 +64,7 @@ class Calendar extends Component {
                         <TimeGraph />
                         {days}
                     </div>
+                    {this.props.children}
                 </div>
             ); 
         } else {
