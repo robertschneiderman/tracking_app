@@ -15,6 +15,7 @@ class TaskField extends Component {
                     <label className="tbp-label">Task: </label>
                     <p className="tbp-value">{task.name}</p>
                 </div>
+                <FieldDropdown field={this.props.field} revealed={this.state.dropdownRevealed} changeValue={changeValue} />                
             </div>
         );
     }

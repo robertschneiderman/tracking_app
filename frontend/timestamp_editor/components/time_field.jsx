@@ -18,6 +18,10 @@ class TimeField extends Component {
         this.revealDropDown = this.revealDropDown.bind(this);
     }
 
+    componentDidMount() {
+        this.getData();        
+    }
+
     getData() {
         let time = moment(this.props.time);   
         let date = time.format('ddd MMM DD');
@@ -29,12 +33,15 @@ class TimeField extends Component {
         let hours = getRange(1, 12);  
         let minutes = getRange(0, 59);
         let meridiems = ['AM', 'PM'];
-        return {
+
+        let dataWithIndeces = {
             dates: [dates, dates.indexOf(date)],
             hours: [hours, hours.indexOf(hour)],
             minutes: [minutes, minutes.indexOf(minute)],
             meridiems: [meridiems, meridiems.indexOf(meridiem)],
         };
+
+        this.props.storeDataWithIndeces({field: this.props.field, dataWithIndeces});
     }
 
     revealDropDown() {
@@ -42,14 +49,14 @@ class TimeField extends Component {
     }
 
     render() {
-        let {time} = this.props;
+        let {time, changeValue} = this.props;
         return(
             <div className="tbp-field" onClick={this.revealDropDown}>
                 <div className="fb space-between">
                     <label className="tbp-label">Start Time: </label>
                     <p className="tbp-value">{moment(time).format("MMM DD, YYYY, h:mm A")}</p>
                 </div>
-                <FieldDropdown data={this.getData()} revealed={this.state.dropdownRevealed} />
+                <FieldDropdown field={this.props.field} revealed={this.state.dropdownRevealed} changeValue={changeValue} />
             </div>
         );
     }
