@@ -20,7 +20,7 @@ class TimeBlockPopup extends Component {
         };
 
         this.closeEditor = this.closeEditor.bind(this);     
-        this.editTimestamp = this.editTimestamp.bind(this);     
+        // this.editTimestamp = this.editTimestamp.bind(this);     
     }
 
     closeEditor() {
@@ -28,31 +28,12 @@ class TimeBlockPopup extends Component {
         hashHistory.push('/calendar');
     }
 
+    getTask() {
+        return this.props.tasks && this.props.tasks[this.props.params.task.id];
+    }    
+
     getTimestamp() {
         return this.props.timestamps && this.props.timestamps[this.props.params.id];
-    }
-
-    editTimestamp() {
-        let {timestampEditor} = this.props;
-        let result = {};
-        for (let key in timestampEditor) {
-            let field = timestampEditor[key];
-            if (key === 'start' || key === 'end') {
-                let datesData = field['dates'][0];
-                let datesIdx = field['dates'][1];
-                let hoursData = field['hours'][0];
-                let hoursIdx = field['hours'][1];
-                let minutesData = field['minutes'][0];
-                let minutesIdx = field['minutes'][1];
-                let meridiemsData = field['meridiems'][0];
-                let meridiemsIdx = field['meridiems'][1];
-                let year = moment().year();           
-                let subResult = moment(`${datesData[datesIdx]} ${year} ${hoursData[hoursIdx]}:${minutesData[minutesIdx]} ${meridiemsData[meridiemsIdx]}`, "ddd MMM DD YYYY h:mm A").format('YYYY-MM-DD hh:mm:ss');
-                result[key] = `${subResult}.000Z`;
-            } else {
-
-            }
-        }
     }
 
     render() {
@@ -68,7 +49,6 @@ class TimeBlockPopup extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
-                        <TaskField tasks={tasks} />
                         <TimeField time={timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                         <TimeField time={timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                     </div>
@@ -78,6 +58,7 @@ class TimeBlockPopup extends Component {
             return <div></div>;
         }
     }
+                        // <TaskField tasks={tasks} />
 }
 
 const mapStateToProps = state => {

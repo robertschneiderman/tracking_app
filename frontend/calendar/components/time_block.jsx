@@ -17,7 +17,8 @@ class TimeBlock extends Component {
     }
 
     editTimestamp() {
-        hashHistory.push(`calendar/timestamp-editor/${this.props.timestampId}`);
+        let {task, timestampId} = this.props;
+        hashHistory.push(`calendar/timestamp-editor/${timestampId}`);
     }
 
     render() {

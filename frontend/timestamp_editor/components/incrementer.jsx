@@ -11,8 +11,8 @@ class Incrementer extends Component {
             <div className="incrementer">
                 <p className="incrementer-value">{current}</p>
                 <div className="incrementer-btns">
-                    <button className="incrementer-btn" onClick={() => changeValue({field, incrementer, idx: idx+1})}>+</button>
-                    <button className="incrementer-btn" onClick={() => changeValue({field, incrementer, idx: idx-1})}>-</button>
+                    <button className="incrementer-btn" onClick={() => changeValue(incrementer, idx+1)}>+</button>
+                    <button className="incrementer-btn" onClick={() => changeValue(incrementer, idx-1)}>-</button>
                 </div>
             </div>
         );

@@ -3,9 +3,9 @@ import merge from 'lodash/merge';
 import {router, hashHistory} from 'react-router';
 
 let defaultState = {
-    task: {},
-    start: {},
-    end: {}
+    task: '',
+    start: '',
+    end: ''
 };
 
 const TimestampReducer = (state = defaultState, action) => {
@@ -16,9 +16,9 @@ const TimestampReducer = (state = defaultState, action) => {
             newState[action.payload.field] = dataWithIndeces;
             return newState;
         case 'CHANGE_VALUE':
-            let {incrementer, value} = action.payload;
+            let {result} = action.payload;
 
-            newState[action.payload.field][incrementer] = value;
+            newState[action.payload.field] = result;
             return newState;            
         default:
             return state;

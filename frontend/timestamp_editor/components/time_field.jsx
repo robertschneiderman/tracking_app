@@ -40,8 +40,9 @@ class TimeField extends Component {
             minutes: [minutes, minutes.indexOf(minute)],
             meridiems: [meridiems, meridiems.indexOf(meridiem)],
         };
+        return dataWithIndeces;
 
-        this.props.storeDataWithIndeces({field: this.props.field, dataWithIndeces});
+        // this.props.storeDataWithIndeces({field: this.props.field, dataWithIndeces});
     }
 
     revealDropDown() {
@@ -50,13 +51,15 @@ class TimeField extends Component {
 
     render() {
         let {time, changeValue} = this.props;
+        let dataWithIndeces = this.getData();
+        // debugger;
         return(
             <div className="tbp-field" onClick={this.revealDropDown}>
                 <div className="fb space-between">
                     <label className="tbp-label">Start Time: </label>
                     <p className="tbp-value">{moment(time).format("MMM DD, YYYY, h:mm A")}</p>
                 </div>
-                <FieldDropdown field={this.props.field} revealed={this.state.dropdownRevealed} changeValue={changeValue} />
+                <FieldDropdown field={this.props.field} dataWithIndeces={dataWithIndeces} revealed={this.state.dropdownRevealed} changeValue={this.props.changeValue} />
             </div>
         );
     }
