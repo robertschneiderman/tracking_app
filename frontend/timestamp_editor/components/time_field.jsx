@@ -16,6 +16,7 @@ class TimeField extends Component {
 
         this.getData = this.getData.bind(this);
         this.revealDropDown = this.revealDropDown.bind(this);
+        this.changeValueInStore = this.changeValueInStore.bind(this);        
     }
 
     componentDidMount() {
@@ -41,9 +42,33 @@ class TimeField extends Component {
             meridiems: [meridiems, meridiems.indexOf(meridiem)],
         };
         return dataWithIndeces;
-
-        // this.props.storeDataWithIndeces({field: this.props.field, dataWithIndeces});
     }
+
+    changeValueInStore(state, field) {
+        let result;
+        // let {field} = this.props;
+        if (field === 'start' || field === 'end') {
+
+            let key = Object.keys(state)[0];
+            let currentDate = moment(this.props.time);
+            let subResult = currentDate[key](state[key]).format('YYYY-MM-DD HH:mm:ss');
+
+
+            // let datesData = state['dates'][0];
+            // let datesIdx = state['dates'][1];
+            // let hoursData = state['hours'][0];
+            // let hoursIdx = state['hours'][1];
+            // let minutesData = state['minutes'][0];
+            // let minutesIdx = state['minutes'][1];
+            // let meridiemsData = state['meridiems'][0];
+            // let meridiemsIdx = state['meridiems'][1];
+            // let year = moment().year();           
+            // let subResult = moment(`${datesData[datesIdx]} ${year} ${hoursData[hoursIdx]}:${minutesData[minutesIdx]} ${meridiemsData[meridiemsIdx]}`, "ddd MMM DD YYYY h:mm A").format('YYYY-MM-DD HH:mm:ss');
+            result = `${subResult}.000`;        
+            debugger;
+        }
+        this.props.changeTimestampValue({field, result});
+    }    
 
     revealDropDown() {
         this.setState({dropdownRevealed: true});
@@ -59,7 +84,11 @@ class TimeField extends Component {
                     <label className="tbp-label">Start Time: </label>
                     <p className="tbp-value">{moment(time).format("MMM DD, YYYY, h:mm A")}</p>
                 </div>
-                <FieldDropdown field={this.props.field} dataWithIndeces={dataWithIndeces} revealed={this.state.dropdownRevealed} changeValue={this.props.changeValue} />
+                <FieldDropdown 
+                    field={this.props.field} 
+                    dataWithIndeces={dataWithIndeces} 
+                    revealed={this.state.dropdownRevealed} 
+                    changeValueInStore={this.changeValueInStore} />
             </div>
         );
     }

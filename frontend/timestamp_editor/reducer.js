@@ -19,11 +19,12 @@ const TimestampReducer = (state = defaultState, action) => {
             let {dataWithIndeces} = action.payload;
             newState[action.payload.field] = dataWithIndeces;
             return newState;
-        case 'CHANGE_VALUE':
-            let {result} = action.payload;
-
-            newState.timestamp[action.payload.field] = result;
-            return newState;           
+        case 'CHANGE_TIMESTAMP_VALUE':
+            newState.timestamp[action.payload.field] = action.payload.result;
+            return newState;     
+        case 'CHANGE_TASK_VALUE':
+            newState[action.payload.field] = action.payload.result;
+            return newState;                      
         case 'POPULATE_TIMESTAMP_EDITOR':
             return action.payload;
         default:

@@ -11,7 +11,8 @@ class TaskField extends Component {
         this.state={
             dropdownRevealed: false
         };
-        this.revealDropDown = this.revealDropDown.bind(this);        
+        this.revealDropDown = this.revealDropDown.bind(this);    
+        this.changeValueInStore = this.changeValueInStore.bind(this);    
     }
 
     revealDropDown() {
@@ -22,6 +23,20 @@ class TaskField extends Component {
         let array = [];
         for (let key in obj) array.push(obj[key].name);
         return array;
+    }
+
+    findSelectedTask(taskName) {
+        for (let key in this.props.tasks) {
+            let task = this.props.tasks[key];
+            if (task.name === taskName) return task;
+        }
+    }
+
+    changeValueInStore(state, field) {
+        let taskName = state.tasks[0][state.tasks[1]];
+        let selectedTask = this.findSelectedTask(taskName);
+        debugger;
+        this.props.changeTaskValue({field: 'newTaskId', result: selectedTask._id });
     }
     
     render() {
@@ -35,7 +50,11 @@ class TaskField extends Component {
                     <label className="tbp-label">Task: </label>
                     <p className="tbp-value">{task.name}</p>
                 </div>
-                <FieldDropdown field={this.props.field} dataWithIndeces={{tasks:[tasks, idx]}} revealed={this.state.dropdownRevealed} changeValue={this.props.changeValue} />                
+                <FieldDropdown 
+                    field={this.props.field} 
+                    dataWithIndeces={{tasks:[tasks, idx]}}
+                    revealed={this.state.dropdownRevealed}
+                    changeValueInStore={this.changeValueInStore} />                
             </div>
         );
     }

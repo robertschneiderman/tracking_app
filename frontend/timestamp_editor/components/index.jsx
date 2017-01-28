@@ -40,13 +40,12 @@ class TimestampEditor extends Component {
     }    
 
     editTimestamp() {
-        debugger;
         this.props.editTimestamp(this.props.timestampEditor);
     }
 
     render() {
         // let {task, start, end} = this.props;
-        let {timestampEditor, storeDataWithIndeces, changeValue, tasks} = this.props;
+        let {timestampEditor, storeDataWithIndeces, changeTaskValue, changeTimestampValue, tasks} = this.props;
         if (timestampEditor) {
         let task = tasks[timestampEditor.originalTaskId];
             return(
@@ -57,9 +56,9 @@ class TimestampEditor extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
-                        <TaskField tasks={tasks} task={task} changeValue={changeValue} />
-                        <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
-                        <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
+                        <TaskField tasks={tasks} task={task} changeTaskValue={changeTaskValue} />
+                        <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeTimestampValue={changeTimestampValue} />
+                        <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeTimestampValue={changeTimestampValue} />
                     </div>
                 </div>
             );
@@ -80,7 +79,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     storeDataWithIndeces: payload => dispatch(actions.storeDataWithIndeces(payload)),
-    changeValue: payload => dispatch(actions.changeValue(payload)),
+    changeTaskValue: payload => dispatch(actions.changeTaskValue(payload)),
+    changeTimestampValue: payload => dispatch(actions.changeTimestampValue(payload)),
     editTimestamp: payload => dispatch(actions.editTimestamp(payload))
 });
 
