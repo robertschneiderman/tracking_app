@@ -58,7 +58,7 @@ class FieldDropdown extends Component {
             let meridiemsIdx = this.state['meridiems'][1];
             let year = moment().year();           
             let subResult = moment(`${datesData[datesIdx]} ${year} ${hoursData[hoursIdx]}:${minutesData[minutesIdx]} ${meridiemsData[meridiemsIdx]}`, "ddd MMM DD YYYY h:mm A").format('YYYY-MM-DD hh:mm:ss');
-            result = `${subResult}.000Z`;        
+            result = `${subResult}.000`;        
         }
         this.props.changeValue({field, result});
     }
