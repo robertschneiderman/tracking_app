@@ -40,6 +40,7 @@ class TimestampEditor extends Component {
     }    
 
     editTimestamp() {
+        debugger;
         this.props.editTimestamp(this.props.timestampEditor);
     }
 
