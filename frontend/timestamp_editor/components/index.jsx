@@ -10,7 +10,7 @@ import TimeField from './time_field';
 import * as actions from '../actions';
 import * as timestampActions from '../../timestamp/actions';
 
-class TimeBlockPopup extends Component {
+class TimestampEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,6 +21,13 @@ class TimeBlockPopup extends Component {
 
         this.closeEditor = this.closeEditor.bind(this);     
         // this.editTimestamp = this.editTimestamp.bind(this);     
+    }
+
+    componentWillMount() {
+        // on refresh
+        if (!this.props.timestampEditor.timestampId) {
+            hashHistory.push('/calendar');
+        }
     }
 
     closeEditor() {
@@ -41,6 +48,7 @@ class TimeBlockPopup extends Component {
         let {timestampEditor, storeDataWithIndeces, changeValue, tasks} = this.props;
         // let timestamp = this.getTimestamp();
         if (timestampEditor) {
+        let task = tasks[timestampEditor.originalTaskId];
             return(
                 <div className="timestamp-editor-wrapper" onClick={this.openModal}>
                     <button onClick={this.closeEditor} className="close-editor-btn">X</button>
@@ -49,7 +57,6 @@ class TimeBlockPopup extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
-                        <TaskField tasks={tasks} />
                         <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                         <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                     </div>
@@ -59,13 +66,14 @@ class TimeBlockPopup extends Component {
             return <div></div>;
         }
     }
+                        // <TaskField tasks={tasks} changeValue={changeValue} />
 }
 
 const mapStateToProps = state => {
-    let { timestamp, timestampEditor, tasks } = state;
+    let { timestamp, timestampEditor, task } = state;
     return {
         timestamps: timestamp,
-        tasks,
+        tasks: task,
         timestampEditor
     };
 };
@@ -75,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
     changeValue: payload => dispatch(actions.changeValue(payload))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimeBlockPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(TimestampEditor);
