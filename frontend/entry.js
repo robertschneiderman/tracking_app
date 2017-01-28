@@ -43,7 +43,7 @@ ReactDOM.render(
         <Route path="dashboard" component={RequireAuth(Dashboard)} />
         <Route path="new-task" component={RequireAuth(NewTask)} />
         <Route path="calendar" component={RequireAuth(Calendar)}>
-          <Route path="timestamp-editor/:id" component={RequireAuth(TimestampEditor)} />
+          <Route path="timestamp-editor" component={RequireAuth(TimestampEditor)} />
         </Route>
       </Route>
     </Router>

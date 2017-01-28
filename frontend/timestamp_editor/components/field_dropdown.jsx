@@ -41,7 +41,10 @@ class FieldDropdown extends Component {
     changeValue(incrementer, idx) {
         let units = this.state[incrementer][0];
         idx = (idx === -1) ? units.length-1 : idx % units.length;
-        this.setState({ [incrementer]: [units, idx] });
+        this.setState({ [incrementer]: [units, idx] }, this.changeValueInStore);
+    }
+
+    changeValueInStore() {
         let result;
         let {field} = this.props;
         if (field === 'start' || field === 'end') {
@@ -57,7 +60,6 @@ class FieldDropdown extends Component {
             let subResult = moment(`${datesData[datesIdx]} ${year} ${hoursData[hoursIdx]}:${minutesData[minutesIdx]} ${meridiemsData[meridiemsIdx]}`, "ddd MMM DD YYYY h:mm A").format('YYYY-MM-DD hh:mm:ss');
             result = `${subResult}.000Z`;        
         }
-        debugger;
         this.props.changeValue({field, result});
     }
 

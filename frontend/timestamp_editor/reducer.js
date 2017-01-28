@@ -3,9 +3,14 @@ import merge from 'lodash/merge';
 import {router, hashHistory} from 'react-router';
 
 let defaultState = {
-    task: '',
-    start: '',
-    end: ''
+    originalTaskId: undefined,
+    newTaskId: undefined,
+    timestampId: undefined,
+    timestamp: {
+        task: '',
+        start: '',
+        end: ''
+    }
 };
 
 const TimestampReducer = (state = defaultState, action) => {
@@ -19,7 +24,9 @@ const TimestampReducer = (state = defaultState, action) => {
             let {result} = action.payload;
 
             newState[action.payload.field] = result;
-            return newState;            
+            return newState;           
+        case 'POPULATE_TIMESTAMP_EDITOR':
+            return action.payload;
         default:
             return state;
     }

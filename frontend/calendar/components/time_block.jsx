@@ -17,17 +17,31 @@ class TimeBlock extends Component {
     }
 
     editTimestamp() {
-        let {task, timestampId} = this.props;
-        hashHistory.push(`calendar/timestamp-editor/${timestampId}`);
+        let {task, timestamp} = this.props;
+        debugger;
+        let initialState = {
+            originalTaskId: task._id,
+            newTaskId: undefined,
+            timestampId: timestamp._id,
+            timestamp: {
+                task: task.name,
+                start: timestamp.start,
+                end: timestamp.end
+            }
+        };    
+        this.props.populateTimestampEditor(initialState);
+        hashHistory.push(`calendar/timestamp-editor/`);
     }
 
     render() {
+        let {task, timestamp} = this.props;
+        let {start, end} = timestamp;
         let multiplier = 2;
-        let start = this.getTotalMinutes(this.props.start) * multiplier;
-        let end = this.getTotalMinutes(this.props.end) * multiplier;
+        start = this.getTotalMinutes(start) * multiplier;
+        end = this.getTotalMinutes(end) * multiplier;
         let height = (end - start > 2) ? end - start : 2;
         let style = {
-            backgroundColor: this.props.task.color,
+            backgroundColor: task.color,
             top: `${start}px`,
             height: `${height}px`
         };         

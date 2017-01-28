@@ -38,9 +38,9 @@ class TimeBlockPopup extends Component {
 
     render() {
         // let {task, start, end} = this.props;
-        let timestamp = this.getTimestamp();
-        let {storeDataWithIndeces, changeValue, tasks} = this.props;
-        if (timestamp) {
+        let {timestampEditor, storeDataWithIndeces, changeValue, tasks} = this.props;
+        // let timestamp = this.getTimestamp();
+        if (timestampEditor) {
             return(
                 <div className="timestamp-editor-wrapper" onClick={this.openModal}>
                     <button onClick={this.closeEditor} className="close-editor-btn">X</button>
@@ -49,8 +49,9 @@ class TimeBlockPopup extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
-                        <TimeField time={timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
-                        <TimeField time={timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
+                        <TaskField tasks={tasks} />
+                        <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
+                        <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                     </div>
                 </div>
             );
@@ -58,15 +59,14 @@ class TimeBlockPopup extends Component {
             return <div></div>;
         }
     }
-                        // <TaskField tasks={tasks} />
 }
 
 const mapStateToProps = state => {
     let { timestamp, timestampEditor, tasks } = state;
     return {
         timestamps: timestamp,
-        timestampEditor,
-        tasks
+        tasks,
+        timestampEditor
     };
 };
 

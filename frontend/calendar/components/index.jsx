@@ -7,6 +7,7 @@ import * as goalActions from '../../goal/actions';
 import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
 import * as historyActions from '../../history/actions';
+import * as calendarActions from '../actions';
 import selector from '../../selectors/objToArray';
 import merge from 'lodash/merge';
 import moment from 'moment';
@@ -41,7 +42,7 @@ class Calendar extends Component {
             let date = dates[i];
             let history = histories[histIdx];
             if (history && moment(history.date).get('date') === date) {
-                days.push(<Day key={i} history={histories[histIdx]}/>);
+                days.push(<Day key={i} history={histories[histIdx]} populateTimestampEditor={this.props.populateTimestampEditor}/>);
                 labels.push(<DayLabel key={`${i}-1`} date={date} idx={i}/>);
                 histIdx--;
             } else {
@@ -107,6 +108,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     requestHistories: userId => dispatch(historyActions.requestHistories(userId)),
+    populateTimestampEditor: payload => dispatch(calendarActions.populateTimestampEditor(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
