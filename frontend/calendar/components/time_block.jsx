@@ -18,13 +18,11 @@ class TimeBlock extends Component {
 
     editTimestamp() {
         let {task, timestamp} = this.props;
-        debugger;
         let initialState = {
             originalTaskId: task._id,
             newTaskId: undefined,
-            timestampId: timestamp._id,
             timestamp: {
-                task: task.name,
+                _id: timestamp._id,
                 start: timestamp.start,
                 end: timestamp.end
             }

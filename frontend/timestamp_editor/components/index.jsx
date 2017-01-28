@@ -20,12 +20,12 @@ class TimestampEditor extends Component {
         };
 
         this.closeEditor = this.closeEditor.bind(this);     
-        // this.editTimestamp = this.editTimestamp.bind(this);     
+        this.editTimestamp = this.editTimestamp.bind(this);     
     }
 
     componentWillMount() {
         // on refresh
-        if (!this.props.timestampEditor.timestampId) {
+        if (!this.props.timestampEditor.timestamp._id) {
             hashHistory.push('/calendar');
         }
     }
@@ -39,8 +39,8 @@ class TimestampEditor extends Component {
         return this.props.tasks && this.props.tasks[this.props.params.task.id];
     }    
 
-    getTimestamp() {
-        return this.props.timestamps && this.props.timestamps[this.props.params.id];
+    editTimestamp() {
+        this.props.editTimestamp(this.props.timestampEditor);
     }
 
     render() {
@@ -79,7 +79,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     storeDataWithIndeces: payload => dispatch(actions.storeDataWithIndeces(payload)),
-    changeValue: payload => dispatch(actions.changeValue(payload))
+    changeValue: payload => dispatch(actions.changeValue(payload)),
+    editTimestamp: payload => dispatch(actions.editTimestamp(payload))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimestampEditor);

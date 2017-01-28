@@ -1,10 +1,18 @@
 import * as API from './api_util';
-import * as ACTIONS from './actions';
+import * as actions from './actions';
 import {router, hashHistory} from 'react-router';
 
 const taskMiddleware = ({dispatch}) => next => action => {
 
   const createSuccess = res => {
+  };   
+
+  const editSuccess = res => {
+    debugger;
+    actions.receiveTimestamp(res.data);
+  };  
+
+  const deleteSuccess = res => {
   };          
 
   switch (action.type) {
@@ -14,7 +22,13 @@ const taskMiddleware = ({dispatch}) => next => action => {
       return next(action);           
     case "FINISH_TIMESTAMP":
       API.finishTimestamp(action.payload, createSuccess);
-      return next(action);      
+      return next(action);
+    case "EDIT_TIMESTAMP":
+      API.editTimestamp(action.payload, editSuccess);
+      return next(action);
+    case "DELETE_TIMESTAMP":
+      API.deleteTimestamp(action.payload, deleteSuccess);
+      return next(action);
     default:
       return next(action);
   }

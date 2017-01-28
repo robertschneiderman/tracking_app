@@ -5,9 +5,8 @@ import {router, hashHistory} from 'react-router';
 let defaultState = {
     originalTaskId: undefined,
     newTaskId: undefined,
-    timestampId: undefined,
     timestamp: {
-        task: '',
+        _id: '',
         start: '',
         end: ''
     }
@@ -23,7 +22,7 @@ const TimestampReducer = (state = defaultState, action) => {
         case 'CHANGE_VALUE':
             let {result} = action.payload;
 
-            newState[action.payload.field] = result;
+            newState.timestamp[action.payload.field] = result;
             return newState;           
         case 'POPULATE_TIMESTAMP_EDITOR':
             return action.payload;

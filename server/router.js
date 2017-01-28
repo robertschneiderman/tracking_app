@@ -31,4 +31,5 @@ module.exports = function(app) {
 
   app.post('/timestamps', requireAuth, Timestamp.create);
   app.patch('/timestamp', requireAuth, Timestamp.edit);
+  app.patch('/tasks/:taskId/timestamp/:id', requireAuth, Timestamp.editTemp);
 };

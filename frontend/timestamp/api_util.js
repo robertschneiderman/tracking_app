@@ -21,3 +21,11 @@ export const finishTimestamp = (taskId, success) => {
     console.log(error);
   });
 };
+
+export const editTimestamp = (data, success) => {
+  axios.patch(`${ROOT_URL}/tasks/${data.originalTaskId}/timestamp/${data.timestamp._id}`, data)
+  .then(success)
+  .catch(function (error) {
+    console.log(error);
+  });
+};
