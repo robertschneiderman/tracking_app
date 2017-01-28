@@ -40,10 +40,18 @@
     
 }
 
+.time-blocks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9000;  
+}
+
 .time-block {
     width: 100%;
     /*height: 2px;*/
     position: absolute;
+    z-index: 9999;    
 }
 
 

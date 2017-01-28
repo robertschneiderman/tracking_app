@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Day from './day';
 import DayLabel from './day_label';
 import TimeGraph from './time_graph';
+import TimeBlock from './time_block';
 import * as goalActions from '../../goal/actions';
 import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
@@ -55,6 +56,7 @@ class Calendar extends Component {
 
     render() {
         const { loading, user, buddy, date, index } = this.props;
+
 
         if (this.props.user) {
             let {days, labels } = this.renderDays();
