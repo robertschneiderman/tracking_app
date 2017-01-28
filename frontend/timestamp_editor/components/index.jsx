@@ -46,7 +46,6 @@ class TimestampEditor extends Component {
     render() {
         // let {task, start, end} = this.props;
         let {timestampEditor, storeDataWithIndeces, changeValue, tasks} = this.props;
-        // let timestamp = this.getTimestamp();
         if (timestampEditor) {
         let task = tasks[timestampEditor.originalTaskId];
             return(
@@ -57,6 +56,7 @@ class TimestampEditor extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
+                        <TaskField tasks={tasks} task={task} changeValue={changeValue} />
                         <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                         <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeValue={changeValue} />
                     </div>
@@ -66,7 +66,6 @@ class TimestampEditor extends Component {
             return <div></div>;
         }
     }
-                        // <TaskField tasks={tasks} changeValue={changeValue} />
 }
 
 const mapStateToProps = state => {
