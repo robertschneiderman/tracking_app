@@ -32,10 +32,11 @@ class TaskField extends Component {
         }
     }
 
-    changeValueInStore(state, field) {
-        let taskName = state.tasks[0][state.tasks[1]];
+    changeValueInStore(change) {
+        let key = Object.keys(change)[0];
+        let taskName = change[key];
+        // let taskName = change.tasks[0][change.tasks[1]];
         let selectedTask = this.findSelectedTask(taskName);
-        debugger;
         this.props.changeTaskValue({field: 'newTaskId', result: selectedTask._id });
     }
     

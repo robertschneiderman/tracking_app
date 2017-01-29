@@ -18,8 +18,8 @@ class FieldDropdown extends Component {
     changeValue(incrementer, idx) {
         let units = this.state[incrementer][0];
         idx = (idx === -1) ? units.length-1 : idx % units.length;
-        debugger;
-        this.setState({ [incrementer]: [units, idx] }, this.props.changeValueInStore.bind(null, {[incrementer]: units[idx]}, this.props.field));
+        this.setState({ [incrementer]: [units, idx] });
+        this.props.changeValueInStore({[incrementer]: units[idx]}, this.props.field);
     }
 
     renderIncrementers() {

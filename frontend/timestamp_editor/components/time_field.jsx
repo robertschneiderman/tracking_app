@@ -26,7 +26,7 @@ class TimeField extends Component {
     getData() {
         let time = moment(this.props.time);   
         let date = time.format('ddd MMM DD');
-        let hour = time.get('hours');
+        let hour = parseInt(time.format('hh'));
         let minute = time.get('minutes');
         let meridiem = (hour > 12) ? 'AM' : 'PM';
 
@@ -44,29 +44,18 @@ class TimeField extends Component {
         return dataWithIndeces;
     }
 
-    changeValueInStore(state, field) {
-        let result;
+    changeValueInStore(change, field) {
+        let result, subResult;
         // let {field} = this.props;
-        if (field === 'start' || field === 'end') {
-
-            let key = Object.keys(state)[0];
-            let currentDate = moment(this.props.time);
-            let subResult = currentDate[key](state[key]).format('YYYY-MM-DD HH:mm:ss');
-
-
-            // let datesData = state['dates'][0];
-            // let datesIdx = state['dates'][1];
-            // let hoursData = state['hours'][0];
-            // let hoursIdx = state['hours'][1];
-            // let minutesData = state['minutes'][0];
-            // let minutesIdx = state['minutes'][1];
-            // let meridiemsData = state['meridiems'][0];
-            // let meridiemsIdx = state['meridiems'][1];
-            // let year = moment().year();           
-            // let subResult = moment(`${datesData[datesIdx]} ${year} ${hoursData[hoursIdx]}:${minutesData[minutesIdx]} ${meridiemsData[meridiemsIdx]}`, "ddd MMM DD YYYY h:mm A").format('YYYY-MM-DD HH:mm:ss');
-            result = `${subResult}.000`;        
-            debugger;
+        let key = Object.keys(change)[0];
+        let currentDate = moment(this.props.time);
+        if (key === 'dates') {
+            let newDate = moment(change[key]).get('date');
+            subResult = currentDate.date(newDate).format('YYYY-MM-DD HH:mm:ss');
+        } else {
+            subResult = currentDate[key](change[key]).format('YYYY-MM-DD HH:mm:ss');
         }
+        result = `${subResult}.000`;        
         this.props.changeTimestampValue({field, result});
     }    
 
@@ -75,17 +64,18 @@ class TimeField extends Component {
     }
 
     render() {
-        let {time, changeValue} = this.props;
+        let {time, changeValue, field} = this.props;
         let dataWithIndeces = this.getData();
         // debugger;
+        let capitalField = `${field.slice(0, 1).toUpperCase()}${field.slice(1)}`;
         return(
             <div className="tbp-field" onClick={this.revealDropDown}>
                 <div className="fb space-between">
-                    <label className="tbp-label">Start Time: </label>
+                    <label className="tbp-label">{capitalField} Time: </label>
                     <p className="tbp-value">{moment(time).format("MMM DD, YYYY, h:mm A")}</p>
                 </div>
                 <FieldDropdown 
-                    field={this.props.field} 
+                    field={field} 
                     dataWithIndeces={dataWithIndeces} 
                     revealed={this.state.dropdownRevealed} 
                     changeValueInStore={this.changeValueInStore} />
