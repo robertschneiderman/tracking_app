@@ -7,6 +7,7 @@ axios.defaults.headers.common['x-auth'] = localStorage.getItem('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const createTimestamp = (data, success) => {
+  debugger;
   axios.post(`${ROOT_URL}/tasks/${data.newTaskId}/timestamps/`, data)
   .then(success)
   .catch(function (error) {
@@ -15,6 +16,7 @@ export const createTimestamp = (data, success) => {
 };
 
 export const deleteTimestamp = (data, success) => {
+  debugger;
   axios.delete(`${ROOT_URL}/tasks/${data.originalTaskId}/timestamps/${data.timestamp._id}`)
   .then(success)
   .catch(function (error) {

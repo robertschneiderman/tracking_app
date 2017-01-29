@@ -14,9 +14,7 @@ class TimestampEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            task: '',
-            start: {},
-            end: {}
+            error: ''
         };
 
         this.closeEditor = this.closeEditor.bind(this);     
@@ -37,10 +35,21 @@ class TimestampEditor extends Component {
 
     getTask() {
         return this.props.tasks && this.props.tasks[this.props.params.task.id];
-    }    
+    } 
+
+    isStartBeforeEnd(start, end) {
+        return moment(start).unix() < moment(end).unix();
+    }   
 
     editTimestamp() {
-        this.props.editTimestamp(this.props.timestampEditor);
+        let { editTimestamp, timestampEditor} = this.props;
+        let {start, end} = timestampEditor.timestamp;
+        if (this.isStartBeforeEnd(start, end)) {
+            editTimestamp(timestampEditor);
+            this.setState({error: ''});
+        } else {
+            this.setState({error: 'Start must be before end'});
+        }
     }
 
     render() {
@@ -56,6 +65,7 @@ class TimestampEditor extends Component {
                             <button className="tbp-btn" onClick={this.deleteTimestamp}>Delete</button>
                             <button className="tbp-btn" onClick={this.editTimestamp}>Done</button>
                         </div>
+                        <span style={{color: 'red'}}>{this.state.error}</span>
                         <TaskField tasks={tasks} task={task} changeTaskValue={changeTaskValue} />
                         <TimeField time={timestampEditor.timestamp.start} field="start" storeDataWithIndeces={storeDataWithIndeces} changeTimestampValue={changeTimestampValue} />
                         <TimeField time={timestampEditor.timestamp.end} field="end" storeDataWithIndeces={storeDataWithIndeces} changeTimestampValue={changeTimestampValue} />
