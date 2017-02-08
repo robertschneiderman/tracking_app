@@ -78,31 +78,33 @@ class Calendar extends Component {
 
 const mapStateToProps = state => {
 
-    const { user, history, task, goal, timestamp, calendar } = state;
+    const { data, calendar, user } = state;
     let { weekIdx, loading } = calendar;
 
-    let users = user ? merge([], selector(user)) : [];
-    let newUsers = [];
+
+    let users = user;
+    // let users = user ? merge([], selector(user)) : [];
+    // let newUsers = [];
 
     // let histories = histories.slice(weekIdx * 7, weekIdx * 7 + 7);
-    users.forEach((user, i) => {
-        newUsers[i] = {};
-        newUsers[i].id = user._id;
-        newUsers[i].name = user.name;
-        user.histories = user.histories.slice(weekIdx * 7, weekIdx * 7 + 7);
-        newUsers[i].histories = merge([], user.histories.map(historyId => history[historyId]));
-        newUsers[i].histories.forEach(historyy => {
-            historyy.tasks = merge([], historyy.tasks.map(taskId => task[taskId]));
-            historyy.tasks.forEach(task => {
-                task.goals = merge([], task.goals.map(goalId => goal[goalId]));
-                task.timestamps = merge([], task.timestamps.map(tsId => timestamp[tsId]));
-            });
-        });
-    });
+    // users.forEach((user, i) => {
+    //     newUsers[i] = {};
+    //     newUsers[i].id = user._id;
+    //     newUsers[i].name = user.name;
+    //     user.histories = user.histories.slice(weekIdx * 7, weekIdx * 7 + 7);
+    //     newUsers[i].histories = merge([], user.histories.map(historyId => history[historyId]));
+    //     newUsers[i].histories.forEach(historyy => {
+    //         historyy.tasks = merge([], historyy.tasks.map(taskId => task[taskId]));
+    //         historyy.tasks.forEach(task => {
+    //             task.goals = merge([], task.goals.map(goalId => goal[goalId]));
+    //             task.timestamps = merge([], task.timestamps.map(tsId => timestamp[tsId]));
+    //         });
+    //     });
+    // });
     // date = (Object.keys(history).length !== 0 && newUsers[0]) ? newUsers[0].histories[index].date : '';
 
     return {
-        user: newUsers[0],
+        user: users[0],
         weekIdx,
         loading
     };

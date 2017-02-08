@@ -8,7 +8,7 @@ const goalsReducer = (state = defaultState, action) => {
     let newState = merge({}, state);
     switch (action.type) {
         case 'RECEIVE_GOALS':
-            return action.payload;
+            return (action.payload) ? action.payload : {};
         case 'RECEIVE_UPDATED_GOALS':
         // debugger;
             action.payload.forEach(goal => {

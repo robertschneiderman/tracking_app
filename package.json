@@ -4,11 +4,11 @@
   "description": "",
   "main": "./server/index.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d",
+    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d",
     "test": "mocha --compilers js:babel-core/register --require ./frontend/test/test_helper.js --recursive ./frontend/test",
     "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js",
-    "dev": "nodemon ./server/index.js",
+    "start": "nodemon ./server/index.js",
     "cron": "node ./server/cron.js"
   },
   "repository": {
@@ -50,7 +50,7 @@
     "node-cron": "^1.1.2",
     "nodemailer": "^2.6.4",
     "nodemon": "^1.11.0",
-    "normalizr": "^2.3.0",
+    "normalizr": "^3.1.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",

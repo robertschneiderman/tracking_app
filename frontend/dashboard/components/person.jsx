@@ -15,6 +15,7 @@ class Person extends React.Component {
   constructor(props) {
     super(props);
     this.renderTasks = this.renderTasks.bind(this);
+    this.getGoals = this.getGoals.bind(this);
   }
 
   componentWillMount() {
@@ -26,9 +27,8 @@ class Person extends React.Component {
   }  
 
   sortTasks() {
-    let tasks = this.getTasks();
     let sortedTasks = {};
-    tasks.forEach(task => {
+    this.props.tasks.forEach(task => {
       let key = task.goals[0].interval;
       if (sortedTasks[key]) {
         sortedTasks[key].push(task);
@@ -79,11 +79,17 @@ class Person extends React.Component {
 
   hidePopup(evt) {
     console.log($(evt.target).parent().parent().find('.task-popup').css('display', 'none'));
-  }  
+  }
+
+  getGoals(task) {
+    return task.goals.map(goalId => {
+      return this.props.goals[goalId];
+    });
+  }
 
   renderTasks(tasksByInterval) {
     return tasksByInterval.map(task => {
-      let goals = task.goals;
+      // let goals = this.getGoals(task);
       let { createTimestamp, finishTimestamp, incrementGoal } = this.props;
       let props = {
         key: task._id,

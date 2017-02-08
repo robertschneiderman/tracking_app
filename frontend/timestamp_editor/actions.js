@@ -15,11 +15,16 @@ export const changeTimestampValue = payload => ({
 
 export const editTimestamp = payload => {
     return (dispatch) => {
-        debugger;
+        // debugger;
+        let newPayload = {taskId: payload.originalTaskId, timestampId: payload.timestamp._id};
+
         if (payload.newTaskId) {
-            dispatch({type: 'DELETE_TIMESTAMP', payload: payload});
-            dispatch({type: 'CREATE_TIMESTAMP', payload: payload});
+            dispatch({type: 'DELETE_TIMESTAMP', payload: newPayload});
+            newPayload.taskId = payload.newTaskId;
+            newPayload.start = payload.timestamp.start;
+            newPayload.end = payload.timestamp.end;
+            dispatch({type: 'CREATE_TIMESTAMP', payload: newPayload});
         }
-        dispatch({type: 'EDIT_TIMESTAMP', payload: payload});
+        dispatch({type: 'EDIT_TIMESTAMP', payload: newPayload});
     };
 };

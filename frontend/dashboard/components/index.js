@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import DateToggler from './date_toggler';
 import Persons from './persons';
+import { normalize, denormalize, schema } from 'normalizr';
+import {userSchema, historySchema, taskSchema, goalSchema, timestampSchema} from '../../user/schemas';
+
 import * as goalActions from '../../goal/actions';
 import * as timestampActions from '../../timestamp/actions';
 import * as userActions from '../../user/actions';
@@ -17,22 +20,12 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { loading, user, buddy, date, index } = this.props;
-
-        if (this.props.user) {
+        // const { loading, users, buddy, date, index } = this.props;
+        if (this.props.users) {
         return (
             <div className="dashboard">
-                <DateToggler 
-                    date={date} 
-                    index={index} 
-                    alternateHistories={this.props.alternateHistories} />
-                <Persons 
-                    user={user} 
-                    buddy={buddy} 
-                    index={index}
-                    createTimestamp={this.props.createTimestamp}
-                    finishTimestamp={this.props.finishTimestamp}
-                    incrementGoal={this.props.incrementGoal} />
+                <DateToggler {...this.props} />
+                <Persons {...this.props} />
             </div>
         ); } else {
             return <div></div>;
@@ -43,33 +36,52 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
 
     const { data, user, history, task, goal, dashboard } = state;
-    const { entities } = data;
+    // const { data, dashboard } = state;
+    let entities = data;
     let { index, date, loading } = dashboard;
+
+    // let users = user;
     // let { tasks } = entities;
 
-    let users = user ? merge([], selector(user)) : [];
-    let newUsers = [];
-    
-    users.forEach((user, i) => {
-        newUsers[i] = {};
-        newUsers[i].id = user._id;
-        newUsers[i].name = user.name;
-        newUsers[i].histories = merge([], user.histories.map(historyId => history[historyId]));
-        newUsers[i].histories.forEach(historyy => {
-            historyy.tasks = merge([], historyy.tasks.map(taskId => task[taskId]));
-            historyy.tasks.forEach(task => {
-                task.goals = merge([], task.goals.map(goalId => goal[goalId]));
-            });
-        });
-    });
+    // let users = user ? merge([], selector(user)) : [];
 
-    date = (Object.keys(history).length !== 0 && newUsers[0]) ? moment(newUsers[0].histories[index].date).format('MMMM Do YYYY') : '';
+    // let entities = {users: user, histories: history, tasks: task, goals: goal};
+
+    // debugger;
+    // let mySchema = { users: [userSchema] };
+
+    // let denormalizedData = denormalize({ users: [ '589a663f037ebd0dc4a4bca8' ] }, mySchema, entities);
+    // let users = data;
+    // if (denormalizedData[0]) {
+        // debugger;
+        // loading = false;
+    // }
+
+    
+    // users.forEach((user, i) => {
+    //     newUsers[i] = {};
+    //     newUsers[i].id = user._id;
+    //     newUsers[i].name = user.name;
+    //     newUsers[i].histories = merge([], user.histories.map(historyId => history[historyId]));
+    //     newUsers[i].histories.forEach(historyy => {
+    //         historyy.tasks = merge([], historyy.tasks.map(taskId => task[taskId]));
+    //         historyy.tasks.forEach(task => {
+    //             task.goals = merge([], task.goals.map(goalId => goal[goalId]));
+    //         });
+    //     });
+    // });
+
+    // date = (Object.keys(history).length !== 0 && users[0]) ? moment(users[0].histories[index].date).format('MMMM Do YYYY') : '';
+
 
     return {
-        user: newUsers[0],
-        buddy: newUsers[1],
+        users: user,
+        histories: history,
+        tasks: task,
+        goals: goal,
+        dashboard,
         index,
-        date,
+        date: 'TODAY!',
         loading
     };
 };

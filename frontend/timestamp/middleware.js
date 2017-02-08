@@ -2,14 +2,14 @@ import * as API from './api_util';
 import * as actions from './actions';
 import {router, hashHistory} from 'react-router';
 
-const taskMiddleware = ({dispatch}) => next => action => {
+const timestampMiddleware = ({dispatch}) => next => action => {
 
   const createSuccess = res => {
+    dispatch(actions.receiveTimestamp(res.data.timestamp));
   };   
 
   const editSuccess = res => {
-    debugger;
-    actions.receiveTimestamp(res.data);
+    dispatch(actions.receiveTimestamp(res.data.timestamp));
   };  
 
   const deleteSuccess = res => {
@@ -34,4 +34,4 @@ const taskMiddleware = ({dispatch}) => next => action => {
   }
 };   
 
-export default taskMiddleware;
+export default timestampMiddleware;

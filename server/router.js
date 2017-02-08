@@ -29,7 +29,7 @@ module.exports = function(app) {
 
   app.patch('/goals/:id', Goal.update);
 
-  app.post('/timestamps', requireAuth, Timestamp.create);
+  app.post('/tasks/:taskId/timestamps', requireAuth, Timestamp.create);
   app.patch('/timestamp', requireAuth, Timestamp.edit);
   app.patch('/tasks/:taskId/timestamps/:id', requireAuth, Timestamp.editTemp);
   app.delete('/tasks/:taskId/timestamps/:id', requireAuth, Timestamp.delete);

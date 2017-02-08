@@ -8,10 +8,19 @@ exports.create = function(req, res, next) {
         return taskk._id == taskId;
     });
 
-    task.timestamps.unshift({start: new Date(), end: undefined});
+    let timestamp;
+
+    if (!req.body.start) {
+      timestamp = {start: new Date(), end: undefined};
+      task.timestamps.unshift(timestamp);
+    } else {
+      timestamp = {start: new Date(), end: new Date()};
+      task.timestamps.unshift(timestamp);
+    }
 
     user.save(function(err) {
       if (err) { return next(err); }
+      res.json({timestamp});      
     }).catch((e) => {
       res.status(401).send();
     });
@@ -33,6 +42,7 @@ exports.edit = function(req, res, next) {
 
     user.save(function(err) {
       if (err) { return next(err); }
+      res.json({timestamp: task.timestamps[0]});
     }).catch((e) => {
       res.status(401).send();
     });

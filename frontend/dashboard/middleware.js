@@ -11,10 +11,8 @@ const dashboardMiddleware = ({dispatch}) => next => action => {
         case 'action':
             API.get(action.payload, success);
             return next(action);
-            break;
         default:
             return next(action);
-            break;
     }
 };
 
