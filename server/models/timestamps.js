@@ -1,10 +1,9 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Tasks = sequelize.define('Tasks', {
-    historyId: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    type: DataTypes.STRING,
-    color: DataTypes.STRING
+  var Timestamps = sequelize.define('Timestamps', {
+    taskId: DataTypes.INTEGER,    
+    start: DataTypes.DATE,
+    end: DataTypes.DATE
   }, {
     classMethods: {
       associate: function(models) {
@@ -12,5 +11,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Tasks;
+  return Timestamps;
 };

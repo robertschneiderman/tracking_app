@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models').User;
 
 exports.create = function(req, res, next) {
   var token = req.header('x-auth');

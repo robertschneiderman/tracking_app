@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models').User;
 var _ = require('lodash');
 const dh = require('../date_helpers');
 
