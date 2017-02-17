@@ -13,5 +13,8 @@
 }
 
 .nav-link {
+}
+
+.nav-link:first-child {
   margin-right: 1rem;
 }

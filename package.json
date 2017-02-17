@@ -9,6 +9,7 @@
     "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js",
     "start": "nodemon ./server/index.js",
+    "start:dev": "nodemon ./bin/www",
     "cron": "node ./server/cron.js"
   },
   "repository": {
@@ -66,6 +67,7 @@
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "sendgrid": "^4.7.1",
+    "sequelize": "^3.30.2",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },
