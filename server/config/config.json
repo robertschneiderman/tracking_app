@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "Rob",
+    "password": null,
+    "database": "tracky_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "Rob",
+    "password": null,
+    "database": "tracky_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "Rob",
+    "password": null,
+    "database": "tracky_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
