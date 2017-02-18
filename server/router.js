@@ -1,9 +1,9 @@
-const Authentication = require('./controllers/authentication');
-const User = require('./controllers/user');
-const Historyy = require('./controllers/history');
-const Task = require('./controllers/task');
-const Goal = require('./controllers/goal');
-const Timestamp = require('./controllers/timestamp');
+const Auth = require('./controllers').auth;
+const User = require('./controllers').user;
+const Historyy = require('./controllers').history;
+const Task = require('./controllers').task;
+const Goal = require('./controllers').goal;
+const Timestamp = require('./controllers').timestamp;
 const passportService = require('./services/passport');
 const passport = require('passport');
 
@@ -17,8 +17,8 @@ module.exports = function(app) {
     res.send({hi: 'there'});
   });
 
-  app.post('/signin', requireSignIn, Authentication.signin);
-  app.post('/signup', Authentication.signup);
+  app.post('/signin', requireSignIn, Auth.signin);
+  app.post('/signup', Auth.signup);
 
   app.get('/users/:id', User.find);
 

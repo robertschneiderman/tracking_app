@@ -15,7 +15,7 @@ export function signinUser({ email, name, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('currentUser', response.data.user._id);
+        localStorage.setItem('currentUser', response.data.id);
         
         const currentUser = localStorage.getItem('currentUser');        
         dispatch({ type: 'REQUEST_USER', payload: currentUser });        
@@ -31,8 +31,9 @@ export function signupUser({ email, name, password }) {
   return function(dispatch) {
     axios.post(`${ROOT_URL}/signup`, { email, name, password})
       .then(response => {
+        debugger;
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('currentUser', response.data.user._id);        
+        localStorage.setItem('currentUser', response.data.id);        
         dispatch({ type: AUTH_USER });
         dispatch({ type: 'CREATE_BLANK_HISTORY' });
         hashHistory.push('dashboard');
